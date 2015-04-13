@@ -1,3 +1,9 @@
+## Output PDF file
+thesis.pdf
+
+## Makefile
+*.make
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -7,6 +13,8 @@
 *.out
 *.toc
 *.nls
+*.nlg
+*.d
 
 ## Intermediate documents:
 *.dvi
