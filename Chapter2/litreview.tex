@@ -1,8 +1,7 @@
 %*******************************************************************************
 %****************************** Second Chapter *********************************
 %*******************************************************************************
-
-\chapter{My second chapter}
+\chapter{Literature Review}
 
 \ifpdf
     \graphicspath{{Chapter2/Figs/Raster/}{Chapter2/Figs/PDF/}{Chapter2/Figs/}}
@@ -10,93 +9,81 @@
     \graphicspath{{Chapter2/Figs/Vector/}{Chapter2/Figs/}}
 \fi
 
+\section{Introduction}
+To maintain safety in mass gatherings, there is a need for event organizers and emergency services to quickly detect emerging or potentially critical situations in the crowd \citep{Wirz2012} . Hence, crowd monitoring plays a very important role for emergency management in such large scale events. In our discipline, much effort has been made to introduce computer-based approaches to automatically monitor and analyse the crowd in real-time. Recent advances in mobile computing also enable a wider range of rich context data sources and sensing paradigms to detect emergency situations in the crowd, such as sensing participatory by GPS location \citep{Wirz2012} or Bluetooth identifier \citep{Weppner2013} collected from mobile phones to measure crowd density; or analysing real-time social media to detect dangerous crowd conditions \citep{DelirHaghighi2013}.
 
-\section[Short title]{Reasonably long section title}
+Although most of these novel approaches are capable to detect critical condition in the crowd by applying quantitative reasoning, they lack a model that can represent and distinguish between different crowds. However, making distinction in fact is the key factor in emergency management to prevent losses of life, health, property and money \citep{Berlonghi1995}. The lack of model also makes it difficult for existing approaches to incorporate new available information sources and sensing techniques in context aware computing.
 
-% Uncomment this line, when you have siunitx package loaded.
-%The SI Units for dynamic viscosity is \si{\newton\second\per\metre\squared}.
-I'm going to randomly include a picture Figure~\ref{fig:minion}.
+This project aims to firstly develop a holistic crowd model for emergency management in mass gatherings from existing works in mass gathering studies to be able to adapt currently available information sources and sensing techniques. Secondly, a combination of data gathering and analysis techniques will be proposed as the input for this model.
+As the background of the project, this chapter will review the state-of-art in crowd monitoring and crowd modelling approaches. A list of criteria will be used to analyse current works in order to identify the gap which motivates our approach.
 
+\section{Crowd Monitoring for Emergency Management in Mass Gathering}
 
-If you have trouble viewing this document contact Krishna at: \href{mailto:kks32@cam.ac.uk}{kks32@cam.ac.uk} or raise an issue at \url{https://github.com/kks32/phd-thesis-template/}
+\subsection{Emergency Management in Mass Gathering}
 
+A mass gathering is defined as an event attended by a large crowd of spectators and participants. Because of the large size and high density as well as psychological factors, mass gatherings are difficult to manage thus potentially yielding various emergency situations to the attendance. In fact, crowd incidents in such events eventually generate higher rate of injury and illness than general population statistics \citep{Arbon2007}. As a result, lots of attention is being given to emergency management in mass gathering events, which includes planning and provisioning of medical and security services. Emergency management in mass gathering events can be phased into three stages: i) pre-event; ii) during the event; and iii) post-event as described in Table 1 \citep{DelirHaghighi2013}. 
 
-\begin{figure}[htbp!] 
-\centering    
-\includegraphics[width=1.0\textwidth]{minion}
-\caption[Minion]{This is just a long figure caption for the minion in Despicable Me from Pixar}
-\label{fig:minion}
-\end{figure}
+Among these stages, provisioning of emergency services during the event is difficult as it requires real-time interaction and communication between agents, and continuous monitoring of the crowd.  Monitoring plays the most important role because most decision making during this stage rely on intelligence obtained from this operation. 
 
+A literature review conducted by \citet{Soomaroo2012} on crowd disasters at mass gathering events has discovered that a significant number of case report highlight a poor response time for emergency services. Therefore, in order to prevent future incidents, more effort should be made on monitoring of the crowd during the course of an event. 
 
-\section*{Enumeration}
-\begin{enumerate}
-\item The first topic is dull
-\item The second topic is duller
-\begin{enumerate}
-\item The first subtopic is silly
-\item The second subtopic is stupid
-\end{enumerate}
-\item The third topic is the dullest
-\end{enumerate}
+Investigating healthcare in mass gathering, \citet{Arbon2004} discovers three domains that can impact the patient rate: biomedical, environment and psychosocial domains. He proposes a conceptual model to illustrate the inter-relationship between three domains and their impacts on the rate of injury and illness in an event. Therefore, in order to ensure the safety and health of mass gathering event, it is essential to consider these factors in crowd monitoring.
 
-\section*{itemize}
-\begin{itemize}
-\item The first topic is dull
-\item The second topic is duller
-\begin{itemize}
-\item The first subtopic is silly
-\item The second subtopic is stupid
-\end{itemize}
-\item The third topic is the dullest
-\end{itemize}
+\subsection{An Overview of Crowd Monitoring}
 
-\section*{description}
-\begin{description}
-\item[The first topic] is dull
-\item[The second topic] is duller
-\begin{description}
-\item[The first subtopic] is silly
-\item[The second subtopic] is stupid
-\end{description}
-\item[The third topic] is the dullest
-\end{description}
+According to \citet{Berlonghi1995}, in order to assure the safety of a mass gathering event, two types of operations are involved. That is crowd management and crowd control. Crowd management includes all measures taken to facilitate the movement and enjoyment of participants. It is a proactive effort, in contrast to crowd control which is reactively taken when the crowd is out of control or when incident occurs. Crowd monitoring can be considered as the bridge between management and control operations as it helps to identify potential critical situations in the crowd so that response can be provisioned timely.
 
+To monitor of the crowd in mass gathering event, at present following techniques are usually practiced: patrolling, close-circuit television (CCTV) or helicopter surveillance for large and open areas. However, more than half of worldwide incidents occurs in developing countries in Asia and Africa \citep{BurkleJr2011} where emergency management personnel is often less prepared and both human resources and equipments are limited. Moreover, as highlighted by \citet{Davies1995}, there are several drawbacks of currently used CCTV monitoring as well. Firstly, this task is highly time consuming and labour intensive because of the large number of cameras and recordings. Secondly, observers are likely to lose concentration thus being unlikely to notice infrequent sign. This emphasizes on the need to introducing automation in crowd monitoring. 
 
-\clearpage
+Most researches so far have focused on vision-based approach where computers are used to automatically analyse recorded video to detect abnormal and potentially dangerous crowd situations. More recent novel approaches leverage the power of mobile devices and mobile crowdsensing to monitor the crowd, including GPS and Bluetooth data analysis or real-time social media analysis. The following section will look further into each area of current methods in crowd monitoring. 
 
-\tochide\section{Hidden section}
-\textbf{Lorem ipsum dolor sit amet}, \textit{consectetur adipiscing elit}. In magna nisi, aliquam id blandit id, congue ac est. Fusce porta consequat leo. Proin feugiat at felis vel consectetur. Ut tempus ipsum sit amet congue posuere. Nulla varius rutrum quam. Donec sed purus luctus, faucibus velit id, ultrices sapien. Cras diam purus, tincidunt eget tristique ut, egestas quis nulla. Curabitur vel iaculis lectus. Nunc nulla urna, ultrices et eleifend in, accumsan ut erat. In ut ante leo. Aenean a lacinia nisl, sit amet ullamcorper dolor. Maecenas blandit, tortor ut scelerisque congue, velit diam volutpat metus, sed vestibulum eros justo ut nulla. Etiam nec ipsum non enim luctus porta in in massa. Cras arcu urna, malesuada ut tellus ut, pellentesque mollis risus.Morbi vel tortor imperdiet arcu auctor mattis sit amet eu nisi. Nulla gravida urna vel nisl egestas varius. Aliquam posuere ante quis malesuada dignissim. Mauris ultrices tristique eros, a dignissim nisl iaculis nec. Praesent dapibus tincidunt mauris nec tempor. Curabitur et consequat nisi. Quisque viverra egestas risus, ut sodales enim blandit at. Mauris quis odio nulla. Cras euismod turpis magna, in facilisis diam congue non. Mauris faucibus nisl a orci dictum, et tempus mi cursus.
+\subsection{Current Approaches in Crowd Monitoring}
 
-Etiam elementum tristique lacus, sit amet eleifend nibh eleifend sed \footnote{My footnote goes blah blah blah! \dots}. Maecenas dapibu augue ut urna malesuada, non tempor nibh mollis. Donec sed sem sollicitudin, convallis velit aliquam, tincidunt diam. In eu venenatis lorem. Aliquam non augue porttitor tellus faucibus porta et nec ante. Proin sodales, libero vitae commodo sodales, dolor nisi cursus magna, non tincidunt ipsum nibh eget purus. Nam rutrum tincidunt arcu, tincidunt vulputate mi sagittis id. Proin et nisi nec orci tincidunt auctor et porta elit. Praesent eu dolor ac magna cursus euismod. Integer non dictum nunc.
+\subsubsection{Computer Vision}
+The objective of this area of approach is to enable a computer to acquire and analyse recorded video to replace human operators in crowd monitoring. The first advantage is the ability to reuse existing CCTV systems to support both data collection and online monitoring. One of the pioneer vision-based approaches is from \citet{Davies1995}. They propose a crowd monitoring system where images from all cameras are processed by computers to spot crowd problems as soon as they arise and alert the operators. The algorithm, which involves background removal and edge detection, is capable to calculate estimation of the density while motion can be detected by optical flow computation.
 
+\citet{Marana1997} argue against the accuracy of edge detection method to estimate the number of people in a high density crowd. They propose different texture analysis techniques such as GDLM based on the grey level in the image, Fourier spectrum and Minkowski fractal dimension \citep{Marana1999} to classify density of the crowd into five different levels: very low, low, moderate, high and very high density. Different classifiers are tested such as neural network, Bayesian network and fitting function and statistical Bayesian classifier appears to produce highest accuracy \citep{Marana1998}.
 
-\begin{landscape}
+In the context of public transport safety, \citet{Velastin1999} point out dangerous situations in a crowd including overcrowding and abnormal movement. They also apply image processing techniques to analyse CCTV recordings in an acceptable rate for the real-time detection of crowded situation.
 
-\section*{Subplots}
-I can cite Wall-E (see Fig.~\ref{fig:WallE}) and Minions in despicable me (Fig.~\ref{fig:Minnion}) or I can cite the whole figure as Fig.~\ref{fig:animations}
+Video analysis is also utilized to maintain the safety of massive event in Johansson, Helbing, Al-Abideen, and Al-Bosta (2008)’s work based on their theory of crowd turbulence which will be mentioned later. Image processing is also popular approach in abnormality detection in crowded scene (Mahadevan, Li, Bhalodia,  Vasconcelos, 2010; Mehran, Oyama,  Shah, 2009). Mehran et al. (2009) improve further the optical flow method by incorporating Social Force Model, which uses the force flow between each individual to illustrate crowd behaviour, in order to identify abnormal behaviour. Other vision-based approaches that can be mentioned are crowd segmentation and counting by Chan, Liang, and Vasconcelos (2008) and density estimation by Li, Wu, Matsumoto, and Zhao (2010).
 
+Andersson, Rydell, and Ahlberg (2009) point out the common problems in analysis of CCTV are their incompetent performance with low light conditions and shadow effects. Therefore, thermal infrared imaging is introduced as a robust solution to enhance visibility. Since infrared cameras operate in long wave infrared band, they can capture heat emitted from an object which temperature lies within -30 to 100 degrees Celsius. Although, thermal image processing requires special equipment to be installed, the new generation of low cost un-cooled infrared cameras have enabled the application of this method in crowd monitoring. ICAPS project (Pham, Gond, Begard, Allezard,  Sayd, 2007) utilizes thermal imaging to detect potential threats on subway platforms by looking for people lying on the ground.
 
-\begin{figure}
-  \centering
-  \begin{subfigure}[b]{0.3\textwidth}
-    \includegraphics[width=\textwidth]{TomandJerry}
-    \caption{Tom and Jerry}
-    \label{fig:TomJerry}   
-  \end{subfigure}             
-  \begin{subfigure}[b]{0.3\textwidth}
-    \includegraphics[width=\textwidth]{WallE}
-    \caption{Wall-E}
-    \label{fig:WallE}
-  \end{subfigure}             
-  \begin{subfigure}[b]{0.3\textwidth}
-    \includegraphics[width=\textwidth]{minion}
-    \caption{Minions}
-    \label{fig:Minnion}
-  \end{subfigure}
-  \caption{Best Animations}
-  \label{fig:animations}
-\end{figure}
+A combination of both visual image and thermal image as the context sources is also proposed by Andersson et al. (2009). Based on the amount of motion activity, movement and the size of the crowd, they can identify abnormal behaviour of the crowd. In addition to visual cameras and infrared cameras, Yaseen, Al-Habaibeh, Su, and Otham (2013) introduce the use of light intensity and temperature sensors in a sensory fusion approach. These additional sensors are used to measure the ambient light condition and temperature to remove noise during image processing.
 
+\subsubsection{Sensory Data Analysis}
+As mentioned before, in the sensory fusion model proposed by Yaseen et al. (2013), light intensity and temperature sensors can be used to give knowledge about the surrounding environment. Although they play insignificant role in this model, the idea of gathering and analysing context data collected from sensors is well adopted in a number of researches thanks to the development of mobile technology.
 
-\end{landscape}
+One of the most notable works to be mentioned is Wirz et al. (2012)’s CoenoSense framework. By highlighting several limitations of vision-based approach such as limited field of view or the impact of obstacles and lighting condition, they present a real-time crowd monitoring method using GPS information collected from the mobile phones of participants. The CoenoSense data collection framework relies on a mobile application served as a probe to regularly sampling the current GPS location of the mobile phone (Wirz et al., 2013). Assuming that the distribution of app users corresponds to the actual distribution of the participants, location traces can be used to measure the approximate density and movement of the crowd, enabling crowd turbulence and crowd pressure to be calculated accordingly. The visualization of the crowd distribution, movement, turbulence and pressure as a heat-map receives positive feedback from the police and emergency team as this method has certain advantages over traditional CCTV monitoring. For example it provides an overview and intuitive look of the crowd condition. 
+As mentioned, CoenoSense proves the feasibility of sensor-enhanced mobile phones in participatory sensing. Another type of built-in sensor that can be employed in participatory sensing is Bluetooth (Stopczynski, Larsen, Lehmann, Dynowski,  Fuentes, 2013; Weppner  Lukowicz, 2011, 2013). Weppner and Lukowicz (2011) propose a collaborative crowd density estimation method with Bluetooth enabled phones. Instead of planting fixed scanners, a software module installed in participants’ phones will scan for the presence of other devices within its vicinity. Apart from the number of discovered device, signal strength is also considered as the density level of crowd would affect the pattern of signal. Weppner and Lukowicz (2013) incorporate GPS information to track movement of dynamic crowd. The result of analysis is seven levels of crowd density, from nearly empty to extremely high.
+
+Roggen, Wirz, Tröster, and Helbing (2011) investigate the possibility of employing accelerometers in recognition of crowd behaviour. Patterns of sensory data collected by on-body sensors are analysed and clustered to identify individual behaviour and basic group behaviour. Since the on-body sensors in their experiment work similarly to the accelerometer integrated in common mobile phones, this approach can be practiced with mobile phone sensors.
+Interestingly, sensory data analysis might also involve sound as the information source. Although these approaches are not explicitly defined for any specific domain, there is potential application for crowd monitoring, for example crowd estimation (Xu et al., 2013) or public transport and event planning (Kannan, Venkatagiri, Chan, Ananda,  Peh, 2012). As speech can be considered as a fingerprint of a person, Crowd++ proposed by Xu et al. (2013) is a platform which leverages the microphone in mobile phones to detect the speech and count the number of different speakers in a place. Kannan et al. (2012) design a peer-to-peer (P2P) multi-hop network of microphone where each node will transmit and receive inaudible sound to a surrounding node via microphone and speaker to automatically update the number of devices in the network. This method has the advantage of easy deployment, scalability, energy efficiency while keeping minimal instruction and achieving high accuracy in counting people in the crowd.
+
+According to Ramesh, Shanmughan, and Prabha (2014), smart context sources can be collected from two categories of sensors. These include hard sensors and soft sensors. Hard sensors might include accelerometer, digital compass, gyroscope and location sensors while soft sensors refer to user generated content from social network sites (SNS). They propose a multi context based approach for mitigation of crowd disaster. The system consists of two sensing modules: a wireless multimedia sensing module and a smart-phone sensing module. The former includes temperature, visual camera and acoustic sensor while the latter consists of mobile phone sensors such as accelerometer, gyroscope and location sensors and is installed in the form of a mobile application. The outcome is the ability to recognize several activities of individual in the crowd and predict the possibility of human stampede.
+
+\subsubsection{Social Media Analysis}
+
+As mentioned above, social media such as SNS can be categorized as a soft sensor in mobile sensing. However, the technique and process of social media analysis is different from other sensory data. The underlying technique of social media analysis is sentiment analysis which purpose is to identify polarity of opinion in a text. Twitter is frequently used as the information source in research on social media analysis because the data can be openly accessed by an Application Programming Interface (API) through the REST protocol. Many studies have been conducted on the behaviour of Twitter users during emergency events (Hughes  Palen, 2009; Sakaki, Okazaki,  Matsuo, 2010; Vieweg, Hughes, Starbird,  Palen, 2010; Yin, Lampert, Cameron, Robinson,  Power, 2012).
+
+In the context of crowd monitoring, Delir Haghighi, Burstein, Li, et al. (2013) propose a real-time crowd monitoring system based on the sentiment analysis of Twitter streams. The system is able to identify negative moods in the crowd by analysing tweets talking about a given event and visualize the mood of the crowd for emergency team.
+
+\subsection{Analysis and Discussion}
+
+\section{Crowd Model}
+
+\subsection{Internal Characteristics Modeling}
+
+\subsection{External Characteristics Modeling}
+
+\section{Research Gap}
+
+From the analysis of state-of-art crowd monitoring techniques, following points can be noticed: i) limitation of vision-based approaches; ii) despite the potential of mobile sensors and social media as the information sources, no attempt has been made to combine those sources together for crowd monitoring; and iii) lack of crowd model in existing crowd monitoring techniques.
+Our review on existing crowd models also shows several gaps: i) almost no reasoning is defined or is very limited to one particular domain of the model; ii) no model considers both psychosocial factors and environmental factors such as activities and weather which can be captured by sensors; and iii) the potential to adopt broadly used Berlonghi’s model and extend to support new types of crowd types and new information sources.
+
+\section{Conclusion}
+
+This literature review has highlighted the need of crowd monitoring for emergency management in mass gathering. The strength and limitation of the state-of-art crowd monitoring techniques using image processing, sensory data analysis and social media analysis are also discussed. Our review shows the potential of combining multiple types of contextual data in crowd monitoring to tackle the issue of complex environment in mass gathering.
+
+Our analysis also covers existing crowd models literature from multiple research areas. There is clearly a need for those models to be enhanced and extended in order to adapt new types of the modern crowd and currently available information sources in context aware computing.
