@@ -28,16 +28,16 @@ A mass gathering is defined as an event attended by a large crowd of spectators 
 	\caption{Three phases of Emergency Management in Mass Gathering}
 	\label{table:phaseOfEm}
 	\centering
-	\begin{tabular}{|l|l|l|}
-	\hline
-	\multicolumn{3}{|c|}{\textbf{Emergency Management phases}} \\
-	\hline
-	\textbf{Pre-event} & \textbf{During event} & \textbf{Post event} \\
-	\hline
-	Planning & Monitoring  & Auditing  \\
-	Prepartion & Communication & Evaluation \\
-	& Response & Debriefing \\
-	\hline
+	\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+		\hline
+		\multicolumn{3}{|c|}{\textbf{Emergency Management phases}} \\
+		\hline
+		\textbf{Pre-event} & \textbf{During event} & \textbf{Post event} \\
+		\hline
+		Planning & Monitoring  & Auditing  \\
+		Prepartion & Communication & Evaluation \\
+		& Response & Debriefing \\
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -95,13 +95,63 @@ In mass gathering events, many factors can have an impact on the patient rate, s
 	\item Domain/Application: the domain or the application where the monitoring technique is used is important because each domain emphasizes certain characteristics. 
 	\item Underlying technique: image processing, sensory data analysis or social data analysis.
 	\item Context data/ Information source: the source where contextual data is collected. For example CCTV, recorded video, GPS, mobile phone built-in sensors or social networks. Information source is important because it affects the feasibility to collect data in different environments.
-	\item Processing: whether this analysis can be processed in real-time or in batch. Real-time is necessary during the event while batch analysis is more suitable in post-event stage.
+	\item Processing: whether this analysis can be processed in real-time or in batch. Realtime is necessary during the event while batch analysis is more suitable in post-event stage.
 	\item Venue type: whether the monitored crowd is outdoor or indoor. This is because indoor monitoring can make use of existing equipment such as installed CCTV while it is possible outdoor.
 	\item Representation of result: whether the outcome of analysis is represented in the form of visualization, reporting or alert. Because visualization offers better understanding of the situation to the consumers of information.
 	\item Information consumer: the user who directly use the result of analysis or benefit from crowd monitoring, for example police, protective services, medical service, event organizers or participants.
 \end{itemize}
 
-Table 2 analyses existing crowd monitoring approaches according to above criteria.
+Table \ref{table:crowdMonitoringTechAnalysis} analyses existing crowd monitoring approaches according to above criteria.
+
+\begin{center}
+	\begin{longtable}{|p{1.8cm}|p{2cm}|p{2cm}|p{1.8cm}|p{1.3cm}|p{1.3cm}|p{2cm}|p{1.3cm}|}
+		\caption{Comparative analysis of crowd monitoring techniques}
+		\label{table:crowdMonitoringTechAnalysis} \\
+		\hline
+		\textbf{Work} & \textbf{Domain / application} & \textbf{Analysis technique} & \textbf{Context data} & \textbf{Process} & \textbf{Venue} & \textbf{Rep. of result} & \textbf{Info. consumer} \\
+		\hline
+		\citet{Davies1995} & Pedestrian engineering & Image processing & CCTV & Realtime & Outdoor and Indoor & Alert & Security / Protective \\
+		\hline
+		\citet{Marana1997} & Crowd monitoring (Density estimation) & Image processing (Texture analysis and classifier from texture to density) & CCTV & Realtime & Outdoor and Indoor & Reporting (Level of density) & Security / Protective \\
+		\hline
+		\citet{Velastin1999} & Public transport safety & Image processing & CCTV & Realtime & Outdoor and Indoor & Alert & Security / Protective \\
+		\hline
+		\citet{Johansson2008} & Mass event safety (Post event analysis) & Image processing & Video & Batch (Post event) & Outdoor and Indoor & Reporting & Event organizer \\
+		\hline
+		\citet{Mehran2009} & Transportation and public safety & Image processing (Social Force Model and Bag of Words) & Video & Realtime & Outdoor and Indoor & Visualization (Highlighting abnormal behaviour) & Security / Protective \\
+		\hline
+		\citet{Mahadevan2010} & Temporal and spatial anomaly detection & Image processing (Mixture of dynamic texture analysis) & Video & Realtime & Outdoor and Indoor & Reporting (Anomaly detection) & Security / Protective \\
+		\hline
+		\citet{Chan2008} & Crowd counting & Image processing (Mixture of dynamic texture to crowd segmentation, Gaussian process regression to estimate number) & Video & Realtime & Outdoor and Indoor & Visualization (Crowd segment and size) & Not mentioned \\
+		\hline
+		\citet{Li2010} & Density estimation & Image processing (Background removing, neural network classifier from texture to density) & Video & Realtime & Outdoor and Indoor & Reporting (Level of density) & Not mentioned \\
+		\hline
+		ICAPS \citep{Pham2007} & Public safety & Image processing & Thermal image & Realtime & Indoor & Visualization (Threat detection) & Emergency response \\
+		\hline
+		\citet{Andersson2009} & Public safety & Image processing & Sensor fusion of CCTV and thermal image & Realtime & Outdoor and Indoor & Visualization (Graphs) & Police, security services \\
+		\hline
+		\citet{Yaseen2013} & Large event safety (Density estimation) & Image processing & Sensor fusion of CCTV and thermal image, light and temperature sensor& Realtime & Outdoor and Indoor & Reporting & Not mentioned \\
+		\hline
+		CoenoSense \citep{Wirz2012} & Mass gathering security & Sensory data analysis & GPS (mobile phone) & Realtime & Outdoor and Indoor & Visualization (Heat-map of crowd distribution, density, movement and pressure) & Event organizer, police \\
+		\hline
+		Crowd++ \citep{Xu2013} & Event planning (Crowd size estimation and social hotspot discovery) & Audio processing (Speech recognition) & Microphone (mobile phone) & Realtime & Indoor & Reporting (Number of people talking) & Event organizer \\
+		\hline
+		\citet{Kannan2012} & Public transport planning and  event planning (Crowd size estimation) & Audio processing (Inaudible, P2P communication in multi-hop network) & Microphone (mobile phone) & Realtime & Outdoor and Indoor & Reporting (Number of people) & Not mentioned \\
+		\hline
+		\citet{Weppner2011} & Participatory sensing in massive event (Density estimation) & Sensory data analysis (Discovery of device and signal strength analysis) & Bluetooth enabled sensor (mobile phone) & Batch & Outdoor and Indoor & Reporting (Estimated density) & Not mentioned \\
+		\hline
+		\citet{Weppner2013} & Participatory sensing in massive event (Density estimation) & Sensory data analysis (Discovery of device and signal strength analysis) & Bluetooth enabled sensor and GPS (mobile phone) & Batch & Outdoor and Indoor & Reporting (Estimated density) & Not mentioned \\
+		\hline
+		\citet{Stopczynski2013} & Participatory sensing in massive event & Sensory data analysis (Discovery of Bluetooth unique identifier) & Bluetooth enabled sensor and GPS (mobile phone) & Batch & Outdoor and Indoor & Reporting (Estimated density) & Not mentioned \\
+		\hline
+		\citet{Roggen2011} & Crowd behaviour recognition & Sensory data analysis (Sensory pattern analysis and graph clustering) & On body accelerometer & Realtime & Outdoor and Indoor & Visualization (Movement pattern) & Not mentioned \\
+		\hline
+		\citet{Ramesh2014} & Disaster mitigation & Sensory data analysis & Wireless sensors and mobile sensors & Realtime & Outdoor and Indoor & Alert (Stampede alert) & Emergency services \\
+		\hline
+		\citet{DelirHaghighi2013} & Emergency management & Social media analysis (Sentiment analysis) & Social media (Twitter) & Realtime & Outdoor and Indoor & Visualization (Graph) & Medical services \\
+		\hline
+	\end{longtable}
+\end{center}
 
 The advantage of vision-based approaches is the use of existing CCTV system which is deployed in most buildings and metropolitan areas. However, as mentioned by \citet{Davies1995}, because most cameras are installed for security reasons, they are often not located in the best position to collect data for crowd monitoring. Moreover, CCTV monitoring might be affected by obstacles, and most importantly it heavily relies on good lighting condition \citep{Wirz2012}. Although thermal infrared camera could overcome those drawbacks, special hardware need to be installed. Another limitation is the capability of vision-based approach to monitor large scale mass gathering. Firstly, installing camera in most open areas is not practical. Secondly, as pointed out by \citet{Wirz2012}, it is difficult to fuse information from many cameras to obtain global situational awareness.
 
@@ -126,14 +176,17 @@ From a sociology perspective, Herbert Blumer is among the first sociologists who
 	\label{table:blumerCrowdType}
 	\centering
 	\begin{tabular}{|l|p{10cm}|}
-	\hline
-	\textbf{Crowd type} & \textbf{Definition} \\
-	\hline
-	Casual & Loose collection of people who have litte interation \\
-	Conventional & Result from delibrate planning of an event and conforming to norms appropriate to the situation \\
-	Expressive & Form around an event that has emotional appeal \\
-	Acting & Energetically doing something \\
-	\hline
+		\hline
+		\textbf{Crowd type} & \textbf{Definition} \\
+		\hline
+		Casual & Loose collection of people who have litte interation \\
+		\hline
+		Conventional & Result from delibrate planning of an event and conforming to norms appropriate to the situation \\
+		\hline
+		Expressive & Form around an event that has emotional appeal \\
+		\hline
+		Acting & Energetically doing something \\
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -144,15 +197,18 @@ From the point of view of law enforcement, \citet{Momboisse1967} also identifies
 	\label{table:momboisseCrowdType}
 	\centering
 	\begin{tabular}{|l|p{10cm}|}
-	\hline
-	\textbf{Crowd type} & \textbf{Definition} \\
-	\hline
-	Casual & Happen to be present at a given place but are not unified or organized \\
-	Conventional & Assembled for a specific purpose, such as witnessing a ball game, parade, play or fire 
-	and have similar common interest \\
-	Expressive & Involve in expressive behaviour, such as dancing or singing, but not directed in a destructive way \\
-	Acting & Unorganized throng willing to be led into lawlessness, but hesitant because lacking organization, courage and unity of purpose \\
-	\hline
+		\hline
+		\textbf{Crowd type} & \textbf{Definition} \\
+		\hline
+		Casual & Happen to be present at a given place but are not unified or organized \\
+		\hline
+		Conventional & Assembled for a specific purpose, such as witnessing a ball game, parade, play or fire 
+		and have similar common interest \\
+		\hline
+		Expressive & Involve in expressive behaviour, such as dancing or singing, but not directed in a destructive way \\
+		\hline
+		Acting & Unorganized throng willing to be led into lawlessness, but hesitant because lacking organization, courage and unity of purpose \\
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -164,14 +220,17 @@ According to \citet{Momboisse1967}, the key difference between a mob and a crowd
 	\label{table:momboisseMobType}
 	\centering
 	\begin{tabular}{|l|p{10cm}|}
-	\hline
-	\textbf{Mob type} & \textbf{Definition} \\
-	\hline
-	Escapist & Motivated to flee from a real or imagined threat \\
-	Acquisitive &  Motivated by the desire to acquire something \\
-	Expressive & Engage in expressive bahaviour \\
-	Aggressive & Include race riots, lynching and prison riots. It aims to destroy persons or property \\
-	\hline
+		\hline
+		\textbf{Mob type} & \textbf{Definition} \\
+		\hline
+		Escapist & Motivated to flee from a real or imagined threat \\
+		\hline
+		Acquisitive &  Motivated by the desire to acquire something \\
+		\hline
+		Expressive & Engage in expressive bahaviour \\
+		\hline
+		Aggressive & Include race riots, lynching and prison riots. It aims to destroy persons or property \\
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -183,17 +242,23 @@ Momboisse’s work is well adopted in police literature because it classifies cr
 	\label{table:fbiMobBehavior}
 	\centering
 	\begin{tabular}{|l|p{10cm}|}
-	\hline
-	\textbf{Mob member} & \textbf{Definition} \\
-	\hline
-	Impulsive and lawless & Start the riot the incite others to violence \\
-	Suggestive &  Easily influenced to follow the lead of more violent \\
-	Cautious & Would like to get into the fracas but wait for the cloak of anomity \\
-	Yielders & Do not join the action until the larger number of persons participating gives the impression of universality \\
-	Supportive & Enjoy the show and even shout encouragement \\
-	Psychopathic & Angry at the world \\
-	Resisters & Oppose to violence \\			
-	\hline
+		\hline
+		\textbf{Mob member} & \textbf{Definition} \\
+		\hline
+		Impulsive and lawless & Start the riot the incite others to violence \\
+		\hline
+		Suggestive &  Easily influenced to follow the lead of more violent \\
+		\hline
+		Cautious & Would like to get into the fracas but wait for the cloak of anomity \\
+		\hline
+		Yielders & Do not join the action until the larger number of persons participating gives the impression of universality \\
+		\hline
+		Supportive & Enjoy the show and even shout encouragement \\
+		\hline
+		Psychopathic & Angry at the world \\
+		\hline
+		Resisters & Oppose to violence \\			
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -212,18 +277,18 @@ The idea of using emotion, such as fear and anger, in order to differentiate dif
 	\label{table:loflandCollectiveBehaviourType}
 	\centering
 	\begin{tabular}{|l|l|l|}
-	\hline
-	\textbf{Emotion} & \textbf{Crowd forms} & \textbf{Collective behaviour types} \\
-	\hline
-	\multirow{2}{*}{Expression of fear} & \multirow{2}{*}{Panic} & Compact \\
-	& & Diffuse \\
-	\hline
-	\multirow{2}{*}{Expression of joy} & \multirow{2}{*}{Craze} & Compact \\
-	& & Diffuse \\
-	\hline
-	\multirow{2}{*}{Expression of anger} & \multirow{2}{*}{Hostile outburst} & Compact \\
-	& & Diffuse \\		
-	\hline
+		\hline
+		\textbf{Emotion} & \textbf{Crowd forms} & \textbf{Collective behaviour types} \\
+		\hline
+		\multirow{2}{*}{Expression of fear} & \multirow{2}{*}{Panic} & Compact \\
+		& & Diffuse \\
+		\hline
+		\multirow{2}{*}{Expression of joy} & \multirow{2}{*}{Craze} & Compact \\
+		& & Diffuse \\
+		\hline
+		\multirow{2}{*}{Expression of anger} & \multirow{2}{*}{Hostile outburst} & Compact \\
+		& & Diffuse \\		
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -235,28 +300,73 @@ As mentioned earlier, another notable publication is Understanding and planning 
 	\caption{Berlonghi's eleven crowd types (Adapted from \citet{Zeitz2009})}
 	\label{table:berlonghiCrowdType}
 	\centering
-	\begin{tabular}{|l|p{10cm}|}
-	\hline
-	\textbf{Crowd type} & \textbf{Definition} \\
-	\hline
-	Ambulatory & Walking, usually calm  \\
-	Disability / limited movement & Crowd has limited or restricted movement requires additional planning \\
-	Cohesive / spectator & Watching a specific activity \\
-	Expressive / revellous & Emotional release, for example, a cheering movement in unison \\
-	Participatory & Involve in an actual event, for example, community fun runs \\
-	Aggressive / hostile & Initially verbal, open to lawlessness \\
-	Demonstrator & Organized to some degree, for example, pickets or marches \\
-	Escaping / trampling & Danger may be real or imaginary \\
-	Dense / suffocating & Reduction of individual physical movement \\
-	Rushing / looting & Attempt to acquire, obtain, steal something, for example, tickets \\
-	Violent & Attacking, terrorizing \\
-	\hline
+	\begin{tabular}{|l|p{8cm}|}
+		\hline
+		\textbf{Crowd type} & \textbf{Definition} \\
+		\hline
+		Ambulatory & Walking, usually calm  \\
+		\hline
+		Disability / limited movement & Crowd has limited or restricted movement requires additional planning \\
+		\hline
+		Cohesive / spectator & Watching a specific activity \\
+		\hline
+		Expressive / revellous & Emotional release, for example, a cheering movement in unison \\
+		\hline
+		Participatory & Involve in an actual event, for example, community fun runs \\
+		\hline
+		Aggressive / hostile & Initially verbal, open to lawlessness \\
+		\hline
+		Demonstrator & Organized to some degree, for example, pickets or marches \\
+		\hline
+		Escaping / trampling & Danger may be real or imaginary \\
+		\hline
+		Dense / suffocating & Reduction of individual physical movement \\
+		\hline
+		Rushing / looting & Attempt to acquire, obtain, steal something, for example, tickets \\
+		\hline
+		Violent & Attacking, terrorizing \\
+		\hline
 	\end{tabular}
 \end{table}
 
 In reality, one crowd is expected to have multiple personalities \citep{Berlonghi1995}, hence all of the above eleven types can exist as a small group in a whole crowd. This idea is also agreed by computer scientist in their recent research in crowd simulation. Their works focus on simulating heterogeneous crowd which consists of different, independent behaviour and characteristics. Based on Convergence Theory, the behaviour of the crowd is formed by individuals; hence it is important to model the behaviour and interaction of individuals in order to simulate realistic, heterogeneous crowd behaviour \citep{Guy2011}.
 
-Several approaches have been proposed which are derived from personality trait theory. This theory implies that a personality trait represents a behaviour, emotion and mental pattern \citep{Durupinar2008}. The main objective of these researches is to map those traits with low level parameters in simulation model to determine behaviour of an individual agent, then observing emerged global crowd behaviours. Two personality trait theories that are utilized are the PEN model (Guy et al., 2011) and OCEAN model \citep{Durupinar2008,Durupinar2011}. PEN model is constructed over three factors: Psychoticism, Extraversion, and Neuroticism while OCEAN model consists of Openness, Conscientiousness, Extroversion, Agreeableness and Neuroticism. Common adjectives to describe human personality are called trait-descriptive adjectives, such as curious, alert, calm, rude are composed by different values of each above factors. Finally, they are mapped into corresponding parameters in the model as shown in Table 9.
+Several approaches have been proposed which are derived from personality trait theory. This theory implies that a personality trait represents a behaviour, emotion and mental pattern \citep{Durupinar2008}. The main objective of these researches is to map those traits with low level parameters in simulation model to determine behaviour of an individual agent, then observing emerged global crowd behaviours. Two personality trait theories that are utilized are the PEN model \citep{Guy2011} and OCEAN model \citep{Durupinar2008,Durupinar2011}. PEN model is constructed over three factors: Psychoticism, Extraversion, and Neuroticism while OCEAN model consists of Openness, Conscientiousness, Extroversion, Agreeableness and Neuroticism. Common adjectives to describe human personality are called trait-descriptive adjectives, such as curious, alert, calm, rude are composed by different values of each above factors. Finally, they are mapped into corresponding parameters in the model as shown in Table \ref{table:oceanPersonality}.
+
+\begin{table}
+	\caption{Personality - trait - crowd model mapping (Taken from \citet{Durupinar2008})}
+	\label{table:oceanPersonality}
+	\centering
+	\begin{tabular}{|l|l|p{6.5cm}|}
+		\hline
+		\textbf{Model Parameter} & \textbf{OCEAN factor} & \textbf{Personality} \\
+		\hline
+		Leadership & E, A-, C+, N & Dominant, assertive, bossy, dependable, confident, unconfident, submissive, dependent, social, unsocial \\
+		\hline
+		Trained / not trained & O & Informed, ignorant \\
+		\hline
+		Communication & E & Social, unsocial \\
+		\hline
+		Panic & N, C+ & Oversensitive, fearful, calm, orderly, predictable \\
+		\hline
+		Impatience & E+, C, A & Rude, assertive, patient, stubborn, tolerant, orderly \\
+		\hline
+		Pushing & A, E & Rude, kind, harsh, assertive, shy \\
+		\hline
+		Right preference & A, C & Cooperative, predictable, negative, contrary, changeable \\
+		\hline
+		Avoidance / personal space & E & Social, distant \\
+		\hline
+		Waiting radius & A & Tolerant, patient, negative \\
+		\hline
+		Waiting timer & A & Kind, patient, negative \\
+		\hline
+		Exploring environment & O & Curious, narrow \\
+		\hline
+		Walking speed & E & Energetic, lethargic, vigorless \\
+		\hline
+	\end{tabular}
+\end{table}
 
 The simulation suggests that low conscientiousness and agreeableness can lead to congestion during emergency evacuation and non-conscientiousness and neuroticism is the root of panic in the crowd \citep{Durupinar2008}.
 
@@ -264,13 +374,53 @@ The simulation suggests that low conscientiousness and agreeableness can lead to
 
 Apart from cognitive patterns, different crowds can also be distinguished by their external or physical characteristics which can be quantitatively measured. Several features of the crowd, such as density, movement and flow rate can be utilized to identify different crowds in the context of crowd monitoring for emergency management.
 
-As mentioned above, \citet{Canetti1962}’s theory also classify the crowd accordingly to their physical characteristics: growth, equality, density and direction. Each of these attributes identifies a pair of crowd types. Derived from this theory, \citet{Bandini2011} formulate six types of crowds. Open and closed crowd are defined by their growth feature, equality and density determine stagnating or rhythmic types and finally movement classify a crowd into slow and quick crowd. \citet{Bandini2011} construct an ontology approach to classify the crowd and define a set of fuzzy rules mapping features of the crowd with above crowd types, as illustrated in Table 10.
+As mentioned above, \citet{Canetti1962}’s theory also classify the crowd accordingly to their physical characteristics: growth, equality, density and direction. Each of these attributes identifies a pair of crowd types. Derived from this theory, \citet{Bandini2011} formulate six types of crowds. Open and closed crowd are defined by their growth feature, equality and density determine stagnating or rhythmic types and finally movement classify a crowd into slow and quick crowd. \citet{Bandini2011} construct an ontology approach to classify the crowd and define a set of fuzzy rules mapping features of the crowd with above crowd types, as illustrated in Table \ref{table:bandiniCrowdType}.
+
+\begin{table}
+	\caption{Bandini's crowd type - feature mapping (Taken from \citet{Bandini2011})}
+	\label{table:bandiniCrowdType}
+	\centering
+	\begin{tabular}{|p{2.5cm}|p{1.5cm}|p{1.5cm}|p{2cm}|p{2cm}|p{1.5cm}|p{1.5cm}|}
+		\hline
+		\textbf{Crowd features} & \textbf{Open crowd} & \textbf{Closed crowd} & \textbf{Stagnating crowd} & \textbf{Rhythmic crowd} & \textbf{Slow crowd} & \textbf{Quick crowd} \\
+		\hline
+		Physical boundary & absent & present & & & & \\
+		\hline
+		Psychological boundary & absent & present & & present & & \\
+		\hline
+		Movement & & & absent & present & & \\
+		\hline
+		Density & & & high/med & low & high/med & low \\
+		\hline
+		Growth & high & med/low & & low & high & med/low \\
+		\hline
+		Lifespan & & & & med/short & long & short \\
+		\hline
+		Destination & & & & near & far & near \\
+		\hline
+	\end{tabular}
+\end{table}
 
 From transportation engineering, \citet{Fruin1970} introduces the concept level of service to distinguish different crowds using the following features: walking speed, flow rate and restriction \citep{Challenger2009}. This model is well adopted into the design and planning of pedestrian facilities \citep{Shiwakoti2008,Ye2008}. Six levels of service are defined, where higher density increases the risk of pushing, falling, crushing and trampling.
 
-Analysing video footages of a crowd disaster during the Hajj in 2006, \citet{Helbing2007} claims that density, speed and flow can be used as warning signs of potential accident. They coin the term “crowd turbulence” referring to the instabilities in the flow pattern of pedestrians, which might trigger the trampling of people. In their calculation, turbulence occurs when crowd pressure, which is the variance of speed multiplied by density, exceeds a certain threshold while the density of the crowd is high and the flow rate drops below critical threshold.
+Analysing video footages of a crowd disaster during the Hajj in 2006, \citet{Helbing2007} claims that density, speed and flow can be used as warning signs of potential accident. They coin the term ``crowd turbulence'' referring to the instabilities in the flow pattern of pedestrians, which might trigger the trampling of people. In their calculation, turbulence occurs when crowd pressure, which is the variance of speed multiplied by density, exceeds a certain threshold while the density of the crowd is high and the flow rate drops below critical threshold.
 
-\citet{Lee2005} also study the causes of past crowd accidents in different countries and identify the relationship between density and crushing and trampling. Table 11 explains those two types of accidents and the density in the crowd which could lead to each situation.
+\citet{Lee2005} also study the causes of past crowd accidents in different countries and identify the relationship between density and crushing and trampling. Table \ref{table:densityCrushingTrampling} explains those two types of accidents and the density in the crowd which could lead to each situation.
+
+\begin{table}
+	\caption{Crowd density leading to crushing and trampling}
+	\label{table:densityCrushingTrampling}
+	\centering
+	\begin{tabular}{|l|p{9.5cm}|l|}
+		\hline
+		\textbf{Accident type} & \textbf{Definition} & \textbf{Density} \\
+		\hline
+		Trampling & High density with possible movement. Fatalities are caused by falling and being trampled & 5 ped/m2 \\
+		\hline
+		Crushing & Extremely high density with almost impossible movement. Fatalities are caused by being compressed by pressure & 10 ped/m2 \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \citet{Lee2005}’s research proves that mathematical modelling of crowd motion can identify dangerous locations for a crowd related accident, hence careful attention to those points can minimize the risk of trampling.
 
@@ -295,9 +445,51 @@ In \citet{Arbon2004}’s conceptual model, environmental factors have strong inf
 	\item Modelling or Reasoning: modelling is the ability to represent different types of the crowd while reasoning is the ability to infer and predict emergency situation in the crowd. In our context of crowd monitoring, reasoning is also important because quickly identification of potential dangerous situation can help the timely provision of emergency response.
 \end{itemize}
 
-Table 12 summarizes mentioned crowd models under above criteria. 
-
-As can be seen from Table 12, cognitive models \citep{Blumer1951,Lofland1985,Momboisse1967} are able to describe different crowd type based on psychosocial domain of the crowd. Because reasoning is not clearly defined in those models, it depends on the interpretation of the observer to determine whether a particular crowd type poses potential danger. This requires previous domain knowledge and experience that limit its use to domain experts.
+Table \ref{table:crowdModelAnalysis} summarizes mentioned crowd models under above criteria. 
+\begin{center}
+	\begin{longtable}{|p{2cm}|p{2cm}|p{4cm}|p{1.5cm}|p{1.5cm}|p{2cm}|}
+	\caption{Comparative analysis of crowd models}
+	\label{table:crowdModelAnalysis}\\
+	\hline
+	\multirow{2}{\linewidth}{\textbf{Model}} & \multirow{2}{\linewidth}{\textbf{Domain / Application}} & \multicolumn{2}{|c|}{\textbf{Psychosocial domain}} & \textbf{Env. domain} & \multirow{2}{\linewidth}{\textbf{Modeling / Reasoning}} \\
+	\cline{3-5}
+	& & Crowd types & Crowd behaviour & Weather cond. & \\
+	\hline
+	\citet{Blumer1951} & Sociology (Collective behaviour study) & Casual, conventional, expressive, acting & Yes & No & Modelling \\
+	\hline
+	\citet{Momboisse1967} & Law enforcement (Mob theory) & Casual, conventional, expressive, hostile/ aggressive crowd. Escapist, acquisitive, expressive, aggressive mob & Yes & No & Modelling \\
+	\hline 
+	\citet{FBI1967} & Law enforcement (Mob behaviour) & Impulsive/ lawless, suggestible, cautious, yielder, supportive, psychopathic, resister & Yes & No & Modelling \\
+	\hline
+	\citet{Nguyen2005} & Military (Combat simulation) & Neutral, avoidance, curious, non-aggressive, aggressive, aggressive non-lethal, violent lethal & Yes & No & Modelling \\
+	\hline
+	\citet{Brown1954} & Social psychology & Aggressive, escapist, acquisitive, expressive mob. Casual, intentional audience (Figure 1) & Yes & No & Modelling \\
+	\hline
+	\citet{Forsyth2009} & Social psychology & Casual crowd, audience, queue gathering. Aggressive, panic mob (Figure 2) & Yes & No & Modelling \\
+	\hline
+	\citet{Lofland1985} & Sociology & Panic, craze, hostile outburst & No & No & Modelling \\
+	\hline
+	\citet{Canetti1962}, \citet{Bandini2011} & Psychology & Baiting, prohibition, reversal, feast, double crowd. Open, closed, stagnating, rhythmic, slow, quick crowd & No & No & Modelling \\
+	\hline
+	\citet{Berlonghi1995} & Public safety & Ambulatory, disability, cohesive, expressive, participatory, aggressive, demonstrator, escaping, suffocating, looting, violent & Yes & No & Modelling \\
+	\hline
+	DO4MG \citep{DelirHaghighi2013a} & Medical services (Pre-event decision support) & Ambulatory, disability, cohesive, expressive, participatory, aggressive, demonstrator, escaping, suffocating, looting, violent & Yes & Yes & Modelling and Reasoning (Patient rate prediction by knowledge-based reasoning) \\
+	\hline
+	PEN \citep{Guy2011} & Evacuation safety (Simulation) & Aggressive, assertive, active, impulsive, tense, shy (Personality) & Yes & No & Modelling \\
+	\hline
+	OCEAN \citep{Durupinar2008} & Evacuation safety (Simulation) & Personality traits (Table 9) & Yes & No & Modelling \\
+	\hline
+	\citet{Fruin1970} & Pedestrian engineering & Level of services: A, B, C, D, E, F based on flow rate and restriction & No & No & Reasoning (Risk increases with higher level of service) \\
+	\hline
+	\citet{Helbing2007} & Pedestrian engineering & No descriptive crowd type & No & No & Reasoning (Trampling occurs when flow rate below and pressure above threshold) \\
+	\hline
+	\citet{Lee2005} & Transportation safety (Mathematical modelling) & Trampling, crushing & No & No & Modelling and Reasoning (Trampling, crushing occur when density above threshold) \\
+	\hline
+	\citet{Marana1997} , \citet{Weppner2011} & Crowd monitoring (Density estimation) & Very low, low, moderate, high, very high density & No & No & Modelling and Reasoning (Risk increases with higher density) \\
+	\hline
+	\end{longtable}
+\end{center}
+As can be seen from Table \ref{table:crowdModelAnalysis}, cognitive models \citep{Blumer1951,Lofland1985,Momboisse1967} are able to describe different crowd type based on psychosocial domain of the crowd. Because reasoning is not clearly defined in those models, it depends on the interpretation of the observer to determine whether a particular crowd type poses potential danger. This requires previous domain knowledge and experience that limit its use to domain experts.
 
 Simulation models using PEN \citep{Guy2011} and OCEAN \citep{Durupinar2008} personality trait theory is able to identify which personality of an individual can cause problem in evacuation. However, measuring individual’s personality is a difficult task, thus making it unsuitable in crowd monitoring.
 
