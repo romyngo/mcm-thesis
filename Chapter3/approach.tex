@@ -1,3 +1,4 @@
+% !TEX root = ../thesis.tex
 \chapter{Approach}
 
 % **************************** Define Graphics Path **************************
@@ -9,42 +10,127 @@
 
 \section{Introduction}
 
-result of litreview
+Despite the importance of crowd monitoring in mass gathering events, the literature review in the previous chapter is able to identify several gaps in the research, especially in crowd modelling. Most state-of-art crowd monitoring techniques do not incorporate a typology to distinguish different types of crowd.
 
-From the literature review, we can notice that Berlonghi's crowd typology is the well adopted in the context of public safety management. However, the definition of each crowd type proposed by Berlonghi is the purpose of the gathering, rather than the description of the crowd, thus making it difficult to classify a crowd. Therefore, in this chapter, we would like to propose more attributes to be applied into the current model and propose an approach to classify a crowd into those evelen types. 
+\section[Overview of the Mobile Crowd Monitoring for Emergency Management in Mass Gathering]{\texorpdfstring{Overview of the Mobile Crowd Monitoring for \\Emergency Management in Mass Gathering}}
 
-\section{Mobile Crowd Monitoring for Emergency Management in Mass Gathering}
-
-\subsection{Overview of the framework}
+In this project, we propose the crowd monitoring framework for emergency management in mass gatherings. The objective of the framework is: 
+\begin{inparaenum}[i)]
+	\item to incorporate more sources of contextual data;
+	\item to classify a crowd into different crowd types;
+	\item to propose a set of crowd attributes and describe a crowd type under those attributes
+\end{inparaenum}.
 
 \begin{figure}[htbp!] 
 	\centering    
 	\includegraphics[width=1.0\textwidth]{FrameworkOverview}
 	\caption{Overview of the Mobile Crowd Monitoring for Emergency Management in Mass Gathering}
-	\label{fig:framrworkOverview}
+	\label{fig:frameworkOverview}
 \end{figure}
 
-\subsection{Context Data}
+To achieve those objectives, as can be seen in Figure \ref{fig:frameworkOverview} the framework consists of three layer:
+\begin{inparaenum}[i)]
+	\item Context data to handle different sources of information;
+	\item Crowd model to analyse the context data and classify type of a crowd;
+	\item Crowd monitoring to detect the dangerous crowd types in real time
+\end{inparaenum}.
+Each component will be discussed further in the sections below.
 
-\subsubsection{Event Information}
+\section{Context Data}
 
-\subsubsection{Mobile Sensing}
+The context data layer collects the data from 
 
-\subsubsection{Social Media}
+\subsection{Event Information}
 
-\subsection{Crowd Model}
+\subsection{Mobile Sensing}
+
+\subsection{Social Media}
+
+\section{Crowd Model}
+
+There has been several works which are mentioned in the literature review on crowd modelling. Berlonghi's model is among the most widely adopted in emergency planning. 
+
+\subsection{Comparison of different Crowd Models}
 
 \begin{center}
-	\begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
-	\caption{}
-	\label{} \\
+	\begin{longtable}{|p{2.2cm}|p{2cm}|p{2cm}|p{4.2cm}|p{2.8cm}|}
+	\caption{Comparison of different Crowd Models}
+	\label{table:crowdModelComparison} \\
 	\hline
-	\textbf{Crowd type} & \textbf{Crowd type} & \textbf{Source} & \textbf{Definition} & \textbf{Example} & \textbf{Level of density} & \textbf{Level of movement} & \textbf{Crowd activities} & \textbf{Motivating emotion} \\
+	\multirow{2}{\linewidth}{\textbf{Crowd type}} & \multicolumn{3}{c|}{\textbf{Origin}} & \multirow{2}{\linewidth}{\textbf{Example}} \\
+	\cline{2-4}
+	& Crowd type & Source & Definition & \\
+	
+	\hline
+	\multirow{2}{\linewidth}{Ambulatory crowd} & Ambulatory \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are walking in and out or to and from a venue \citep{Berlonghi1995}. Usually characterized by the calm movement \citep{Zeitz2009}} & \multirow{2}{\linewidth}{People entering a stadium or a concert} \\
+	\cline{2-3}
+	& Casual crowd \newline & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Limited movement crowd} & Disability / Limited movement \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are limited or restricted in movement \citep{Berlonghi1995}. People have loose connection and little interaction \citep{Blumer1951}. People happen to be at a given place but not unified or organized \citep{Momboisse1967}} & \multirow{2}{\linewidth}{People waiting in a queue to get tickets} \\
+	\cline{2-3}
+	& Casual crowd \newline \newline \newline & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Crowd of spectators} & Cohesive / Spectators \newline \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are present to watch a specific event, not to communicate with each other. Characterized by the desire to stay and watch \citep{Berlonghi1995}. People are assembled for a specific purpose \citep{Blumer1951}} & \multirow{2}{\linewidth}{People watching a football game in the stadium or catching a concert in a theatre} \\
+	\cline{2-3}
+	& Conventional crowd \newline \newline \newline & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Participatory crowd} & Participatory & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are involved in actual activities of an event \citep{Berlonghi1995}} & \multirow{2}{\linewidth}{People walking in a parade} \\
+	\cline{2-3}
+	& Conventional crowd & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{3}{\linewidth}{Expressive crowd} & Expressive / revellous & \citet{Berlonghi1995} & \multirow{3}{\linewidth}{People are involved in an emotional release \citep{Berlonghi1995}} & \multirow{3}{\linewidth}{People cheering, chanting in unison. Human wave in a soccer match} \\
+	\cline{2-3}
+	& Expressive crowd & \citet{Blumer1951} & & \\
+	\cline{2-3}	
+	& Expressive crowd & \citet{Momboisse1967} & & \\	
+
+	\hline
+	\multirow{2}{\linewidth}{Aggressive crowd} & Aggressive / Hostile & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are verbally assaultive and showing disregard \citep{Berlonghi1995}} & \multirow{2}{\linewidth}{Soccer hooligan shouting} \\
+	\cline{2-3}
+	& Hostile or aggressive crowd & \citet{Momboisse1967} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Crowd of demonstrators} & Demonstrator \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are organized by an established leadership for specific reason \citep{Berlonghi1995}. A crowd which has some political goal \citep{Imhonopi2013}} & \multirow{2}{\linewidth}{A protest, a picket} \\
+	\cline{2-3}
+	& Protest crowd & \citet{McPhail1983} & & \\
+
+	\hline
+	\multirow{4}{\linewidth}{Escaping crowd} & Escaping / Trampling & \citet{Berlonghi1995} & \multirow{4}{\linewidth}{People are trying to escape from a danger or a threat \citep{Berlonghi1995, Momboisse1967}} & \multirow{4}{\linewidth}{A evacuation from a fire} \\
+	\cline{2-3}
+	& Escapist mob & \citet{Blumer1951} & & \\
+	\cline{2-3}	
+	& Trampling & \citet{Hughes2009} & & \\
+	\cline{2-3}
+	& Acting crowd & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Crushing crowd} & Dense / Suffocating \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People have limited individual movement \citep{Berlonghi1995} and being compressed. Characterized by high density \citep{Lee2005}} & \multirow{2}{\linewidth}{A human stampede at new year festival} \\
+	\cline{2-3}
+	& Crushing & \citet{Lee2005} & & \\
+
+	\hline
+	\multirow{3}{\linewidth}{Expressive crowd} & Rushing / looting & \citet{Berlonghi1995} & \multirow{3}{\linewidth}{People are trying to obtain or steal something \citep{Berlonghi1995}} & \multirow{3}{\linewidth}{People looting food after a natural disaster} \\
+	\cline{2-3}
+	& Acquisitive mob & \citet{Momboisse1967} & & \\
+	\cline{2-3}	
+	& Acting crowd & \citet{Blumer1951} & & \\	
+
+	\hline
+	\multirow{3}{\linewidth}{Violent crowd} & Violent & \citet{Berlonghi1995} & \multirow{3}{\linewidth}{People are attacking and rioting with disregard for laws and rights \citep{Berlonghi1995}} & \multirow{3}{\linewidth}{A riot in Ferguson, USA} \\
+	\cline{2-3}
+	& Aggressive mob & \citet{Momboisse1967} & & \\
+	\cline{2-3}	
+	& Acting crowd & \citet{Blumer1951} & & \\	
+
 	\hline
 	\end{longtable}
 \end{center}
 
-\subsubsection{Crowd Types}
+\subsection{Crowd Types}
 
 \begin{itemize}
 	\item Ambulatory crowd
@@ -60,7 +146,7 @@ From the literature review, we can notice that Berlonghi's crowd typology is the
 	\item Violent crowd
 \end{itemize}
 
-\subsubsection{Crowd Attributes}
+\subsection{Crowd Attributes}
 
 \begin{itemize}
 	\item Level of Density
@@ -69,7 +155,7 @@ From the literature review, we can notice that Berlonghi's crowd typology is the
 	\item Motivating Emotions
 \end{itemize}
 
-\subsection{Crowd Monitoring}
+\section{Crowd Monitoring}
 
 
 %\subsection{Emotion in the crowd}

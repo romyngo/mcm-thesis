@@ -466,7 +466,7 @@ Table \ref{table:crowdModelAnalysis} summarizes mentioned crowd models under abo
 	\caption{Comparative analysis of crowd models}
 	\label{table:crowdModelAnalysis}\\
 	\hline
-	\multirow{2}{\linewidth}{\textbf{Model}} & \multirow{2}{\linewidth}{\textbf{Domain / Application}} & \multicolumn{2}{|c|}{\textbf{Psychosocial domain}} & \textbf{Env. domain} & \multirow{2}{\linewidth}{\textbf{Modeling / Reasoning}} \\
+	\multirow{2}{\linewidth}{\textbf{Model}} & \multirow{2}{\linewidth}{\textbf{Domain / Application}} & \multicolumn{2}{c|}{\textbf{Psychosocial domain}} & \textbf{Env. domain} & \multirow{2}{\linewidth}{\textbf{Modeling / Reasoning}} \\
 	\cline{3-5}
 	& & Crowd types & Crowd behaviour & Weather cond. & \\
 	\hline
@@ -478,9 +478,9 @@ Table \ref{table:crowdModelAnalysis} summarizes mentioned crowd models under abo
 	\hline
 	\citet{Nguyen2005} & Military (Combat simulation) & Neutral, avoidance, curious, non-aggressive, aggressive, aggressive non-lethal, violent lethal & Yes & No & Modelling \\
 	\hline
-	\citet{Brown1954} & Social psychology & Aggressive, escapist, acquisitive, expressive mob. Casual, intentional audience (Figure 1) & Yes & No & Modelling \\
+	\citet{Brown1954} & Social psychology & Aggressive, escapist, acquisitive, expressive mob. Casual, intentional audience (Figure \ref{fig:brownCrowdType}) & Yes & No & Modelling \\
 	\hline
-	\citet{Forsyth2009} & Social psychology & Casual crowd, audience, queue gathering. Aggressive, panic mob (Figure 2) & Yes & No & Modelling \\
+	\citet{Forsyth2009} & Social psychology & Casual crowd, audience, queue gathering. Aggressive, panic mob (Figure \ref{fig:forsythCrowdType}) & Yes & No & Modelling \\
 	\hline
 	\citet{Lofland1985} & Sociology & Panic, craze, hostile outburst & No & No & Modelling \\
 	\hline
@@ -492,7 +492,7 @@ Table \ref{table:crowdModelAnalysis} summarizes mentioned crowd models under abo
 	\hline
 	PEN \citep{Guy2011} & Evacuation safety (Simulation) & Aggressive, assertive, active, impulsive, tense, shy (Personality) & Yes & No & Modelling \\
 	\hline
-	OCEAN \citep{Durupinar2008} & Evacuation safety (Simulation) & Personality traits (Table 9) & Yes & No & Modelling \\
+	OCEAN \citep{Durupinar2008} & Evacuation safety (Simulation) & Personality traits (Table \ref{table:oceanPersonality}) & Yes & No & Modelling \\
 	\hline
 	\citet{Fruin1970} & Pedestrian engineering & Level of services: A, B, C, D, E, F based on flow rate and restriction & No & No & Reasoning (Risk increases with higher level of service) \\
 	\hline
@@ -515,8 +515,19 @@ Most of models which are capable of predicting critical situations based on the 
 Finally, \citet{Berlonghi1995}’s model is highly adopted in emergency management worldwide. In this model, there is overlapping in the definition of crowd types. For example, it is difficult to distinguish the difference between a hostile and a violent crowd. Therefore, in order to adapt this model into crowd monitoring, the crowd types must be refined. The idea of forming a hierarchical structure \citep{Brown1954,Forsyth2009} is highly considerable as similar types can be grouped together and the classification can be done in different levels.
 
 \section{Research Gap}
-From the analysis of state-of-art crowd monitoring techniques, following points can be noticed: i) limitation of vision-based approaches; ii) despite the potential of mobile sensors and social media as the information sources, no attempt has been made to combine those sources together for crowd monitoring; and iii) lack of crowd model in existing crowd monitoring techniques.
-Our review on existing crowd models also shows several gaps: i) almost no reasoning is defined or is very limited to one particular domain of the model; ii) no model considers both psychosocial factors and environmental factors such as activities and weather which can be captured by sensors; and iii) the potential to adopt broadly used Berlonghi’s model and extend to support new types of crowd types and new information sources.
+From the analysis of state-of-art crowd monitoring techniques, following points can be noticed:
+\begin{inparaenum}[i)]
+	\item limitation of vision-based approaches;
+	\item despite the potential of mobile sensors and social media as the information sources, no attempt has been made to combine those sources together for crowd monitoring;
+	\item lack of crowd model in existing crowd monitoring techniques
+\end{inparaenum}.
+
+Our review on existing crowd models also shows several gaps:
+\begin{inparaenum}[i)]
+	\item almost no reasoning is defined or is very limited to one particular domain of the model;
+	\item no model considers both psychosocial factors and environmental factors such as activities and weather which can be captured by sensors;
+	\item the potential to adopt broadly used Berlonghi’s model and extend to support new types of crowd types and new information sources
+\end{inparaenum}.
 
 \section{Conclusion}
 This literature review has highlighted the need of crowd monitoring for emergency management in mass gathering. The strength and limitation of the state-of-art crowd monitoring techniques using image processing, sensory data analysis and social media analysis are also discussed. Our review shows the potential of combining multiple types of contextual data in crowd monitoring to tackle the issue of complex environment in mass gathering.
