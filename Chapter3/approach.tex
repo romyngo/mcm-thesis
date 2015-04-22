@@ -10,15 +10,26 @@
 
 \section{Introduction}
 
-Despite the importance of crowd monitoring in mass gathering events, the literature review in the previous chapter is able to identify several gaps in the research, especially in crowd modelling. Most state-of-art crowd monitoring techniques do not incorporate a typology to distinguish different types of crowd.
+Despite the importance of crowd monitoring in mass gathering events, the literature review in the previous chapter is able to identify several gaps in the research, especially in crowd modelling. Most state-of-art crowd monitoring techniques do not incorporate a typology to distinguish different types of crowd. In other words, no explicit type of crowd is defined in those approaches.
+
+say something more about crowd modelling
+
+conclude with the need of a crowd monitoring framework
 
 \section[Overview of the Mobile Crowd Monitoring for Emergency Management in Mass Gathering]{\texorpdfstring{Overview of the Mobile Crowd Monitoring for \\Emergency Management in Mass Gathering}}
 
-In this project, we propose the crowd monitoring framework for emergency management in mass gatherings. The objective of the framework is: 
+In this project, we propose the crowd monitoring framework for emergency management in mass gatherings. The objectives of the framework are: 
 \begin{inparaenum}[i)]
 	\item to incorporate more sources of contextual data;
 	\item to classify a crowd into different crowd types;
 	\item to propose a set of crowd attributes and describe a crowd type under those attributes
+\end{inparaenum}.
+
+To achieve those objectives, as can be seen in Figure \ref{fig:frameworkOverview} the framework consists of three layers:
+\begin{inparaenum}[i)]
+	\item Context data to handle different sources of information;
+	\item Crowd model to analyse the context data and classify type of a crowd;
+	\item Crowd monitoring to detect the dangerous crowd types in real time
 \end{inparaenum}.
 
 \begin{figure}[htbp!] 
@@ -28,27 +39,39 @@ In this project, we propose the crowd monitoring framework for emergency managem
 	\label{fig:frameworkOverview}
 \end{figure}
 
-To achieve those objectives, as can be seen in Figure \ref{fig:frameworkOverview} the framework consists of three layer:
-\begin{inparaenum}[i)]
-	\item Context data to handle different sources of information;
-	\item Crowd model to analyse the context data and classify type of a crowd;
-	\item Crowd monitoring to detect the dangerous crowd types in real time
-\end{inparaenum}.
 Each component will be discussed further in the sections below.
 
 \section{Context Data}
 
-The context data layer collects the data from 
+As concluded in Chapter \ref{ch:litReview}, with the rapid development of mobile devices and mobile computing, the literature review has showed the potential of combining different information sources, such as mobile sensors and social media, in a crowd monitoring approach. In our framework, the context data layer is designed to fulfill this objective and serves as the input for the other layers down the stack.
+
+The context data layer collects information about the context, which is the mass gathering event. In the development of a domain ontology for mass gathering, \citet{DelirHaghighi2013a} has summarised a set of related features that might have the effect on the safety of an event, such as environmental factors, event type, crowd size and venue. These knowledge can be retrieved from different sources. For this crowd monitoring framework, we propose three main sources: 
+\begin{inparaenum}[i)]
+	\item event information;
+	\item mobile sensing;
+	\item social media
+\end{inparaenum}, each of which will be discussed in detail in the following sections.
 
 \subsection{Event Information}
+Event information includes information about the venue, expected number of participants or crowd size, and the type of event. This information is static and not required to be collected in real time, hence it can be prepared in the pre-event phase of the emergency management. Ideally, it can be either crawled from the events' homepages or provided by the event organizers and gathered at a centralized system for the monitoring phase.
+
+One of the important features of a mass gathering in the context of emergency management is crowd density, which is the key factor leading to trampling and crushing incidents \citet{Hughes2009}. This information can be estimated by using collected data above, namely the estimated crowd size, the venue capacity and the size of venue following below formula.
+
+insert formula here
 
 \subsection{Mobile Sensing}
 
+Mobile sensing has become significantly popular among recent studies in mobile and context aware computing.
+
 \subsection{Social Media}
+
+Social media
+
+Previous work by Heli
 
 \section{Crowd Model}
 
-There has been several works which are mentioned in the literature review on crowd modelling. Berlonghi's model is among the most widely adopted in emergency planning. 
+As mentioned in the literature review, there has been a very limited work on crowd modelling. Berlonghi's model is among the most widely adopted by emergency management bureaus worldwide. 
 
 \subsection{Comparison of different Crowd Models}
 
