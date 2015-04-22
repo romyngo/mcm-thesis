@@ -57,17 +57,43 @@ Event information includes information about the venue, expected number of parti
 
 One of the important features of a mass gathering in the context of emergency management is crowd density, which is the key factor leading to trampling and crushing incidents \citet{Hughes2009}. This information can be estimated by using collected data above, namely the estimated crowd size, the venue capacity and the size of venue following below formula.
 
-insert formula here
+\[
+crowd\_density = crowd\_size / venue\_size
+\]
+where, \(crowd\_density\) is the estimated crowd density, \(crowd\_size\) is the number of participants or the venue capacity and \(venue\_size\) is the area of the venue holding the event.
 
 \subsection{Mobile Sensing}
 
-Mobile sensing has become significantly popular among recent studies in mobile and context aware computing.
+Mobile sensing paradigm has become an emerging topic among recent studies in mobile and context aware computing. It leverages the power of sensor-enhanced mobile devices to acquire information about the context \citep{guo2014participatory}. The mobile devices include modern smart-phones and devices, which are integrated with a wide range of sensors such as GPS receivers, accelerometers and ambient light sensors.
+
+Using the built-in GPS receiver in mobile phones to collect information for crowd monitoring has been proposed in a related works proposed by \citet{Wirz2012}. As mentioned in the literature review, in this study, GPS is used to obtain the current location of the phone bearer. The continuous sampling of the location can be used to estimate the movement of the crowd and the crowd density.
+
+Another integrated sensor in mobile phones that can be used to gather context data is the accelerometer. Accelerometer is often used for the purpose of activity recognition \citep{ravi2005activity, kwapisz2011activity}. In our context of crowd monitoring, the literature review has noted a related work from \citet{Roggen2011}, where several crowd activities can be determined by analysing the pattern of accelerometer's data.
+
+Interestingly, the microphone in mobile phones can also act as a sensor to count the number of devices in a crowd \citep{Kannan2012, Xu2013}, thus can be eventually used to roughly estimate the number of participants. Table \ref{table:mobileSensingCrowdFeature} summarises the possible sensing sources that can be integrated into our framework and the knowledge about a crowd that can be inferred from these sensors.
+
+\begin{table}
+	\caption{Mobile sensors and Crowd features}
+	\label{table:mobileSensingCrowdFeature}
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Mobile sensor} & \textbf{Crowd features} \\
+		\hline
+		GPS receiver & Movement and density \\
+		\hline
+		Accelerometer & Activity \\
+		\hline
+		Microphone & Density \\
+		\hline
+	\end{tabular}
+\end{table}
+
+The role of mobile sensing in our crowd monitoring framework is to provide the real-time data about a mass gathering event. As mentioned in the previous chapter, the during event phase in emergency management requires real-time decision making, which requires continuously updated intelligence from the crowd monitoring system. The reason for this requirement is that, according to \citet{Berlonghi1995}, a particular crowd can change from one type to another type during the event. This dynamic nature of a crowd is the key factor that we want to address in our approach by integrating the mobile sensing as one of the sources of context data.
 
 \subsection{Social Media}
 
-Social media
-
-Previous work by Heli
+Social media is another source of information that is capable of providing real-time data. In a related work, social media is considered as a special ``soft sensor'' in the mobile sensing techniques used in crowd monitoring \citep{Ramesh2014}. Social media is a generic term referring to a wide range of Internet-based tools that enable users to create and share content. It might include social network sites, such as Twitter and Facebook, Internet forums and channels.
 
 \section{Crowd Model}
 
