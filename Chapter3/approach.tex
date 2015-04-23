@@ -55,7 +55,7 @@ The context data layer collects information about the context, which is the mass
 \subsection{Event Information}
 Event information includes information about the venue, expected number of participants or crowd size, and the type of event. This information is static and not required to be collected in real time, hence it can be prepared in the pre-event phase of the emergency management. Ideally, it can be either crawled from the events' homepages or provided by the event organizers and gathered at a centralized system for the monitoring phase.
 
-One of the important features of a mass gathering in the context of emergency management is crowd density, which is the key factor leading to trampling and crushing incidents \citet{Hughes2009}. This information can be estimated by using collected data above, namely the estimated crowd size, the venue capacity and the size of venue following below formula.
+One of the important features of a mass gathering in the context of emergency management is crowd density, which is the key factor leading to trampling and crushing incidents \citet{Lee2005}. This information can be estimated by using collected data above, namely the estimated crowd size, the venue capacity and the size of venue following below formula.
 
 \[
 crowd\_density = crowd\_size / venue\_size
@@ -93,13 +93,20 @@ The role of mobile sensing in our crowd monitoring framework is to provide the r
 
 \subsection{Social Media}
 
-Social media is another source of information that is capable of providing real-time data. In a related work, social media is considered as a special ``soft sensor'' in the mobile sensing techniques used in crowd monitoring \citep{Ramesh2014}. Social media is a generic term referring to a wide range of Internet-based tools that enable users to create and share content. It might include social network sites, such as Twitter and Facebook, Internet forums and channels.
+Social media is another source of information that is capable of providing real-time data. In a related work, social media is considered as a special ``soft sensor'' in the mobile sensing techniques used in crowd monitoring \citep{Ramesh2014}. Social media is a generic term referring to a wide range of Internet-based tools that enable users to create and share content. These tools include social network sites, such as Twitter and Facebook, Internet forums and channels. Among those tools, Twitter is by far the most commonly utilized social media in research because of the huge volume of user base and the availability of the API which makes the data highly accessible.
+
+Studies show that during emergency situation, there is significant use of social media to report about the incident. One of the most well known research is the potential of earthquake detection by Twitter by \citet{Sakaki2010}. In the context of crowd monitoring, \citet{DelirHaghighi2013} has also proposed an approach to analyse tweets and capture the bipolar crowd mood. This has proven the feasibility of probing the social media to detect emergency situation.
+
+In our proposed framework, social media is also integrated as one of the input for contextual data. If mobile sensing mentioned in the previous section can be considered as a pro-active mechanism where data is continuously sampling and analysed to detect critical crowd condition, social media provides us a reactive channel where we can capture a crowd incident as soon as it is reported by the Internet user. 
 
 \section{Crowd Model}
 
-As mentioned in the literature review, there has been a very limited work on crowd modelling. Berlonghi's model is among the most widely adopted by emergency management bureaus worldwide. 
+The next layer in the crowd monitoring framework is the crowd model, which consists of a crowd typology and a set of crowd attributes for classification a crowd into a specific type.
 
 \subsection{Comparison of different Crowd Models}
+As mentioned in the literature review, there has been a very limited work on crowd modelling. From the perspective of emergency planning, Berlonghi's model is among the most widely adopted by emergency management bureaus worldwide \citep{FEMA2005, EMA1999}. Our literature also highlights several notable works in other disciplines that attempt to classify and describe different crowd types. Interestingly, in spite of having different disciplinary views, there are similarities and overlaps can be observed between those works and the model proposed by Berlonghi. Berlonghi has proposed the most number of crowd types and his eleven crowd types can be mapped into the crowd types mentioned in other studies and vice versa. Hence, in our approach, we will employ Berlonghi's model as the baseline to make distinction of different crowds.
+
+Table \ref{table:crowdModelComparison} presents our chosen crowd types based on Berlonghi's work and compares each crowd type with the crowd types defined in the related works. From these related works, the definition and description of each crowd type are collected and gathered to construct a more detailed explanation of the crowd type.
 
 \begin{center}
 	\begin{longtable}{|p{2.2cm}|p{2cm}|p{2cm}|p{4.2cm}|p{2.8cm}|}
@@ -180,7 +187,7 @@ As mentioned in the literature review, there has been a very limited work on cro
 \end{center}
 
 \subsection{Crowd Types}
-
+Explain each type
 \begin{itemize}
 	\item Ambulatory crowd
 	\item Limited movement crowd
@@ -196,7 +203,9 @@ As mentioned in the literature review, there has been a very limited work on cro
 \end{itemize}
 
 \subsection{Crowd Attributes}
+Explain why we need to add attribute. because the definition is not sufficient to classify. need human judgement. the need for a systematic approach.
 
+Discuss each attribute
 \begin{itemize}
 	\item Level of Density
 	\item Level of Movement
@@ -204,8 +213,25 @@ As mentioned in the literature review, there has been a very limited work on cro
 	\item Motivating Emotions
 \end{itemize}
 
-\section{Crowd Monitoring}
+Table showing the crowd type and the attributes
 
+Among those attributes, we focus on the motivating emotions and discuss further in the subsections
+
+\subsubsection{Human Basic Emotion}
+List work on human basic emotions
+8 emotions
+6 emotions
+4 emotions
+\subsubsection{Emotion and Collective Behaviour}
+\citet{Lofland1985} and \citet{Smelser1998} identify joy, fear and anger can motivate the formation of collective behaviour. 
+
+\subsubsection{Mapping from Emotions to Crowd Types}
+Insert the table here
+
+\subsubsection{Social Media Analysis and Emotion Capture}
+By probing social media, we can capture the emotion
+
+\section{Crowd Monitoring}
 
 %\subsection{Emotion in the crowd}
 
