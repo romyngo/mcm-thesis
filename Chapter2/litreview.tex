@@ -519,6 +519,84 @@ Most of models which are capable of predicting critical situations based on the 
 
 Finally, \citet{Berlonghi1995}’s model is highly adopted in emergency management worldwide. In this model, there is overlapping in the definition of crowd types. For example, it is difficult to distinguish the difference between a hostile and a violent crowd. Therefore, in order to adapt this model into crowd monitoring, the crowd types must be refined. The idea of forming a hierarchical structure \citep{Brown1954,Forsyth2009} is highly considerable as similar types can be grouped together and the classification can be done in different levels.
 
+\begin{center}
+	\begin{longtable}{|p{2.2cm}|p{2cm}|p{2cm}|p{4.2cm}|p{2.8cm}|}
+	\caption{Comparison of different Crowd Models}
+	\label{table:crowdModelComparison} \\
+	\hline
+	\multirow{2}{\linewidth}{\textbf{Crowd type}} & \multicolumn{3}{c|}{\textbf{Origin}} & \multirow{2}{\linewidth}{\textbf{Example}} \\
+	\cline{2-4}
+	& Crowd type & Source & Definition & \\
+	
+	\hline
+	\multirow{2}{\linewidth}{Ambulatory crowd} & Ambulatory \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are walking in and out or to and from a venue \citep{Berlonghi1995}. Usually characterized by the calm movement \citep{Zeitz2009}} & \multirow{2}{\linewidth}{People entering a stadium or a concert} \\
+	\cline{2-3}
+	& Casual crowd \newline & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Limited movement crowd} & Disability / Limited movement \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are limited or restricted in movement \citep{Berlonghi1995}. People have loose connection and little interaction \citep{Blumer1951}. People happen to be at a given place but not unified or organized \citep{Momboisse1967}} & \multirow{2}{\linewidth}{People waiting in a queue to get tickets} \\
+	\cline{2-3}
+	& Casual crowd \newline \newline \newline & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Crowd of spectators} & Cohesive / Spectators \newline \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are present to watch a specific event, not to communicate with each other. Characterized by the desire to stay and watch \citep{Berlonghi1995}. People are assembled for a specific purpose \citep{Blumer1951}} & \multirow{2}{\linewidth}{People watching a football game in the stadium or catching a concert in a theatre} \\
+	\cline{2-3}
+	& Conventional crowd \newline \newline \newline & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Participatory crowd} & Participatory & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are involved in actual activities of an event \citep{Berlonghi1995}} & \multirow{2}{\linewidth}{People walking in a parade} \\
+	\cline{2-3}
+	& Conventional crowd & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{3}{\linewidth}{Expressive crowd} & Expressive / revellous & \citet{Berlonghi1995} & \multirow{3}{\linewidth}{People are involved in an emotional release \citep{Berlonghi1995}} & \multirow{3}{\linewidth}{People cheering, chanting in unison. Human wave in a soccer match} \\
+	\cline{2-3}
+	& Expressive crowd & \citet{Blumer1951} & & \\
+	\cline{2-3}	
+	& Expressive crowd & \citet{Momboisse1967} & & \\	
+
+	\hline
+	\multirow{2}{\linewidth}{Aggressive crowd} & Aggressive / Hostile & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are verbally assaultive and showing disregard \citep{Berlonghi1995}} & \multirow{2}{\linewidth}{Soccer hooligan shouting} \\
+	\cline{2-3}
+	& Hostile or aggressive crowd & \citet{Momboisse1967} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Crowd of demonstrators} & Demonstrator \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People are organized by an established leadership for specific reason \citep{Berlonghi1995}. A crowd which has some political goal \citep{Imhonopi2013}} & \multirow{2}{\linewidth}{A protest, a picket} \\
+	\cline{2-3}
+	& Protest crowd & \citet{McPhail1983} & & \\
+
+	\hline
+	\multirow{4}{\linewidth}{Escaping crowd} & Escaping / Trampling & \citet{Berlonghi1995} & \multirow{4}{\linewidth}{People are trying to escape from a danger or a threat \citep{Berlonghi1995, Momboisse1967}} & \multirow{4}{\linewidth}{A evacuation from a fire} \\
+	\cline{2-3}
+	& Escapist mob & \citet{Blumer1951} & & \\
+	\cline{2-3}	
+	& Trampling & \citet{Hughes2009} & & \\
+	\cline{2-3}
+	& Acting crowd & \citet{Blumer1951} & & \\
+
+	\hline
+	\multirow{2}{\linewidth}{Crushing crowd} & Dense / Suffocating \newline \newline & \citet{Berlonghi1995} & \multirow{2}{\linewidth}{People have limited individual movement \citep{Berlonghi1995} and being compressed. Characterized by high density \citep{Lee2005}} & \multirow{2}{\linewidth}{A human stampede at new year festival} \\
+	\cline{2-3}
+	& Crushing & \citet{Lee2005} & & \\
+
+	\hline
+	\multirow{3}{\linewidth}{Expressive crowd} & Rushing / looting & \citet{Berlonghi1995} & \multirow{3}{\linewidth}{People are trying to obtain or steal something \citep{Berlonghi1995}} & \multirow{3}{\linewidth}{People looting food after a natural disaster} \\
+	\cline{2-3}
+	& Acquisitive mob & \citet{Momboisse1967} & & \\
+	\cline{2-3}	
+	& Acting crowd & \citet{Blumer1951} & & \\	
+
+	\hline
+	\multirow{3}{\linewidth}{Violent crowd} & Violent & \citet{Berlonghi1995} & \multirow{3}{\linewidth}{People are attacking and rioting with disregard for laws and rights \citep{Berlonghi1995}} & \multirow{3}{\linewidth}{A riot in Ferguson, USA} \\
+	\cline{2-3}
+	& Aggressive mob & \citet{Momboisse1967} & & \\
+	\cline{2-3}	
+	& Acting crowd & \citet{Blumer1951} & & \\	
+
+	\hline
+	\end{longtable}
+\end{center}
+
 \section{Research Gap}
 From the analysis of state-of-art crowd monitoring techniques, following points can be noticed:
 \begin{inparaenum}[i)]
