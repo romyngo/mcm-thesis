@@ -89,7 +89,7 @@ A recent analysis on the content on Twitter reveals that the users are using Twi
 
 There have been several approaches to extract the emotion from Twitter in the literature \citep{roberts2012empatweet, bollen2009modeling, mohammad2012emotional, mohammad2014using}, which have great influence on our method. Our proposed method is based on a combination of Bag-of-Word model, weighting and a simple voting scheme, which will be discussed in the next sections.
 
-\subsection{Bag-of-Word model}
+\subsection{Bag-of-Word Model}
 Bag-Of-Word model is a simple representation of a document which only considers at the frequency of appearance of the words in a document while disregarding the grammar and the order of the words. In our research using Twitter as the corpus, a document is a single tweet and a word is an uni-gram word building up the tweet. The process that split a document into a sequence of words is usually called tokenizer. In our experiment which will be mentioned in Chapter \ref{ch:eval}, we applies the Stanford NLP Tokenizer to tokenize a tweet into words and also to filter out data that is not in our interest, such as URLs and emoticons. 
 
 Figure showing Bag-Of-Word and tokenizer.
@@ -100,25 +100,26 @@ Figure showing the weight vector with 8 dimensions.
 
 In conclusion, using Bag-Of-Word approach, we can consider that a tweet consists of a series of words, each of which has its association with the eight emotions described by a emotional weight vector. The next section will cover the method to to calculate the ``emotional weight vectors'' of words and to identify the dominating emotion in a tweet.
 
-\subsection{Emotion Word Corpus and Weight Vector}
+\subsection{Emotion Word Corpus and Emotional Weight Vector}
 Our emotion analysis can be considered as a supervised classification of emotion for a tweet. The analysis requires a collection of words to be gathered and the ``emotional weight vector'' of each word in the collection must be calculated accordingly. Such collection is often referred as the corpus. In order for the calculation of ``emotional weight vector'', a corpus of tweets that have been labelled with a correct emotion for each tweet is necessary.
 
 Emotion analysis from text is not a new area in the field of natural language processing. There have been a number of works regarding the construction of text-emotion corpus from various sources such as mails \citep{mohammad2011tracking} and books \citep{mohammad2011once}, newspaper headlines \citep{strapparava2008learning}. Those proposed corpora can be integrated into our framework. However, the language used in a tweet can be significantly different from other text content because of the difference in the usages that a tweet is limited to 140 characters and the users mostly use Twitter to update on themselves or share information. Therefore, only the corpora that are built from Twitter will be of interest to our the framework.
 
-EmpaTweet proposed by \citet{roberts2012empatweet} is a corpus on Twitter that is annotated with seven emotions: anger, disgust, fear, joy, love, sadness and surprise. The tweets are collected in 14 topics which are chosen in a manner that each topic is expected to evoke a particular emotion in the tweets. Another notable corpus is the NRC Hashtag Emotion corpus, in which tweets are collected by emotion-word hashtags, such as \#anger or \#fear \citep{mohammad2012emotional}. This approach appears to be more robust as it relies on the self-labelled emotions by the authors rather than the topic-based emotion assumption like EmpaTweet. It is also verified that the self-annotated emotions eventually match the emotions annotated by the judges. Because of this robustness, the NRC Hashtag Emotion corpus is selected as the emotion word corpus in our emotion analysis.
+EmpaTweet proposed by \citet{roberts2012empatweet} is a corpus on Twitter that is annotated with seven emotions: anger, disgust, fear, joy, love, sadness and surprise. The tweets are collected in 14 topics which are chosen in a manner that each topic is expected to evoke a particular emotion in the tweets. Another notable corpus is the NRC Hashtag Emotion corpus, in which tweets are collected by emotion-word hashtags corresponding to Ekman's six emotions: \#anger, \#disgust, \#fear, \#happy, \#sadness and \#surprise and their synonyms\citep{mohammad2012emotional}. This approach appears to be more robust as it relies on the self-labelled emotions by the authors rather than the topic-based emotion assumption like EmpaTweet. It is also verified that the self-annotated emotions eventually match the emotions annotated by the judges. Because of this robustness, the NRC Hashtag Emotion corpus is selected as the emotion word corpus in our emotion analysis. The corpus has n tweets and m words.
 
-\citet{roberts2012empatweet} propose a public corpus of tweets with seven emotions: anger, disgust, fear, joy, love, sadness and surprise.
+From the NRC Hashtag Emotion corpus, \citet{mohammad2012emotional} also calculates the association of a word with each of the six emotions, which is called Strength of Association (SoA) based on the frequency of occurrence of this word in tweets labelled with a specific emotion. The score is from 0 indicating no association to infinity indicating maximum association. The result is a word emotion lexicon which list all words in the corpus with theirs SoA with the six emotions, which is made available for research purposes. In the NRC Hashtag Emotion Lexicon version 2.0, the SoA is calculated to Plutchik's eight emotions. This lexicon can be employed as the baseline for our calculation of the ``emotional weight vector''. The eight emotions is equivalent to the eight dimensions of the vector. For each emotion, the SoA score represents the the magnitude of the vector in the corresponding dimension.
 
-\citet{roberts2012empatweet} propose
+From the weight vectors of the words constructing a tweet, the dominating emotion depicted in the tweet can be determined using a voting system which will be discussed in the following section.
 
-This lexicon measures the association of a corpus of words with the eight emotions constructed by \citet{mohammad2014using}.
+\subsection{Voting System and Dominant Emotion}
+Because a word can have the different weights in the eight emotions, a tweet consisting of a set of words also consequently possesses its association with the eight emotions. It can be notated as a vector that is summation of the weight vectors of the words constructing the tweet.
 
-\subsection{Emotion Analysis}
+Formula showing sum of vector here
+
+Although a tweet might be associated with all eight emotions, a specific emotion is expected to dominate the whole tweet. In order to extract the dominant emotion in a tweet, we propose following voting system that can interpret the vector as follow. An ``emotional weight vector'' can be considered as a vote cast by a word, that indicates how strongly it agrees with each emotion in list. Similarly, the summative vector can be interpreted as the overall result of the voting, which illustrates how close a tweet is to each emotion. The dominant emotion can be then determined by the highest vote from the voters. In other words, the dimension which has the largest magnitude will be chosen as the dominant emotion in the tweet.
+
+\subsubsection{Crowd Emotions}
 We can detect the dominating emotion from a tweet using a bag of word approach. We then apply histogram with a specific time interval to measure the frequency of each emotion during that time frame.
-
-\section{Voting System}
-
-We use Berlonghi model
 
 \section{Emotion - Crowd Type Mapping Model}
 
