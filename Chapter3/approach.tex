@@ -118,13 +118,13 @@ Formula showing sum of vector here
 
 Although a tweet might be associated with all eight emotions, a specific emotion is expected to dominate the whole tweet. In order to extract the dominant emotion in a tweet, we propose following voting system that can interpret the vector as follow. An ``emotional weight vector'' can be considered as a vote cast by a word, that indicates how strongly it agrees with each emotion in list. Similarly, the summative vector can be interpreted as the overall result of the voting, which illustrates how close a tweet is to each emotion. The dominant emotion can be then determined by the highest vote from the voters. In other words, the dimension which has the largest magnitude will be chosen as the dominant emotion in the tweet.
 
-\subsubsection{Crowd Emotions}
+\subsubsection{Emotions in the Crowd}
 We can detect the dominating emotion from a tweet using a bag of word approach. We then apply histogram with a specific time interval to measure the frequency of each emotion during that time frame.
 
 \section{Emotion - Crowd Type Mapping Model}
 
-\subsection{From the individual emotion to the crowd emotions}
-The emotion model mentioned in the previous section represents the emotional state of an individual. By performing the emotion analysis to a number of participants in a crowd, the general emotional states of the crowd can be inferred.
+\subsection{Individual Emotions and Crowd Emotions}
+Can do bottom up approach, from individual emotion to crowd emotion \citep{barsade1998group}
 
 \subsection{Mapping crowd emotions to crowd type}
 Table \ref{table:mappingEmotionCrowdType} presents our proposal for the mapping between each crowd type and eight basic emotions. Need to be revised, temporarily set as low or medium.
