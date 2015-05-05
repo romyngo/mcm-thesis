@@ -121,21 +121,26 @@ Although a tweet might be associated with all eight emotions, a specific emotion
 \subsubsection{Emotions in the Crowd}
 As illustrated by Figure \ref{fig:processOverview}, the tweets collected in the first stage of the process provides the context at the raw-level about a crowd in a mass gathering. By performing the emotion analysis, the dominant emotion in each tweet can be extracted. This emotion in fact represents the emotion of an individual in the crowd rather than the crowd as a whole. The relationship between individual emotion and group emotion has been discussed in several researches. \citet{barsade1998group} suggest that group emotion can arise and felt by individual member, while at the same time, the group emotion can be shaped by the compositional effects of individual emotions. This theory confirms the possibility to represent the crowd emotion as whole from the individuals' emotion.
 
-Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To calculate the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion e1 is calculated in by below formula.
+Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To measure the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion \(e_i\) at a given time \(t_j\) is calculated by below formula.
+\[
+	d(e_i) = \frac{n(e_i)}{N}
+\]
+where \(d(e_1)_{t_j}\) is the degree of membership toward emotion \(e_1\), \(N\) is the total number of data sampled between \(t_{j-1}\) and \(t_j\) and \(n(e_i)\) is the number of data classified with emotion \(e_i\) in \(N\).
 
-Formula showing degree of membership to e1 = number of samples classified with e1 / total number of samples in a specific time period t.
-
-This degree of membership can have any value from 0 to 1, indicating the how close the emotion of the crowd is to e1 within time t. The calculation of the degrees of membership is performed with an interval t which allows us to detect the change of emotional state of the crowd. The value of t will have influence on the sensitivity of the detection and depend on the sampling rate.
+This degree of membership \(d(e_i)\) can have any value from 0 to 1, indicating the how close the emotion of the crowd is to \(e_i\) at time \(t_j\). The calculation of the degrees of membership is performed repetitively with an interval which allows us to detect the change of emotional state of the crowd. The value of t will have influence on the sensitivity of the detection and depend on the sampling rate.
 
 \section{Crowd Model}
-The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. 
+
+The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. From the emergency management point of view, the literature review highlights \citet{Berlonghi1995}'s model as one of the most significant works on crowd types. As mentioned in Chapter \ref{ch:litReview}, \citet{Berlonghi1995} has identified eleven different types of crowd in mass gathering. Each crowd type is described by the movement, participation and behaviour \citep{Zeitz2009}. \citet{Berlonghi1995}'s definition has been widely adopted as the guideline by the emergency bureaus in Australia and United States of America. However, relying only on the description, it is difficult to make distinct of different crowd types without human observation and judgement on the spot. Hence, there is a need to introduce attributes or features to the existing model for a systematic approach to perform the classification of crowd type.
+
+In our proposal framework, we introduce \citet{Plutchik1980}'s eight emotions as the features to \citet{Berlonghi1995}'s crowd model. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
 
 \section{Emotion - Crowd Type Mapping Model}
+In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, anticipation, joy, trust, fear, surprise, sadness and disgust are used as the eight features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion.
 
-\subsection{Mapping crowd emotions to crowd type}
-Table \ref{table:mappingEmotionCrowdType} presents our proposal for the mapping between each crowd type and eight basic emotions. Need to be revised, temporarily set as low or medium.
-
+Table \ref{table:mappingEmotionCrowdType} presents our proposal for the mapping between each crowd type and eight basic emotions.
 \begin{table}
+
 \caption{Mapping between crowd types and emotions}
 \label{table:mappingEmotionCrowdType}
 \begin{tabular}{|p{2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|}
