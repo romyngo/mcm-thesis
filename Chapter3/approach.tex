@@ -119,12 +119,18 @@ Formula showing sum of vector here
 Although a tweet might be associated with all eight emotions, a specific emotion is expected to dominate the whole tweet. In order to extract the dominant emotion in a tweet, we propose following voting system that can interpret the vector as follow. An ``emotional weight vector'' can be considered as a vote cast by a word, that indicates how strongly it agrees with each emotion in list. Similarly, the summative vector can be interpreted as the overall result of the voting, which illustrates how close a tweet is to each emotion. The dominant emotion can be then determined by the highest vote from the voters. In other words, the dimension which has the largest magnitude will be chosen as the dominant emotion in the tweet.
 
 \subsubsection{Emotions in the Crowd}
-We can detect the dominating emotion from a tweet using a bag of word approach. We then apply histogram with a specific time interval to measure the frequency of each emotion during that time frame.
+As illustrated by Figure \ref{fig:processOverview}, the tweets collected in the first stage of the process provides the context at the raw-level about a crowd in a mass gathering. By performing the emotion analysis, the dominant emotion in each tweet can be extracted. This emotion in fact represents the emotion of an individual in the crowd rather than the crowd as a whole. The relationship between individual emotion and group emotion has been discussed in several researches. \citet{barsade1998group} suggest that group emotion can arise and felt by individual member, while at the same time, the group emotion can be shaped by the compositional effects of individual emotions. This theory confirms the possibility to represent the crowd emotion as whole from the individuals' emotion.
+
+Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To calculate the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion e1 is calculated in by below formula.
+
+Formula showing degree of membership to e1 = number of samples classified with e1 / total number of samples in a specific time period t.
+
+This degree of membership can have any value from 0 to 1, indicating the how close the emotion of the crowd is to e1 within time t. The calculation of the degrees of membership is performed with an interval t which allows us to detect the change of emotional state of the crowd. The value of t will have influence on the sensitivity of the detection and depend on the sampling rate.
+
+\section{Crowd Model}
+The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. 
 
 \section{Emotion - Crowd Type Mapping Model}
-
-\subsection{Individual Emotions and Crowd Emotions}
-Can do bottom up approach, from individual emotion to crowd emotion \citep{barsade1998group}
 
 \subsection{Mapping crowd emotions to crowd type}
 Table \ref{table:mappingEmotionCrowdType} presents our proposal for the mapping between each crowd type and eight basic emotions. Need to be revised, temporarily set as low or medium.
