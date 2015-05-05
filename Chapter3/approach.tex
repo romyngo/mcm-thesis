@@ -113,12 +113,14 @@ From the weight vectors of the words constructing a tweet, the dominating emotio
 
 \subsection{Voting System and Dominant Emotion}
 Because a word can have the different weights in the eight emotions, a tweet consisting of a set of words also consequently possesses its association with the eight emotions. It can be notated as a vector that is summation of the weight vectors of the words constructing the tweet.
-
-Formula showing sum of vector here
+\[
+	\vec{V} = \sum_{i=1}^{n} \vec{v_i}(v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8)
+\]
+where \(\vec{V}\) is the summative weight vector of the tweet, \(\vec(v_i)\) is a weight vector of one word and \(n\) is the total number of words in the tweet.
 
 Although a tweet might be associated with all eight emotions, a specific emotion is expected to dominate the whole tweet. In order to extract the dominant emotion in a tweet, we propose following voting system that can interpret the vector as follow. An ``emotional weight vector'' can be considered as a vote cast by a word, that indicates how strongly it agrees with each emotion in list. Similarly, the summative vector can be interpreted as the overall result of the voting, which illustrates how close a tweet is to each emotion. The dominant emotion can be then determined by the highest vote from the voters. In other words, the dimension which has the largest magnitude will be chosen as the dominant emotion in the tweet.
 
-\subsubsection{Emotions in the Crowd}
+\subsection{Emotions in the Crowd}
 As illustrated by Figure \ref{fig:processOverview}, the tweets collected in the first stage of the process provides the context at the raw-level about a crowd in a mass gathering. By performing the emotion analysis, the dominant emotion in each tweet can be extracted. This emotion in fact represents the emotion of an individual in the crowd rather than the crowd as a whole. The relationship between individual emotion and group emotion has been discussed in several researches. \citet{barsade1998group} suggest that group emotion can arise and felt by individual member, while at the same time, the group emotion can be shaped by the compositional effects of individual emotions. This theory confirms the possibility to represent the crowd emotion as whole from the individuals' emotion.
 
 Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To measure the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion \(e_i\) at a given time \(t_j\) is calculated by below formula.
