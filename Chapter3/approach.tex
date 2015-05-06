@@ -139,7 +139,7 @@ The ultimate objective of our crowd monitoring framework is to identify the type
 In our proposal framework, we introduce \citet{Plutchik1980}'s eight emotions as the features to \citet{Berlonghi1995}'s crowd model. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
 
 \section{Emotion - Crowd Type Mapping Model}
-In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, anticipation, joy, trust, fear, surprise, sadness and disgust are used as the eight features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion. Our mapping is based on \citet{Plutchik1980}'s psychoevolutionary theory of emotion which explains emotion as a apart of evolutionary process. According to this theory, the emotional process can be modelled by a sequential model which starts with stimulus events. Based on the interpretation or cognition of these events, humans feel the emotions accordingly. The feeling emotion then triggers the overt behaviours or actions to achieve a desired effect. Table \ref{table:sequentialModelOfEmotion} presents the primitive sequential model of emotional process.
+In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, anticipation, joy, trust, fear, surprise, sadness and disgust are used as the eight features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion. Our mapping is based on \citet{Plutchik1980}'s psychoevolutionary theory of emotion which explains emotion as a apart of evolutionary process. According to this theory, the emotional process can be modelled by a sequential model which starts with stimulus events. Based on the interpretation or cognition of these events, humans feel the emotions accordingly. The feeling state of emotion then triggers the overt behaviours or actions to achieve a desired effect. Table \ref{table:sequentialModelOfEmotion} presents the primitive sequential model of emotional process.
 
 \begin{table}
 \caption{Sequential model of the emotional process}
@@ -195,21 +195,23 @@ Surprise & Stop & Orientation & Indecisive \\
 \end{tabular}
 \end{table}
 
-Although the psychoevolutionary theory is based on the basic emotions and the their very primitive stimuli and derivative behaviours, it can be applied to our context of modern crowd. A crowd type that we can observe can be both the stimulus events triggering the emotions or the overt behaviours triggered by the emotions. Therefore, in order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. We will extract the behaviour language and trait language from those descriptions and attempt to map them back to the potential emotions of the crowd.
+Although the psychoevolutionary theory is based on the basic emotions and the their very primitive stimuli and derivative behaviours, it can be applied to our context of modern crowd. A crowd type that we can observe can be both the stimulus events triggering the emotions or the overt behaviours triggered by the emotions. Therefore, in order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. We will extract the behaviour language and trait language from those descriptions and attempt to map them back to the potential emotions of the crowd. For each emotion, we also define three levels which are low, medium and high to represent different intensity of that emotion. 
 
 \begin{itemize}
-\item Ambulatory crowd - 
-\item Disablity/Limited movement crowd -
-\item Cohesive/Spectator -
-\item Expressive/Revellous crowd -
-\item Participatory crowd -
-\item Aggressive/Hostile crowd -
-\item Demonstrator -
-\item Escaping/Trampling crowd -
-\item Dense/Suffocating crowd -
-\item Rushing/Looting crowd -
-\item Violent crowd -
+\item Ambulatory crowd - no
+\item Disablity/Limited movement crowd - no
+\item Cohesive/Spectator - joy (forming a group), trust and anticipation (interested in watching)
+\item Expressive/Revellous crowd - joy (emotional release)
+\item Participatory crowd - joy, trust (acceptance to participate)
+\item Aggressive/Hostile crowd - is described by the verbal aggressiveness and disregard for instruction. Aggressiveness is caused by anger and the disregard is caused by disgust.
+\item Demonstrator - including such actions as picketing, marching, protesting is a result of the rejection against something, which is motivated by the disgust. Research in protest shows that the primary emotions in a protest can potentially include anger, trust, sorrow, fear and even joy \citep{jasper1998emotions}. Therefore, the demonstrator crowd might have high level of disgust while having medium intensity of fear, anger joy and sadness.
+\item Escaping/Trampling crowd - is described by the escaping action from a danger or a threat. This behaviour is the result of fear, therefore the crowd type must have high intensity of fear.
+\item Dense/Suffocating crowd - sadness, surprise
+\item Rushing/Looting crowd - is described by the purpose to obtain, acquire and steal something. These actions belong to the gain of value stimulus which will trigger the joy. On the other hand, the desire for such value is originated from the demand, which triggers the anticipation. Therefore, the level of joy and anticipation must be high in this case. 
+\item Violent crowd - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour motivated by anger while disregard is an opposite of acceptance or trust. As a result, the intensity of anger in the crowd must be extremely high while the opposite emotion of acceptance, that is disgust, is high.
 \end{itemize}
+
+Other emotions which are not described in the explanation should be given the default rate as low.
 
 \begin{table}
 \caption{Mapping between crowd types and emotions}
