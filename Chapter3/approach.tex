@@ -95,8 +95,9 @@ Bag-Of-Word model is a simple representation of a document which only considers 
 Figure showing Bag-Of-Word and tokenizer.
 
 In the Bag-Of-Word representation, the number of occurrence of a word in the tweet contributes to its significance in the tweet. For example, if a word appears twice in the tweet, it will have a doubled weight compared with words with single appearance, thus being more significant. In our context of emotion analysis, the weight of a word represents its association with a specific emotion from the list of eight basic emotions mentioned above. Therefore, a word will have eight weight scores for each emotions: anger, anticipation, joy, trust, fear, surprise, sadness and disgust, which can be illustrated by a proposed ``emotional weight vector'' with eight dimensions corresponding to the eight emotions. 
-
-Figure showing the weight vector with 8 dimensions.
+\[
+	\vec{v_i}(v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8)
+\] where \(v_i\) is an emotional weight vector of a word and \(v_{1...8}\) are eight dimensions representing eight emotions.
 
 In conclusion, using Bag-Of-Word approach, we can consider that a tweet consists of a series of words, each of which has its association with the eight emotions described by a emotional weight vector. The next section will cover the method to to calculate the ``emotional weight vectors'' of words and to identify the dominating emotion in a tweet.
 
@@ -138,11 +139,79 @@ The ultimate objective of our crowd monitoring framework is to identify the type
 In our proposal framework, we introduce \citet{Plutchik1980}'s eight emotions as the features to \citet{Berlonghi1995}'s crowd model. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
 
 \section{Emotion - Crowd Type Mapping Model}
-In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, anticipation, joy, trust, fear, surprise, sadness and disgust are used as the eight features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion.
+In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, anticipation, joy, trust, fear, surprise, sadness and disgust are used as the eight features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion. Our mapping is based on \citet{Plutchik1980}'s psychoevolutionary theory of emotion which explains emotion as a apart of evolutionary process. According to this theory, the emotional process can be modelled by a sequential model which starts with stimulus events. Based on the interpretation or cognition of these events, humans feel the emotions accordingly. The feeling emotion then triggers the overt behaviours or actions to achieve a desired effect. Table \ref{table:sequentialModelOfEmotion} presents the primitive sequential model of emotional process.
 
-Table \ref{table:mappingEmotionCrowdType} presents our proposal for the mapping between each crowd type and eight basic emotions.
 \begin{table}
+\caption{Sequential model of the emotional process}
+\label{table:sequentialModelOfEmotion}
+\begin{tabular}{|p{2.5cm}|p{2.5cm}|p{2cm}|p{2cm}|p{4.5cm}|}
+\hline
+\textbf{Stimulus events} & \textbf{Coginition} & \textbf{Emotion} & \textbf{Behaviour} & \textbf{Effect} \\
+\hline
+Threat & Danger & Fear & Escape & Safety \\
+\hline
+Obstacle & Enemy & Anger & Attack & Destroy obstacle \\
+\hline
+Gain of valued object & Possess & Joy & Retain or repeat & Gain resources or new genes \\
+\hline
+Loss of valued object & Abandonment & Sadness & Cry & Reattach with lost object \\
+\hline
+Member of a group & Friend & Acceptance (Trust) & Groom & Mutual support \\
+\hline
+Unpalatable object & Poison & Disgust & Vomit & Eject poison \\
+\hline
+New territory & Examine & Expectation (Anticipation) & Map & Knowledge of territory \\
+\hline
+Unexpected event & What is it & Surprise & Stop & Gain time to orient \\
+\hline
+\end{tabular}
+\end{table}
 
+In one of his works, \citet{plutchik2001integration} has also summarised the relationship between emotions and their derivatives including their behaviour language, functional language and trait language. The functional language presents the pattern of adaptation to the stimulus event while the behaviour language can describe the actual actions that are derived from a specific emotion. The trait language refers to the personality that is related to that emotion. For example, fear can trigger the escaping action, for the course of protection and it is caused by timidity. Table \ref{table:derivationOfEmotion} shows the derivation of the eight emotions.
+
+\begin{table}
+\caption{Emotions and their derivatives}
+\label{table:derivationOfEmotion}
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Emotion} & \textbf{Behaviour language} & \textbf{Functional language} & \textbf{Trait language} \\
+\hline
+Fear & Escape & Protection & Timid \\
+\hline
+Anger & Attack & Destruction & Quarrelsome \\
+\hline
+Joy & Mate & Reproduction & Sociable \\
+\hline
+Sadness & Cry & Reattachment & Gloomy \\
+\hline
+Acceptance (Trust) & Groom & Incorporation & Trusting \\
+\hline
+Disgust & Vomit & Rejection & Hostile \\
+\hline
+Expectation (Anticipation) & Map & Exploration & Demanding \\
+\hline
+Surprise & Stop & Orientation & Indecisive \\
+\hline
+\end{tabular}
+\end{table}
+
+Although the psychoevolutionary theory is based on the basic emotions and the their very primitive stimuli and derivative behaviours, it can be applied to our context of modern crowd. A crowd type that we can observe can be both the stimulus events triggering the emotions or the overt behaviours triggered by the emotions. Therefore, in order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. We will extract the behaviour language and trait language from those descriptions and attempt to map them back to the potential emotions of the crowd.
+
+\begin{itemize}
+\item Ambulatory crowd - 
+\item Disablity/Limited movement crowd -
+\item Cohesive/Spectator -
+\item Expressive/Revellous crowd -
+\item Participatory crowd -
+\item Aggressive/Hostile crowd -
+\item Demonstrator -
+\item Escaping/Trampling crowd -
+\item Dense/Suffocating crowd -
+\item Rushing/Looting crowd -
+\item Violent crowd -
+\end{itemize}
+
+\begin{table}
 \caption{Mapping between crowd types and emotions}
 \label{table:mappingEmotionCrowdType}
 \begin{tabular}{|p{2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|}
@@ -154,6 +223,8 @@ Ambulatory			& low 				& medium				& medium		& medium			& low 			& low 				& med
 Limited movement	& medium			& medium				& low 			& low 				& low 			& low 				& medium			& medium	\\
 \hline
 Spectator			& low 				& medium				& medium		& medium 			& low 			& medium			& low 				& low 		\\
+\hline
+Expressive			& low 				& medium				& medium		& medium 			& low 			& medium			& low 				& low 		\\
 \hline
 Participatory		& low 				& medium				& medium		& medium			& low 			& low 				& low 				& low 		\\
 \hline
