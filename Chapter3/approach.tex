@@ -1,5 +1,5 @@
 % !TEX root = ../thesis.tex
-\chapter{Approach}
+\chapter{Crowd Monitoring Framework}
 \label{ch:approach}
 % **************************** Define Graphics Path **************************
 \ifpdf
@@ -10,11 +10,9 @@
 
 \section{Introduction}
 \label{sec:approachIntro}
-Despite the importance of crowd monitoring in mass gathering events, the literature review in the previous chapter is able to identify several gaps in the research, especially in crowd modelling. Most state-of-art crowd monitoring techniques do not incorporate a typology to distinguish different types of crowd. In other words, no explicit type of crowd is defined in those approaches.
+Despite the importance of crowd monitoring in mass gathering events, the literature review in the previous chapter has identified several gaps in the research, especially in crowd modelling. Most state-of-art crowd monitoring techniques do not incorporate a typology to identify and distinguish different types of crowd. In other words, they lack the capability to make distinction of different crowd types that can occur in a mass gathering event. To address this issue, our proposed approach employs one of the most famous existing works on definition of crowd types in emergency management - the \citet{Berlonghi1995}'s model. Our approach also automates the classification of crowd type by considering the emotional conditions of the crowd. Those novelty attempts are integrated into a complete framework for real-time crowd monitoring, which will be discussed in detail in this chapter.
 
-say something more about crowd modelling
-
-conclude with the need of a crowd monitoring framework
+This chapter is structured as follow. Firstly, we will introduce the overview of our proposed crowd monitoring framework. Then we discuss each component in the framework in the following sections. The conclusion will give a summarised look at the framework.
 
 \section{An Overview of the Crowd Monitoring Framework}
 
@@ -22,7 +20,7 @@ The literature review in Chapter \ref{ch:litReview} has summarised that most of 
 
 Apart from the ``hard sensors'', the literature review also highlights that another type of information source known as the ``soft sensor'' can be used to detect the occurrence of stampede in a crowd which is the social media \citep{Ramesh2014}. The use of social media analysis for crowd monitoring has been introduced in a related work by \citet{DelirHaghighi2013}. It has the great advantage of feasibility as it only relies on the software and no additional hardware is required to be installed. Despite this strength, our literature review shows that very limited works have been done to utilize social media to support emergency management.
 
-Secondly, another finding from the literature review is that emotions are one of the key factors that motivate the collective behaviours \citep{Kornblum2011, jasper2011emotions}, which in our context are the crowd behaviours. For that reason, it is essential for a crowd monitoring approach to consider the influence of emotions in the crowd. Although human emotion is an abstract concept and very difficult to measure with ``hard sensors'', it is possible to capture the emotion of a person from the verbal expressions, such as text \citep{alm2005emotions} or speech \citep{sobin1999emotion}. This is where social media further proves its advantage over the ``hard sensors''. By applying analysis on the social media, we can capture the emotions in a crowd, thus enabling the inference of the crowd's condition. For that reason, in this project, we would like to propose a crowd monitoring framework that employs the emotion analysis of social media to support emergency management in mass gatherings. 
+Secondly, another finding from the literature review is that the actual behaviour of a crowd depends largely on the emotions of the participants \citep{Kornblum2011, jasper2011emotions}. For that reason, it is essential for a crowd monitoring approach to consider the influence of emotions in the crowd. Although human emotion is an abstract concept and very difficult to measure with ``hard sensors'', it is possible to capture the emotion of a person from the verbal expressions, such as text \citep{alm2005emotions} or speech \citep{sobin1999emotion}. This is where social media further proves its advantage over the ``hard sensors''. By applying analysis on the social media, we can capture the emotions in a crowd, thus enabling the inference of the crowd's condition. For that reason, in this project, we would like to propose a crowd monitoring framework that employs the emotion analysis of social media to support emergency management in mass gatherings. 
 
 Finally, the literature review also reveals another gap in the research that is the limitation of the crowd modelling employed in crowd monitoring approaches. Most existing crowd monitoring techniques do not base on any crowd model that can distinguish between different crowd types and identify the exact crowd type is happening without the interpretation of human. By exploring broader into other disciplines, our literature review points out several notable works on crowd modelling and classification in the police literature and public safely science. Among those works, \citet{Berlonghi1995}'s work stands out as the most commonly adopted model by the emergency management bureaus worldwide. Our proposed crowd monitoring framework is established on the \citet{Berlonghi1995}'s model which consists of eleven different crowd types. Yet, a systematic approach to classify one crowd into those types is challenging because \citet{Berlonghi1995}'s model only describes the crowd types and there is no attribute defined in the existing model to differentiate between them. Therefore, in our approach, we would like to propose a mapping model that connects the emotion model with crowd model, enabling the the fuzzy classification of crowd type by emotions. The reason fuzzy logic is utilized in our approach is because of its capability of representing multiple truths rather than the absolute true or false in classical logic. Since many crowd types can exist in one large crowd \citep{Berlonghi1995}, fuzzy logic is able to calculate the degree of membership of each crowd type in a particular crowd.
 
@@ -35,12 +33,12 @@ In conclusion, our proposed approach will address the gaps that are identified i
 
 \begin{figure}[htb!] 
 \centering    
-\includegraphics[width=1.0\textwidth]{ProcessOverview}
+\includegraphics[width=0.5\textwidth]{ProcessOverview}
 \caption{A process to identify a crowd type from social media}
 \label{fig:processOverview}
 \end{figure}
 
-From functional point of view, the process can be implemented into a framework. Figure \ref{fig:frameworkOverview} shows our framework consisting of following components:
+From the functional point of view, the process can be implemented into a framework. Figure \ref{fig:frameworkOverview} shows our framework consisting of following components:
 \begin{inparaenum}[i)]
 \item Context data;
 \item Emotion analysis;
@@ -57,7 +55,7 @@ From functional point of view, the process can be implemented into a framework. 
 \label{fig:frameworkOverview}
 \end{figure}
 
-\section{Context data}
+\section{Context Data}
 The first component of the framework is context data component. In our proposed framework, contextual data is gathered from the social media as the information source. Social media is the generic term referring to a wide range of Internet based tools that enable an user to create and share information with each other. These tools include social network services such as Facebook and Twitter, blogs, Internet forums and channels which has marked the beginning of Web 2.0. Unlike other traditional media such as newspaper or television, the content on social media is created by the users, or also known as user-generated content. In different social media, user-generated content can be in various formats such as text, image or video. Because of the fact that the content is being generated by the users themselves, social media is an effective source to obtain the knowledge about the users. In our domain and application of crowd monitoring, the kind of knowledge that is important to capture is the emotional state of the participants in the crowd. 
 
 In our research, we will focus on the use of social media, or Twitter in particular, as the information source for context data, because of following reasons. Firstly, among social media, Twitter is the most commonly used in researches because of its large volume of users and its public APIs which make the data highly accessible. The user-generated content is mostly text-based and in the form of a short message which has no more than 140 characters called tweet. Because of this length limit, a tweet is usually very simple in term of the meaning and each tweet focuses on expressing the idea of the author on one particular topic. This fact makes the semantic analysis of tweets more feasible than other content, for example, a long blog article.
@@ -72,16 +70,16 @@ Finally, using Twitter as the information source for crowd monitoring has some c
 
 From the literature review, a crowd type can be described as a form of collective behaviour of a group of people in close proximity. Both the Convergence Theory proposed by Allport, Millar and Dollard and the Emergent Norm Theory by Turner and Killian support the idea that a crowd behaviour is formed by people with a common motivation \citep{mcphail1991myth}. In our framework, we emphasize on the emotional factor as the common motivation of the behaviour in the crowd. Different emotions can consequently lead to different crowd behaviours. For example, according to Lofland, a panic exodus from burning theatre is motivated by the fear whereas a race riot is aroused by the anger \citep{Kornblum2011}. Therefore, an emotion model is essential to distinguish different emotions of the people in the crowd.
 
-To represent the emotions of the participants in a crowd, our framework adapts \citet{Plutchik1980}'s wheel of emotion as the baseline for human basic emotions. Figure \ref{fig:emotionModel} illustrates the eight different basic emotions identified by Plutchik, consisting of anger, anticipation, joy, trust, fear, surprise, sadness and disgust. Each basic emotion has an opposite emotion, with which together forms a pair of contradictory emotions, such as sadness/joy or fear/anger. According to Plutchik's theory of emotion, other human emotions are either being a form of the lower and higher intensity of the eight emotions, or being a complex emotion composed of multiple basic emotions. For example, aggressiveness is a combination of anger and anticipation or remorse is a combination of sadness and disgust.
+Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} is able to identify eight basic emotions consisting of four pairs of opposite emotions: anger/fear, joy/sadness, trust/disgust, anticipation/surprise. By looking at facial expression of human, Ekman suggests there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are anger, fear, happy, sadness, surprise and disgust, as illustrated in Figure \ref{fig:emotionModel}. This emotion model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet,alm2005emotions}. 
 
 \begin{figure}[htb!]
 \centering    
-\includegraphics[width=1.0\textwidth]{PlutchikModel}
-\caption{The Plutchik's wheel of emotions}
+\includegraphics[width=0.5\textwidth]{EkmanModel}
+\caption{Ekman's six basic emotions}
 \label{fig:emotionModel}
 \end{figure}
 
-As can be seen from Figure \ref{fig:emotionModel}, the emotion wheel has eight wings representing eight basic human emotions. In each wing, the intensity of an emotion is increasing as it gets closer to the centre of the wheel. Adjacent emotions can formulate another advanced emotion as mentioned in the earlier examples. However in our approach, the emotion model only concentrates on the most basic eight emotions, and will not explore further into the intensity nor the combination of these emotions.
+A recent research by \cite{Jack2014} has pointed out the similarity during the early signal of the facial expression between anger and disgust, as well as surprise and fear. For example, both anger and disgust share a wrinkled nose, and both surprise and fear share raised eyebrows. Based on these findings, they suggest only four basic emotions. The reduction in the number of basic emotions helps to simplify the complexity of the emotion model that is of our interest. Therefore, we will adopt the four basic emotions: anger, fear, happy, sadness as our model in the proposed framework.
 
 \section{Emotion Analysis of Social Media}
 
@@ -94,15 +92,15 @@ Bag-Of-Word model is a simple representation of a document which only considers 
 
 Figure showing Bag-Of-Word and tokenizer.
 
-In the Bag-Of-Word representation, the number of occurrence of a word in the tweet contributes to its significance in the tweet. For example, if a word appears twice in the tweet, it will have a doubled weight compared with words with single appearance, thus being more significant. In our context of emotion analysis, the weight of a word represents its association with a specific emotion from the list of eight basic emotions mentioned above. Therefore, a word will have eight weight scores for each emotions: anger, anticipation, joy, trust, fear, surprise, sadness and disgust, which can be illustrated by a proposed ``emotional weight vector'' with eight dimensions corresponding to the eight emotions. 
+In the Bag-Of-Word representation, the number of occurrence of a word in the tweet contributes to its significance in the tweet. For example, if a word appears twice in the tweet, it will have a doubled weight compared with words with single appearance, thus being more significant. In our context of emotion analysis, the weight of a word represents its association with a specific emotion from the list of four basic emotions mentioned above. Therefore, a word will have four weight scores for each emotions: anger, fear, happy, sadness, which can be illustrated by a proposed ``emotional weight vector'' with four dimensions corresponding to the four emotions. 
 \[
-	\vec{v_i}(v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8)
-\] where \(v_i\) is an emotional weight vector of a word and \(v_{1...8}\) are eight dimensions representing eight emotions.
+	\vec{v_i}(v_1, v_2, v_3, v_4)
+\] where \(v_i\) is an emotional weight vector of a word and \(v_{1...4}\) are four dimensions that represent the four emotions.
 
-In conclusion, using Bag-Of-Word approach, we can consider that a tweet consists of a series of words, each of which has its association with the eight emotions described by a emotional weight vector. The next section will cover the method to to calculate the ``emotional weight vectors'' of words and to identify the dominating emotion in a tweet.
+In conclusion, using the Bag-Of-Word approach, we can consider that a tweet consists of a series of words, each of which has its association with the eight emotions described by a emotional weight vector. The next section will cover the method to to calculate the ``emotional weight vectors'' \(\vec{v_i}\) of the words and identify the dominating emotion in a tweet.
 
 \subsection{Emotion Word Corpus and Emotional Weight Vector}
-Our emotion analysis can be considered as a supervised classification of emotion for a tweet. The analysis requires a collection of words to be gathered and the ``emotional weight vector'' of each word in the collection must be calculated accordingly. Such collection is often referred as the corpus. In order for the calculation of ``emotional weight vector'', a corpus of tweets that have been labelled with a correct emotion for each tweet is necessary.
+Our emotion analysis can be considered as a supervised classification of emotion for a tweet. The analysis requires a collection of words to be gathered and the ``emotional weight vector'' \(\vec{v_i}\) of each word in the collection must be calculated accordingly. Such collection is often referred as the corpus. In order for the calculation of ``emotional weight vector'' to be perform, a corpus of tweets that have been labelled with a correct emotion for each tweet is necessary.
 
 Emotion analysis from text is not a new area in the field of natural language processing. There have been a number of works regarding the construction of text-emotion corpus from various sources such as mails \citep{mohammad2011tracking} and books \citep{mohammad2011once}, newspaper headlines \citep{strapparava2008learning}. Those proposed corpora can be integrated into our framework. However, the language used in a tweet can be significantly different from other text content because of the difference in the usages that a tweet is limited to 140 characters and the users mostly use Twitter to update on themselves or share information. Therefore, only the corpora that are built from Twitter will be of interest to our the framework.
 
@@ -199,7 +197,7 @@ Although the psychoevolutionary theory is based on the basic emotions and the th
 
 \begin{itemize}
 \item Ambulatory crowd - is described by the walking action and calmness \citep{Zeitz2009}. This calmness potentially indicates a low intensity in all emotions.
-\item Disablity/Limited movement crowd - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion.
+\item Disablity/Limited movement crowd - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion.	
 \item Cohesive/Spectator - is described by the activity watching a specific event and the fact that people have the interest in watching the event. Being interested is a low extreme form of anticipation. The watching action is attracted by the unexpected things occurred the event, which causes surprise. According to \citet{Lofland1985}'s typology of collective behaviour, joy can appear in the crowd in such events as rock concerts and sport events. Therefore, this crowd type might have medium level of anticipation and joy and surprise.
 \item Expressive/Revellous crowd - is described by the emotional release. This action is caused by the high intensity of joy.
 \item Participatory crowd - is described by the participating action in a specific event. Similarly to the spectator type, this crowd type might be motivated by the joy and anticipation. In a participatory crowd, there is a considerable psychological unity, which suggests the level of intensity of trust is high.
