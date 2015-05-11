@@ -133,9 +133,9 @@ Because of the fact that people with different emotional state can exist in one 
 \[
 	\forall e_i \in \{anger, fear, happy, sadness\}: d(e_i)_t = \frac{n(e_i)_t}{N_t}
 \]
-where \(d(e_i)_t}\) is the degree of membership toward emotion \(e_i\), \(N_t\) is the total number of data sampled during \(t\) and \(n(e_i)_{t_j}\) is the number of data classified with emotion \(e_i\) among \(N_t\).
+where \(d(e_i)_t\) is the degree of membership toward emotion \(e_i\), \(N_t\) is the total number of data sampled during \(t\) and \(n(e_i)_t\) is the number of data classified with emotion \(e_i\) among \(N_t\).
 
-This degree of membership \(d(e_i)\) can have any value from 0 to 1, indicating the how close the emotion of the crowd is to \(e_i\) at time \(t_j\). The calculation of the degrees of membership is performed repetitively with an interval which allows us to detect the change of emotional state of the crowd. The value of \(t\) has influence on the sensitivity of the detection and depends on the sampling rate.
+This degree of membership \(d(e_i)\) can have any value from 0 to 1, indicating the how close the emotion of the crowd is to \(e_i\) at specific time period \(t\). The calculation of the degrees of membership is performed repetitively with an interval which allows us to detect the change of emotional state of the crowd. The value of \(t\) has influence on the sensitivity of the detection and depends on the sampling rate.
 
 \section{Crowd Model}
 
@@ -212,7 +212,11 @@ Surprise & Stop & Orientation & Indecisive \\
 \end{tabular}
 \end{table}
 
-Although the psychoevolutionary theory is based on the basic emotions and the their very primitive stimuli and derivative behaviours, it can be applied to our context of modern crowd. A crowd type that we can observe can be both the stimulus events triggering the emotions or the overt behaviours triggered by the emotions. Therefore, in order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. We will extract the behaviour language and trait language from those descriptions and attempt to map them back to the potential emotions of the crowd. For each emotion, we also define three levels which are low, medium and high to represent different intensity of that emotion. 
+Although the psychoevolutionary theory is based on the basic emotions and the their very primitive stimuli and derivative behaviours, it can be applied to our context of modern crowd. A crowd type that we can observe can be both the stimulus events triggering the emotions or the overt behaviours triggered by the emotions. Therefore, in order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. We will extract the behaviour language and trait language from those descriptions and attempt to map them back to the potential emotions of the crowd. 
+
+****** REVISED PART ******
+
+For each emotion, we also define three level which are low, medium and high to represent different levels of intensity of that emotion. 
 
 \begin{itemize}
 \item Ambulatory crowd - is described by the walking action and calmness \citep{Zeitz2009}. This calmness potentially indicates a low intensity in all emotions.
@@ -261,6 +265,8 @@ Violent	& high & low & low & low & low & low & low & high \\
 \hline
 \end{tabular}
 \end{table}
+
+****** END OF REVISED PART ******
 
 \section{Rule Based Reasoning}
 
