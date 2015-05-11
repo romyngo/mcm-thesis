@@ -120,7 +120,7 @@ From the weight vectors of the words constructing a tweet, the dominating emotio
 \subsection{Voting System and Dominant Emotion}
 Because a word can have the different weights in the eight emotions, a tweet consisting of a set of words also consequently possesses its association with the eight emotions. It can be notated as a vector that is summation of the weight vectors of the words constructing the tweet.
 \[
-	\vec{V} = \sum_{i=1}^{n} \vec{v_i}(v_1, v_2, v_3, v_4, v_5, v_6, v_7, v_8)
+	\vec{V} = \sum_{i=1}^{n} \vec{v_i}(v_1, v_2, v_3, v_4)
 \]
 where \(\vec{V}\) is the summative weight vector of the tweet, \(\vec{v_i}\) is a weight vector of one word and \(n\) is the total number of words in the tweet.
 
@@ -129,24 +129,31 @@ Although a tweet might be associated with all eight emotions, a specific emotion
 \subsection{Emotions in the Crowd}
 As illustrated by Figure \ref{fig:processOverview}, the tweets collected in the first stage of the process provides the context at the raw-level about a crowd in a mass gathering. By performing the emotion analysis, the dominant emotion in each tweet can be extracted. This emotion in fact represents the emotion of an individual in the crowd rather than the crowd as a whole. The relationship between individual emotion and group emotion has been discussed in several researches. \citet{barsade1998group} suggest the top-down approach that the group emotion can arise and felt by individual member, while at the same time, in a bottom-up manner the group emotion can be shaped by the compositional effects of individual emotions. This theory confirms the possibility to represent the crowd emotion as whole from the individuals' emotion.
 
-Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To measure the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion \(e_i\) at a given time \(t_j\) is calculated by below formula.
+Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To measure the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion \(e_i\) at a given period \(t\) is calculated by below formula.
 \[
-	\forall e_i \in \{anger, fear, happy, sadness\} d(e_i) = \frac{n(e_i)}{N}
+	\forall e_i \in \{anger, fear, happy, sadness\}: d(e_i)_t = \frac{n(e_i)_t}{N_t}
 \]
-where \(d(e_1)_{t_j}\) is the degree of membership toward emotion \(e_1\), \(N\) is the total number of data sampled between \(t_{j-1}\) and \(t_j\) and \(n(e_i)\) is the number of data classified with emotion \(e_i\) in \(N\).
+where \(d(e_i)_t}\) is the degree of membership toward emotion \(e_i\), \(N_t\) is the total number of data sampled during \(t\) and \(n(e_i)_{t_j}\) is the number of data classified with emotion \(e_i\) among \(N_t\).
 
 This degree of membership \(d(e_i)\) can have any value from 0 to 1, indicating the how close the emotion of the crowd is to \(e_i\) at time \(t_j\). The calculation of the degrees of membership is performed repetitively with an interval which allows us to detect the change of emotional state of the crowd. The value of \(t\) has influence on the sensitivity of the detection and depends on the sampling rate.
 
 \section{Crowd Model}
 
-The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. From the emergency management point of view, the literature review highlights \citet{Berlonghi1995}'s model as one of the most significant works on crowd types. As mentioned in Chapter \ref{ch:litReview}, \citet{Berlonghi1995} has identified eleven different types of crowd in mass gathering. Each crowd type is described by the movement, participation and behaviour \citep{Zeitz2009}. \citet{Berlonghi1995}'s definition has been widely adopted as the guideline by the emergency bureaus in Australia and United States of America. Eleven types of crowd include:
+The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. From the emergency management point of view, the literature review highlights \citet{Berlonghi1995}'s model as one of the most significant works on crowd types. As mentioned in Chapter \ref{ch:litReview}, \citet{Berlonghi1995} has identified eleven different types of crowd in mass gathering. Each crowd type is described by the movement, participation and behaviour \citep{Zeitz2009}. \citet{Berlonghi1995}'s definition has been widely adopted as the guideline by the emergency bureaus in Australia \citep{EMA1999} and USA \citep{FEMA2005}. Eleven types of crowd are described as below.
 \begin{itemize}
-\item 
-\item
-\item
+\item Ambulatory crowd - is a crowd walking in and out of a venue, to and from parking areas or walking to use restroom or concession facilities.
+\item Disability/limited movement crowd - is a crowd of people that in some way are limited or restricted in their movement. Their level or lack of ability to walk, see, hear or speak may require more planning than is provided for all other spectators.
+\item Cohesive/spectator crowd is a crowd watching the activities of an event or at the scene of an accident. Its primary character is the fact that people are interested in watching something specific that they came to see.
+\item Expressive/revellous crowd - is one involved in some sort of an emotional release which can include cheering, movement in unison, celebrating, dancing, chanting or singing.
+\item Participatory crowd - is the crowd of people involved in the actual activities of an event. Sometimes these people may be professional performers or athletes. At other times the people attending the event are participating in an actual sport, such as a marathon. Children may go up onto a stage to perform at the invitation of professional performers.
+\item Aggressive/hostile crowd - is one that is becoming verbally aggressive towards or disregarding the instructions of ticket takers, ushers or security personnel. This crowd can get threateningly rowdy and is very open to lawlessness.
+\item Demonstrator crowd - is one that is organised to some degree by some established leadership and whose actions may include picketing, marching, chanting or demonstrating at a particular location for a specific purpose.
+\item Escaping/trampling crowd - is one that is attempting to escape from danger either of an actual or imagined threat to life. This includes a crowd involved in an organised evacuation procedure and a panic mob pushing and shoving with no order whatsoever.
+\item Dense/suffocating crowd - is one in which individual physical movement is rapidly becoming less likely or impossible due to the density of the crowd. People are attempting to move,but they are either swept along with the movement of the crowd or are falling on top of each other. The results of this compression of people are fatalities and serious injuries due to suffocation.
+\item Rushing/looting crowd - is one whose principal purpose is to obtain, acquire or steal something. This includes rushing to get the most preferred seats, autographs or actually stealing property. This very often results in fatalities, serious injuries and considerable property damage.
+\item Violent crowd - is a crowd that is attacking, terrorising and rioting with complete disregard for laws and the rights of others.
 \end{itemize}
-
-However, relying only on the description, it is difficult to make distinct of different crowd types without human observation and judgement on the spot. Hence, there is a need to introduce attributes or features to the existing model for a systematic approach to perform the classification of crowd type. In our proposal framework, we introduce the four basic emotions into \citet{Berlonghi1995}'s crowd model. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
+However, relying only on the description, it is difficult to make distinct of different crowd types without human observation and judgement on the spot. Therefore, there is a need to introduce attributes or features to the existing model for a systematic approach to perform the classification of crowd type. In this proposal framework, the four basic emotions: anger, fear, happy and sadness are introduced as the features of \citet{Berlonghi1995}'s crowd types. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
 
 \section{Emotion - Crowd Type Mapping Model}
 In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, anticipation, joy, trust, fear, surprise, sadness and disgust are used as the eight features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion. Our mapping is based on \citet{Plutchik1980}'s psychoevolutionary theory of emotion which explains emotion as a apart of evolutionary process. According to this theory, the emotional process can be modelled by a sequential model which starts with stimulus events. Based on the interpretation or cognition of these events, humans feel the emotions accordingly. The feeling state of emotion then triggers the overt behaviours or actions to achieve a desired effect. Table \ref{table:sequentialModelOfEmotion} presents the primitive sequential model of emotional process.
@@ -258,11 +265,19 @@ Violent	& high & low & low & low & low & low & low & high \\
 \section{Rule Based Reasoning}
 
 \subsection{Fuzzifier}
-We convert the numerical values of the frequency of appearance of an emotion into linguistic label: low, medium and high by applying following rules
+As introduced in the previous section, the emotions in the crowd are measured by the degrees of membership \(d(e_i)\) in the form of of numerical values between 0 and 1. In our mapping above, we use linguistic labels such as low, medium and high to describe the intensify of each emotion. Fuzzifier is the component converting the discrete numerical values into categorical values used in fuzzy logic. 
 
-if the value is below the low threshold of that emotion then the label is low
-if the value is above the low threshold and below the high threshold then the label is medium
-if the value is above the high threshold then the label is high
+Firstly, the meaning of linguistic labels must be defined. Low, medium and high represent the three levels of intensity of an emotion. The intensity increase with the higher of the level. Secondly, there are certain points in the degree of membership that the intensity of an emotion changes from low level to medium level and from medium level to high level. These two points are defined as threshold \(th_1\) and \(th_2\) respectively. The conversion from crisp values of the degree of membership to linguistic label can be performed by following rules.
+\[
+d(e_i) \leq th_1(e_i) \Rightarrow label = low
+\]
+\[
+d(e_i) > th_1(e_i) \land d(e_i) < th_2(e_i) \Rightarrow label = medium
+\]
+\[
+d(e_i) \geq th_2(e_i) \Rightarrow label = high
+\]
+The thresholds are important to detect the abnormal increasing in one particular emotion. Firstly, because of the fact that people post unequal number of tweets in each emotion as their normal behaviour, the thresholds can be not the same for different emotions. Secondly, because of the cultural difference, the content shared on Twitter is very different across different countries and cultures. People in one country might normally post more happy content than people living in a problematic region. Moreover, even among the group of users, emotional content can also vary during different period. For example, people tend to tweet more happy content than usual around Christmas and New Year holiday. Therefore, the choice of the two thresholds for one emotion, such as happy, actually depend on the region and time. In our experiment, we propose an approach to calculate the thresholds for our experimental dataset that is collected in one specific event in the past.
 
 \subsection{Rule Repository}
 
@@ -271,9 +286,5 @@ list 11 rules here for 11 crowd types
 \subsection{Inference Engine}
 
 Fuzzy rule here and the mathematical formula here
-
-\subsection{Output Processor}
-
-the output is a vector of each crowd and its weight
 
 \section{Conclusion}
