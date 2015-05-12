@@ -70,7 +70,7 @@ Finally, using Twitter as the information source for crowd monitoring has some c
 
 From the literature review, a crowd type can be described as a form of collective behaviour of a group of people in close proximity. The other form of collective behaviour is mass which involves people dispersed in a large area and does not belong to our context of emergency management in mass gathering. Both the Convergence Theory proposed by Allport, Millar and Dollard and the Emergent Norm Theory by Turner and Killian support the idea that a crowd behaviour is formed by people with a common motivation \citep{mcphail1991myth}. In our framework, we emphasize on the emotional factor as the common motivation of the behaviour in the crowd. Different emotions can consequently lead to different crowd behaviours. For example, according to Lofland, a panic exodus from burning theatre is motivated by the fear whereas a race riot is aroused by the anger \citep{Kornblum2011}. Therefore, an emotion model is essential to distinguish different emotions of the people in the crowd.
 
-Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} is able to identify eight basic emotions consisting of four pairs of opposite emotions: anger/fear, joy/sadness, trust/disgust, anticipation/surprise. By looking at facial expression of human, \citet{ekman1971constants} suggests there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are anger, fear, happiness, sadness, surprise and disgust as illustrated in Figure \ref{fig:emotionModel}. This emotion model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet, alm2005emotions}. 
+Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list \citep{Ortony1990}. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} is able to identify eight basic emotions consisting of four pairs of opposite emotions: anger/fear, joy/sadness, trust/disgust, anticipation/surprise. By looking at facial expression of human, \citet{ekman1971constants} suggests there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are anger, fear, happiness, sadness, surprise and disgust as illustrated in Figure \ref{fig:emotionModel}. This emotion model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet, alm2005emotions}. 
 
 \begin{figure}[htb!]
 \centering    
@@ -131,7 +131,7 @@ As illustrated by Figure \ref{fig:processOverview}, the tweets collected in the 
 
 Because of the fact that people with different emotional state can exist in one crowd, we introduce the fuzziness to the representation of emotions in a crowd. The fuzziness allows a crowd to have multiple emotions with a different degree of membership toward each emotion. To measure the degree of membership of a crowd to a specific emotion from the individual emotion of the participants, we propose following method. The degree of membership of a crowd's emotion to emotion \(e_i\) at a given period \(t\) is calculated by below formula.
 \[
-	\forall e_i \in \{anger, fear, happy, sadness\}: d(e_i)_t = \frac{n(e_i)_t}{N_t}
+	\forall e_i \in \{anger, fear, happiness, sadness\}: d(e_i)_t = \frac{n(e_i)_t}{N_t}
 \]
 where \(d(e_i)_t\) is the degree of membership toward emotion \(e_i\), \(N_t\) is the total number of data sampled during \(t\) and \(n(e_i)_t\) is the number of data classified with emotion \(e_i\) among \(N_t\).
 
@@ -179,7 +179,7 @@ Member of a group & Friend & Acceptance (Trust) & Groom & Mutual support \\
 \hline
 Unpalatable object & Poison & Disgust & Vomit & Eject poison \\
 \hline
-New territory & Examine & Expectation (Anticipation) & Map & Knowledge of territory \\
+New territory & Examine & Expectation & Map & Knowledge of territory \\
 \hline
 Unexpected event & What is it & Surprise & Stop & Gain time to orient \\
 \hline
@@ -207,74 +207,78 @@ Acceptance (Trust) & Groom & Incorporation & Trusting \\
 \hline
 Disgust & Vomit & Rejection & Hostile \\
 \hline
-Expectation (Anticipation) & Map & Exploration & Demanding \\
+Expectation & Map & Exploration & Demanding \\
 \hline
 Surprise & Stop & Orientation & Indecisive \\
 \hline
 \end{tabular}
 \end{table}
 
-Another work
+Regarding the emotional language, another notable work that plays an important role in our construction of the mapping is from \citet{russell1980circumplex}. In this study, 28 emotional works are placed into a two dimensional space based on their degree of arousal and pleasure (see Figure \ref{fig:emotionSpace}). These affective words include \textit{angry}, \textit{afraid}, \textit{happy} and \textit{sad} which are used to refer the four basic emotions: \textit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness} respectively. From this map, the relative position of a word from the four basic emotions can be observed.
 
-Therefore, in order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. The behaviour language and trait language from those descriptions are extracted and referenced to the four emotions: fear, anger, happy, sadness. The objective of this process is to identify the dominant emotions in each crowd type.
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.75\textwidth]{EmotionSpace}
+\caption{Russell's two dimensional map of emotion space}
+\label{fig:emotionSpace}
+\end{figure}
+
+In order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. The behaviour language and trait language from those descriptions are extracted and referenced to the four emotions: fear, anger, happiness, sadness. The objective of this process is to identify the dominant emotions in each crowd type. 
 
 \begin{itemize}
-\item Ambulatory crowd - is described by the action walking and the calmness \citep{Zeitz2009}.
+\item Ambulatory crowd - is characterised by the action walking and the calmness \citep{Zeitz2009}. According to \citet{russell1980circumplex}'s emotion space, \textit{calm} is located in a completely opposite region with \textit{angry} and \textit{afraid}. Although both \textit{calm} and \textit{sad} have negative level of arousal, the former has a positive degree of pleasure while the latter does not. Therefore, all four emotions are dominating in this crowd type.
+\item Disablity/Limited movement crowd - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion. Hence, no emotion in the four is considered to be the dominant emotion in this crowd type.
+\item Cohesive/Spectator - is described by the activity watching a specific event and the fact that people have the interest in watching the event. Similarly, they do not signal the dominant occurrence of any emotion.
+\item Expressive/Revellous crowd - is characterised by the emotional release. The word \textit{revellous} originates from ``revel'' which means lively and noisy enjoyment. This indicates a high level of arousal with a positive pleasure in the \citet{russell1980circumplex}'s emotion space, which is close to \textit{happy}. Therefore, it can be inferred that this crowd type has a high intensity of \textit{happiness} as the dominant emotion.
+\item Participatory crowd - is described by the action participating in a specific event. Although, the description does not suggest any clue on the emotional state of the participants, one example for a participatory crowd is people taking part in an actual sport event. Regarding sport psychology, studies show that sensation seeking and arousal seeking motivate the participations in sports, especially risk involved sports. This indicates a positive level of arousal that can be observed from a participatory crowd, thus suggesting \textit{happiness} as the dominating emotion as well. Compared to expressive crowd, the intensity of \textit{happiness} can be lower.
+\item Aggressive/Hostile crowd - is described by the verbal aggressiveness and disregard for instruction. \textit{Aggressiveness} is aroused by \textit{anger}. The \textit{aggressiveness} is limited by verbal expression, which hints that the intensity of \textit{anger} is at medium level.
+\item Demonstrator - includes such actions as picketing, marching, protesting. According to Lofland's typology of spontaneous collective behaviours \citep{Kornblum2011}, such crowds are classified into \textit{hostile} crowd aroused by \textit{anger}. This crowd type is described to have some degree of organisation and leadership, which suggests the level of \textit{aggressiveness} is not intensive. Therefore, a low level of \textit{anger} can be considered to be the dominant emotion in this crowd type.
+\item Escaping/Trampling crowd - is described by the escaping action from a danger or a threat. This \textit{escaping} behaviour is triggered by \textit{fear} according to Plutchik's evolutionary theory. Loftland's typology also classifies such crowd under the fearful crowd \cite{Kornblum2011}. Hence, the dominating emotion can be identified in this crowd type is clearly a high intensity of \textit{fear}.
+\item Dense/Suffocating crowd - is characterised by the extremely high density and inability of movement in the crowd. Recent research on brain claims that suffocation might cause fear as the experiments with mice shows that inhaled carbon dioxide reduces brain pH and evoke fear behaviour \citep{ziemann2009amygdala}.
+\item Rushing/Looting crowd - is described by the desire to acquire something. Studying the looting behaviour in London riot in 2011, \citet{ray2014shame} suggests the shame theory of violence which might has relevance in accounting for the violent disturbance. \textit{Shame} falls into the region with low arousal and negative pleasure together with the basic emotion \textit{sad}, which indicates the closeness of the two affective words. On the other hand, \textit{violence} is aroused by \textit{anger}, hence a mixture of \textit{anger} and \text{sadness} can be considered the dominating emotions in a looting crowd.
+\item Violent crowd - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour triggered by \textit{anger}. This crowd type has a high level of \textit{anger}.
 \end{itemize}
 
-****** REVISED PART ******
-
-For each emotion, we also define three level which are low, medium and high to represent different levels of intensity of that emotion. 
-
+As we can notice from above analysis, five distinct groups of crowd types can be identified by the similarity in the dominating emotions. 
 \begin{itemize}
-\item Ambulatory crowd - is described by the walking action and calmness \citep{Zeitz2009}. This calmness potentially indicates a low intensity in all emotions.
-\item Disablity/Limited movement crowd - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion.	
-\item Cohesive/Spectator - is described by the activity watching a specific event and the fact that people have the interest in watching the event. Being interested is a low extreme form of anticipation. The watching action is attracted by the unexpected things occurred the event, which causes surprise. According to \citet{Lofland1985}'s typology of collective behaviour, joy can appear in the crowd in such events as rock concerts and sport events. Therefore, this crowd type might have medium level of anticipation and joy and surprise.
-\item Expressive/Revellous crowd - is described by the emotional release. This action is caused by the high intensity of joy.
-\item Participatory crowd - is described by the participating action in a specific event. Similarly to the spectator type, this crowd type might be motivated by the joy and anticipation. In a participatory crowd, there is a considerable psychological unity, which suggests the level of intensity of trust is high.
-\item Aggressive/Hostile crowd - is described by the verbal aggressiveness and disregard for instruction. Aggressiveness is caused by anger while disregard is a form of rejection. The aggressiveness is limited by verbal expression, which indicates that the intensity of anger is medium in this crowd type. Because of the disregard attitude of the member in the crowd, the disgust level is medium.
-\item Demonstrator - including such actions as picketing, marching, protesting is a result of the rejection against something, which is motivated by the disgust. Research in protest shows that the primary emotions in a protest can potentially include anger, trust, sorrow, fear and even joy \citep{jasper1998emotions}. Therefore, the demonstrator crowd might have high level of disgust while having medium intensity of fear, anger joy and sadness.
-\item Escaping/Trampling crowd - is described by the escaping action from a danger or a threat. This behaviour is the result of fear, therefore the crowd type must have high intensity of fear. This is also fully matched with \citet{Lofland1985}'s typology that fear motivates the panic escaping crowd.
-\item Dense/Suffocating crowd - is described by the high density and incapability of moving in the crowd. The state of getting swept by the crowd might cause fear and despair. Therefore, there is a medium level of fear and sadness in this crowd type.
-\item Rushing/Looting crowd - is described by the purpose to obtain, acquire and steal something. These actions belong to the gain of value stimulus which will trigger the joy. On the other hand, the desire for such value is originated from the demand, which triggers the anticipation. Therefore, the level of joy and anticipation must be high in this case. In a looting, the crowd lacks the unity and order, but rather consists of acquisitive or opportunistic individual acting for their own demand. This indicates the medium level of disgust.
-\item Violent crowd - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour motivated by anger while disregard is caused by disgust. As a result, the intensity of anger in the crowd must be extremely high while disgust also is high because laws and other people's rights are completed ignored.
+\item The first group consists of ambulatory, disability/limited movement and cohesive/spectator crowd, which suggest no dominant emotion. From the emergency management point of view, those three types do not pose potential danger. Therefore, in our crowd monitoring framework, the three crowd types will be grouped and monitored as a same type.
+\item The second group is motivated by \textit{fear} consisting of escaping/trampling and dense/suffocating crowd.
+\item The third group is aroused by \textit{anger} and includes aggressive/hostile, demonstrator and violent crowd.
+\item The fourth group is characterised by \textit{happiness}. Expressive/revellous and participatory crowd belong to this group.
+\item The fifth group is rushing/looting crowd which has both \textit{anger} and \textit{sadness} as the dominant emotions.
 \end{itemize}
-
-Other emotions which are not described in the explanation should be given the default rate as low. Table \ref{table:mappingEmotionCrowdType} summarises the relationship between a crowd type and the eight basic emotions.
 
 \begin{table}
 \caption{Mapping between crowd types and emotions}
 \label{table:mappingEmotionCrowdType}
-\begin{tabular}{|p{2cm}|p{1.2cm}|p{2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|}
+\begin{tabular}{|p{6cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|}
 \hline
-\textbf{Crowd type} & \textbf{Anger} & \textbf{Anticipation} & \textbf{Joy} & \textbf{Trust} & \textbf{Fear} & \textbf{Surprise} & \textbf{Sadness} & \textbf{Disgust} \\
+\textbf{Crowd type} & \textbf{Anger} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} \\
 \hline
-Ambulatory & low & low & low & low & low & low & low & low \\
+Ambulatory & & & & \\
 \hline
-Disability / Limited movement & low & low & low & low & low & low & low & low \\
+Disability / Limited movement & & & & \\
 \hline
-Cohesive / Spectator & low & medium & medium & low & low & medium & low & low \\
+Cohesive / Spectator & & & & \\
 \hline
-Expressive / Revellous & low & low & high & low & low & low & low & low \\
+Expressive / Revellous & & & & \\
 \hline
-Participatory & low & medium & medium & high & low & low & low & low \\
+Participatory & & & & \\
 \hline
-Aggressive / Hostile & medium & low & low & low & low & low & low & medium \\
+Aggressive / Hostile & & & & \\
 \hline
-Demonstrator & medium & low & medium & low & low & low & medium & high \\
+Demonstrator & medium &  &  & \\
 \hline
-Escaping & low & low & low & low & high & low & low & low \\
+Escaping / Trampling & & & & \\
 \hline
-Dense / Suffocating	& low & low & low & low & medium & low & medium & low \\
+Dense / Suffocating	& & & & \\
 \hline
-Rushing	/ Looting & low & high & high & low & low & low & low & medium \\
+Rushing	/ Looting & & & & \\
 \hline
-Violent	& high & low & low & low & low & low & low & high \\
+Violent & & & & \\
 \hline
 \end{tabular}
 \end{table}
-
-****** END OF REVISED PART ******
 
 \section{Rule Based Reasoning}
 
