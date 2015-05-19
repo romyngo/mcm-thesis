@@ -153,17 +153,22 @@ where \(d(e_i)_t\) is the distribution of emotion \(e_i\), \(N_t\) is the total 
 This distribution \(d(e_i)\) can have any value from 0 to 1, indicating the how strong the emotion \(e_i\) of the crowd is at specific time period \(t\). This calculation is performed repetitively after an interval which enables us to detect the change of emotional state in the crowd. Hence, the value of \(t\) has influence on the sensitivity of the detection and depends on the sampling rate.
 
 \subsection{Labelling the Level of Density of an Emotion}
-Although the distribution of an emotion in a crowd is able to show the significance of that emotion compared to others, it is not sufficient to tell whether the level of an emotion is normal or not, especially in term of intensity. Hence, such linguistic labels as low, medium and high are defined to identify different level of intensity of an emotion. The intensity increase with the increasing of the level from low to high. There are certain points in the degree of membership that the intensity of an emotion changes from low level to medium level and from medium level to high level. These two points are defined as threshold \(th_1\) and \(th_2\) respectively. The conversion from numerical values of the distribution of emotion \(e_i\) to a linguistic label can be performed by following rules.
-\[
-d(e_i) \leq th_1(e_i) \Rightarrow label = low
-\]
-\[
-d(e_i) > th_1(e_i) \land d(e_i) < th_2(e_i) \Rightarrow label = medium
-\]
-\[
-d(e_i) \geq th_2(e_i) \Rightarrow label = high
-\]
-The thresholds are important to detect the abnormal increasing in one particular emotion, however they are application specific. Firstly, because as their normal behaviour, people tend to post an unequal number of tweets for each emotion, the thresholds can be not the same for different emotions. For instance, happy tweets appear more frequently than angry tweets. Secondly, because of the cultural difference, the content shared on Twitter is very different across different countries and cultures. People in one country might normally post more happy content than people living in a problematic region. Moreover, even among the group of users, emotional content can also vary during different period. For example, people tend to tweet more happy content than usual around Christmas and New Year holiday. Therefore, the choice of the two thresholds for one emotion, such as happy, actually depend on the region and time. In our experiment, we propose an approach to calculate the thresholds using the dataset that is collected in a specific event.
+Although the distribution of an emotion in a crowd is able to show the significance of that emotion compared to others, it is not sufficient to tell whether the level of an emotion is normal or not, especially in term of intensity. Hence, such linguistic labels as low, medium and high are defined to identify different level of intensity of an emotion. The intensity increase with the increasing of the level from low to high. There are certain points in the degree of membership that the intensity of an emotion changes from low level to medium level and from medium level to high level. These two points are defined as threshold \(t_1\) and \(t_2\) respectively. The conversion from numerical values of the distribution of emotion \(e_i\) to a linguistic label can be performed by following rules.
+\begin{equation}
+\label{eq:lowDensityEmotion}
+d(e_i) \leq t_1(e_i) \Rightarrow label = low
+\end{equation}
+
+\begin{equation}
+\label{eq:mediumDensityEmotion}
+d(e_i) > t_1(e_i) \land d(e_i) < t_2(e_i) \Rightarrow label = medium
+\end{equation}
+
+\begin{equation}
+\label{eq:highDensityEmotion}
+d(e_i) \geq t_2(e_i) \Rightarrow label = high
+\end{equation}
+The thresholds are important to detect the abnormal increasing in one particular emotion, yet they are application specific. Firstly, because as their normal behaviour, people tend to post an unequal number of tweets for each emotion, the thresholds can be not the same for different emotions. For instance, happy tweets appear more frequently than angry tweets. Secondly, because of the cultural difference, the content shared on Twitter is very different across different countries and cultures. People in one country might normally post more happy content than people living in a problematic region. Moreover, even among the group of users, emotional content can also vary during different period. For example, people tend to tweet more happy content than usual around Christmas and New Year holiday. Therefore, the choice of the two thresholds for one emotion, such as happy, actually depend on the region and time. In our experiment, we propose an approach to calculate the thresholds using the dataset that is collected in a specific event.
 
 \section{Crowd Model}
 
@@ -189,7 +194,7 @@ In the previous sections, we have discussed the possibility to detect the emotio
 Our mapping is based on several significant studies on human emotion. One of the theory is \citet{Plutchik1980}'s psychoevolutionary theory of emotion which explains emotion as a apart of evolutionary process. According to this theory, the emotional process can be modelled by a sequential model which starts with stimulus events. Based on the interpretation or cognition of these events, humans feel the emotions accordingly. The feeling state of emotion then triggers the overt behaviours or actions to achieve a desired effect. Table \ref{table:sequentialModelOfEmotion} presents the primitive sequential model of emotional process.
 
 \begin{table}
-\caption{Sequential model of the emotional process}
+\caption{Sequential model of the emotional process (Taken from \citet{plutchik2001integration})}
 \label{table:sequentialModelOfEmotion}
 \centering
 \begin{tabular}{|p{2.5cm}|p{2.3cm}|p{2.3cm}|p{2.3cm}|p{3.5cm}|}
@@ -218,7 +223,7 @@ Unexpected event & What is it & Surprise & Stop & Gain time to orient \\
 In one of his works, \citet{plutchik2001integration} has also summarised the relationship between emotions and their derivatives including their behaviour language, functional language and trait language. The functional language presents the pattern of adaptation to the stimulus event while the behaviour language can describe the actual actions that are derived from a specific emotion. The trait language refers to the personality that is related to that emotion. For example, fear can trigger the escaping action, for the course of protection, and it is caused by timidity. Table \ref{table:derivationOfEmotion} shows the derivation of the eight emotions including fear, anger, happiness and sadness. Although the psychoevolutionary theory is based on the basic emotions and their very primitive stimuli and derivative behaviours, it can still be applied to the modern crowd in our context. A crowd type that we can observe, can be both the stimulus events triggering the emotions or the overt behaviours triggered by the emotions. 
 
 \begin{table}
-\caption{Emotions and their derivatives}
+\caption{Emotions and their derivatives (Taken from \citet{plutchik2001integration})}
 \label{table:derivationOfEmotion}
 \centering
 \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
@@ -249,63 +254,63 @@ Regarding the emotional language, another notable work that plays an important r
 \begin{figure}[htb!] 
 \centering    
 \includegraphics[width=1.0\textwidth]{EmotionSpace}
-\caption{Russell's two dimensional map of emotion space}
+\caption{Russell's two dimensional map of emotion space (Adapted from \citet{scherer2005emotions})}
 \label{fig:emotionSpace}
 \end{figure}
 
 In order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. The behaviour language and trait language from those descriptions are extracted and referenced to the four emotions: fear, anger, happiness, sadness. The objective of this process is to identify the dominant emotions in each crowd type. 
 
 \begin{itemize}
-\item \textbf{Ambulatory crowd} - is characterised by the action walking and the calmness \citep{Zeitz2009}. According to \citet{russell1980circumplex}'s emotion space, \textit{calm} is located in a completely opposite region with \textit{angry} and \textit{afraid}. Although both \textit{calm} and \textit{sad} have negative level of arousal, the former has a positive degree of pleasure while the latter does not. Therefore, all four emotions are dominating in this crowd type.
-\item \textbf{Disablity/Limited movement crowd} - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion. Hence, no emotion in the four is considered to be the dominant emotion in this crowd type.
+\item \textbf{Ambulatory crowd} - is characterised by the action walking and the calmness \citep{Zeitz2009}. According to \citet{russell1980circumplex}'s emotion space, \textit{calm} is located in a completely opposite region with \textit{angry} and \textit{afraid}. Although both \textit{calm} and \textit{sad} have negative level of arousal, the former has a positive degree of pleasure while the latter does not. Therefore, none of the four emotions are dominating in this crowd type.
+\item \textbf{Disablity/Limited movement crowd} - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion. Hence, no emotion is considered to be the dominant emotion in this crowd type.
 \item \textbf{Cohesive/Spectator} - is described by the activity watching a specific event and the fact that people have the interest in watching the event. Similarly, they do not signal the dominant occurrence of any emotion.
-\item \textbf{Expressive/Revellous crowd} - is characterised by the emotional release. The word \textit{revellous} originates from ``revel'' which means lively and noisy enjoyment. This indicates a high level of arousal with a positive pleasure in the \citet{russell1980circumplex}'s emotion space, which is close to \textit{happy}. Therefore, it can be inferred that this crowd type has a high intensity of \textit{happiness} as the dominant emotion.
+\item \textbf{Expressive/Revellous crowd} - is characterised by the emotional release. According to the Webster's Revised Unabridged Dictionary \footnote{http://www.thefreedictionary.com/revelous}, the word \textit{revelous} originates from ``revel'' which means ``to take great pleasure or delight'' \footnote{http://www.thefreedictionary.com/reveling}. \textit{Delighted} lies in a high level of arousal with a positive pleasure in the \citet{russell1980circumplex}'s emotion space (Figure \ref{fig:emotionSpace}), which is close to \textit{happy}. Therefore, it can be inferred that this crowd type has a high intensity of \textit{happiness} as the dominant emotion.
 \item \textbf{Participatory crowd} - is described by the action participating in a specific event. Although, the description does not suggest any clue on the emotional state of the participants, one example for a participatory crowd is people taking part in an actual sport event. Regarding sport psychology, studies show that sensation seeking and arousal seeking motivate the participations in sports, especially risk involved sports \citep{rowland1986sensation}. This indicates a positive level of arousal that can be observed from a participatory crowd, thus suggesting \textit{happiness} as the dominating emotion as well. Compared to expressive crowd, the intensity of \textit{happiness} can be lower.
 \item \textbf{Aggressive/Hostile crowd} - is described by the verbal aggressiveness and disregard for instruction. \textit{Aggressiveness} is aroused by \textit{anger}. The \textit{aggressiveness} is limited by verbal expression, which hints that the intensity of \textit{anger} is at medium level.
 \item \textbf{Demonstrator} - includes such actions as picketing, marching, protesting. According to Lofland's typology of spontaneous collective behaviours \citep{Kornblum2011}, such crowds are classified into \textit{hostile} crowd aroused by \textit{anger}. This crowd type is described to have some degree of organisation and leadership, which suggests the level of \textit{aggressiveness} is not intensive. Therefore, a low level of \textit{anger} can be considered to be the dominant emotion in this crowd type.
 \item \textbf{Escaping/Trampling crowd} - is described by the escaping action from a danger or a threat. This \textit{escaping} behaviour is triggered by \textit{fear} according to Plutchik's evolutionary theory. Loftland's typology also classifies such crowd under the fearful crowd \cite{Kornblum2011}. Hence, the dominating emotion can be identified in this crowd type is clearly a high intensity of \textit{fear}.
 \item \textbf{Dense/Suffocating crowd} - is characterised by the extremely high density and inability of movement in the crowd. Recent research on brain claims that suffocation might cause fear as the experiments with mice shows that inhaled carbon dioxide reduces brain pH and evokes fear behaviour \citep{ziemann2009amygdala}.
-\item \textbf{Rushing/Looting crowd} - is described by the desire to acquire something. Studying the looting behaviour in London riot in 2011, \citet{ray2014shame} suggests the shame theory of violence which might has relevance in accounting for the violent disturbance. \textit{Shame} falls into the region with low arousal and negative pleasure together with the basic emotion \textit{sad}, which indicates the closeness of the two affective words. On the other hand, \textit{violence} is aroused by \textit{anger}, hence a mixture of \textit{anger} and \textit{sadness} can be considered the dominating emotions in a looting crowd.
+\item \textbf{Rushing/Looting crowd} - is described by the desire to acquire something. Studying the looting behaviour in London riot in 2011, \citet{ray2014shame} suggests the shame theory of violence which might has relevance in accounting for the violent disturbance. \textit{Shame} falls into the region with low arousal and negative pleasure together with the basic emotion \textit{sad}, which indicates the closeness of the two affective words. On the other hand, violence is aroused by \textit{anger}, hence a mixture of \textit{anger} and \textit{sadness} can be considered the dominating emotions in a looting crowd.
 \item \textbf{Violent crowd} - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour triggered by \textit{anger}. This crowd type has a high level of \textit{anger}.
 \end{itemize}
 
 As we can notice from above analysis, five distinct groups of crowd types can be identified by the similarity in the dominating emotions. 
-\begin{inparaenum}[i)]
+\begin{itemize}
 \item The first group consists of ambulatory, disability/limited movement and cohesive/spectator crowd, which suggest no dominant emotion. From the emergency management point of view, those three types do not pose potential danger. Therefore, in our crowd monitoring framework, the three crowd types will be grouped and monitored as a same type.
 \item The second group is characterised by \textit{happiness}. Expressive/revellous and participatory crowd belong to this group.
 \item The third group is aroused by \textit{anger} and includes aggressive/hostile, demonstrator and violent crowd.
 \item The fourth group is motivated by \textit{fear} consisting of escaping/trampling and dense/suffocating crowd.
 \item The fifth group is rushing/looting crowd which has both \textit{anger} and \textit{sadness} as the dominant emotions.
-\end{inparaenum}
+\end{itemize}
 
 \begin{table}
 \caption{Mapping between crowd types and emotions}
 \label{table:mappingEmotionCrowdType}
-\begin{tabular}{|p{6cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|}
+\begin{tabular}{|p{1.4cm}|p{5.1cm}|p{1.6cm}|p{1.5cm}|p{1.9cm}|p{1.6cm}|}
 \hline
-\textbf{Crowd type} & \textbf{Anger} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} \\
+\textbf{Group} & \textbf{Crowd type} & \textbf{Anger} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} \\
 \hline
-Ambulatory & & & & \\
+\multirow{3}{\linewidth}{Group 1} & Ambulatory & & & & \\
+\cline{2-6}
+& Disability / Limited movement & & & & \\
+\cline{2-6}
+& Cohesive / Spectator & & & & \\
 \hline
-Disability / Limited movement & & & & \\
+\multirow{2}{\linewidth}{Group 2} & Expressive / Revellous & & & high & \\
+\cline{2-6}
+& Participatory & & & medium & \\
 \hline
-Cohesive / Spectator & & & & \\
+\multirow{3}{\linewidth}{Group 3} & Aggressive / Hostile & medium & & & \\
+\cline{2-6}
+& Demonstrator & low &  &  & \\
+\cline{2-6}
+& Violent & high & & & \\
 \hline
-Expressive / Revellous & & & high & \\
+\multirow{2}{\linewidth}{Group 4} & Escaping / Trampling & & high & & \\
+\cline{2-6}
+& Dense / Suffocating & & high & & \\
 \hline
-Participatory & & & medium & \\
-\hline
-Aggressive / Hostile & medium & & & \\
-\hline
-Demonstrator & low &  &  & \\
-\hline
-Violent & high & & & \\
-\hline
-Escaping / Trampling & & high & & \\
-\hline
-Dense / Suffocating	& & low & & \\
-\hline
-Rushing	/ Looting & medium & & & medium\\
+Group 5 & Rushing / Looting & medium & & & medium \\
 \hline
 \end{tabular}
 \end{table}
@@ -314,10 +319,6 @@ Rushing	/ Looting & medium & & & medium\\
 
 \subsection{Rule Repository}
 
-list 11 rules here for 11 crowd types
-
-\subsection{Inference Engine}
-
-Fuzzy rule here and the mathematical formula here
+\subsection{Rule Base Reasoning}
 
 \section{Conclusion}
