@@ -70,7 +70,7 @@ Finally, using Twitter as the information source for crowd monitoring has some c
 
 From the literature review, a crowd type can be described as a form of collective behaviour of a group of people in close proximity. The other form of collective behaviour is mass which involves people dispersed in a large area and does not belong to our context of emergency management in mass gathering. Both the Convergence Theory and the Emergent Norm Theory \citep{mcphail1991myth} support the idea that a crowd behaviour is formed by people with a common motivation. In our framework, we emphasize on the emotional factor as the common motivation of the behaviour in the crowd. Different emotions can consequently lead to different crowd behaviours. For example, according to Lofland's typology of spontaneous collective behaviours \citep{Kornblum2011}, a panic exodus from burning theatre is motivated by the fear whereas a race riot is aroused by the anger. Therefore, an emotion model is essential to distinguish different emotions of the people in the crowd.
 
-Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list \citep{Ortony1990}. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} was able to identify eight basic emotions consisting of four pairs of opposite emotions: \textit{anger/fear}, \textit{joy/sadness}, \textit{trust/disgust}, \textit{anticipation/surprise}. Investigating the facial expression of human, \citet{ekman1971constants} suggested there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are \textgit pit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness}, \textit{surprise} and \textit{disgust} as illustrated in Figure \ref{fig:emotionModel}. Ekman's model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet, alm2005emotions}. 
+Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list \citep{Ortony1990}. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} was able to identify eight basic emotions consisting of four pairs of opposite emotions: \textit{anger/fear}, \textit{joy/sadness}, \textit{trust/disgust}, \textit{anticipation/surprise}. Investigating the facial expression of human, \citet{ekman1971constants} suggested there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are \textit pit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness}, \textit{surprise} and \textit{disgust} as illustrated in Figure \ref{fig:emotionModel}. Ekman's model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet, alm2005emotions}. 
 
 \begin{figure}[htb!]
 \centering    
@@ -110,7 +110,7 @@ As mentioned earlier, a few related works on emotion analysis also employed the 
 
 The EmpaTweet by \citet{roberts2012empatweet} collected tweets on 14 selected topics that each topic was expected to evoke a particular emotion in seven emotions: \textit{anger}, \textit{disgust}, \textit{fear}, \textit{joy}, \textit{sadness}, \textit{surprise} and \textit{love}. The collected tweets formed the labelled corpus which was used to train the machine to automatically detect the emotions from Twitter. The classification was performed by a series of SVM classifiers with uni-grams, bi-grams and tri-grams of words as features of a tweet.
 
-The NRC Hashtag Emotion by \citep{mohammad2014using} was another notable work which made a good use of the hashtags as the labelled data. Tweets that were attached with these hashtags: \#anger, \textit{\#disgust}, \textit{\#fear}, \textit{\#joy}, \textit{\#sadness} and \textit{\#surprise} and their synonyms were collected. These hashtags were considered to be the label of a tweet, which depicted the emotion in the tweet. The experiment also verified that the self-labelled hashtags were consistent and matched with the annotation by trained judges. The collected tweets constructed the NRC Hashtag Emotion Corpus. Using the corpus, \citet{mohammad2014using} computed the association of each word with Ekman's six emotions which was called the Strength of Association (SoA). This SoA score of a word can take the value from 0 for no association to infinity indicating maximum association to a specific emotion. The collection of words and their SoA were known as the NRC Hashtag Emotion Lexicon, which has been published and available for research purposes \footnote{http://saifmohammad.com/WebPages/lexicons.html}.
+The NRC Hashtag Emotion by \citep{mohammad2014using} was another notable work which made a good use of the hashtags as the labelled data. Tweets that were attached with these hashtags: \textit{\#anger}, \textit{\#disgust}, \textit{\#fear}, \textit{\#joy}, \textit{\#sadness} and \textit{\#surprise} and their synonyms were collected. These hashtags were considered to be the label of a tweet, which depicted the emotion in the tweet. The experiment also verified that the self-labelled hashtags were consistent and matched with the annotation by trained judges. The collected tweets constructed the NRC Hashtag Emotion Corpus. Using the corpus, \citet{mohammad2014using} computed the association of each word with Ekman's six emotions which was called the Strength of Association (SoA). This SoA score of a word can take the value from 0 for no association to infinity indicating maximum association to a specific emotion. The collection of words and their SoA were known as the NRC Hashtag Emotion Lexicon, which has been published and available for research purposes \footnote{http://saifmohammad.com/WebPages/lexicons.html}.
 
 Our Bag-of-Words approach performs a similar process. Firstly, a Bag-of-Words for each emotion \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness} are constructed from the training set which contains tweet labelled with emotion. The Association Scoring measures the association of a word with anger, fear, happiness and sadness represented by four normalised weights \(w_1\), \(w_2\), \(w_3\) and \(w_4\) respectively. As a result, the emotion model of a word can be represented by a four dimensional vector \(\vec{v_i}(w_1, w_2, w_3, w_4)\) called ``emotional weight vector'', which takes the four weights as the dimensions. Secondly, in the real-time analysis, a tweet is tokenized into words, each of which will have an emotional weight vector. A voting system will then calculate the dominating emotion of a tweet from the emotional weight vectors of its words. Finally, the distribution of each emotion in the sampling data is then calculated to detect the emotions in the crowd. Each component in this process will be discussed in the next section.
 
@@ -193,7 +193,7 @@ d(e_i) \geq t_2(e_i) \Rightarrow label = high
 
 \begin{figure}[htb!] 
 \centering    
-\includegraphics[width=0.3\textwidth]{LevelOfDensity}
+\includegraphics[width=0.3\textwidth]{LevelOfEmotion}
 \caption{Level of density of an emotion and thresholds}
 \label{fig:levelOfDensity}
 \end{figure}
@@ -304,12 +304,17 @@ In order to construct the emotion - crowd type mapping, a comprehensive understa
 \item \textbf{Violent crowd} - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour triggered by \textit{anger}. This crowd type has a high level of \textit{anger}.
 \end{itemize}
 
-As we can notice from above analysis, five distinct groups of crowd types can be identified by the similarity in the dominating emotions. 
+As we can notice from above analysis, five distinct groups of crowd types can be identified by the similarity in the dominating emotions. Although it might be challenging to distinguish different crowd types in the same group using the emotional states as the criteria, it is possible to extend the framework and incorporate additional information sources and analysis to provide more low level and high level context data used in classification, for example accelerometer and activity recognition. However, obtaining data from the sensors in participants' mobile phones requires installing software on those devices, which might cause he hesitance to share information or privacy concern. Therefore, our proposed framework only focuses on the social media analysis, which is more feasible in favour of deployment.
+
 \begin{itemize}
-\item The first group consists of ambulatory, disability/limited movement and cohesive/spectator crowd, which suggest no dominant emotion. From the emergency management point of view, those three types do not pose potential danger. Therefore, in our crowd monitoring framework, the three crowd types will be grouped and monitored as a same type.
-\item The second group is characterised by \textit{happiness}. Expressive/revellous and participatory crowd belong to this group.
-\item The third group is aroused by \textit{anger} and includes aggressive/hostile, demonstrator and violent crowd.
-\item The fourth group is motivated by \textit{fear} consisting of escaping/trampling and dense/suffocating crowd.
+\item The first group consists of ambulatory, disability/limited movement and cohesive/spectator crowd, which suggest no dominant emotion. From the emergency management point of view, those three types do not pose potential danger. Therefore, in our crowd monitoring framework, the three crowd types will be grouped and monitored as a same type. As mentioned earlier, if data from accelerometer on participants' mobile devices can be acquired, the activities of participants in the crowd can be inferred using activity recognition technique. In term of the type of activity, an ambulatory crowd involves mostly walking, while a crowd of spectators or limited movement crowd will be more stationary with such actions as sitting or standing.
+
+\item The second group is characterised by \textit{happiness}. Expressive/revellous and participatory crowd belong to this group. The difference between an expressive and a participatory crowd is the level of happiness which is high in the former crowd and medium in the latter crowd type. Similarly, to further distinguish between these two crowd types, using accelerometer and activity recognition to infer the activities of the participants might be a possible solution. If the activities involve lots of movement such as running and walking, the crowd can be identified as a participatory crowd.
+
+\item The third group is aroused by \textit{anger} and includes demonstrator, aggressive/hostile and violent crowd with the increasing level of anger. Activity recognition can also be used to give additional knowledge. A violent crowd involves activities that have a higher level of motion such as running and walking, while a demonstrator crowd might have a slower pace of movement.
+
+\item The fourth group is motivated by \textit{fear} consisting of escaping/trampling and dense/suffocating crowd. Because a dense/suffocating crowd is characterised by the high density and the inability to move, this crowd type can be identified with most people standing by activity recognition.
+
 \item The fifth group is rushing/looting crowd which has both \textit{anger} and \textit{sadness} as the dominant emotions.
 \end{itemize}
 
@@ -348,6 +353,11 @@ Group 5 & Rushing / Looting & medium & & & medium \\
 \section{Rule Based Reasoning}
 
 \subsection{Rule Repository}
+The Rule Repository contains the rules to identify a crowd type from the inferred emotional state of the crowd.
+
+\begin{equation}
+	
+\end{equation}
 
 \subsection{Rule Base Reasoning}
 
