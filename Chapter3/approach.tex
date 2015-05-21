@@ -70,7 +70,7 @@ Finally, using Twitter as the information source for crowd monitoring has some c
 
 From the literature review, a crowd type can be described as a form of collective behaviour of a group of people in close proximity. The other form of collective behaviour is mass which involves people dispersed in a large area and does not belong to our context of emergency management in mass gathering. Both the Convergence Theory and the Emergent Norm Theory \citep{mcphail1991myth} support the idea that a crowd behaviour is formed by people with a common motivation. In our framework, we emphasize on the emotional factor as the common motivation of the behaviour in the crowd. Different emotions can consequently lead to different crowd behaviours. For example, according to Lofland's typology of spontaneous collective behaviours \citep{Kornblum2011}, a panic exodus from burning theatre is motivated by the fear whereas a race riot is aroused by the anger. Therefore, an emotion model is essential to distinguish different emotions of the people in the crowd.
 
-Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list \citep{Ortony1990}. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} was able to identify eight basic emotions consisting of four pairs of opposite emotions: anger/fear, joy/sadness, trust/disgust, anticipation/surprise. Investigating the facial expression of human, \citet{ekman1971constants} suggested there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are anger, fear, happiness, sadness, surprise and disgust as illustrated in Figure \ref{fig:emotionModel}. Ekman's model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet, alm2005emotions}. 
+Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Therefore, it is difficult even to just list all emotions, not to mention modelling them. However, it is often assumed among theories of emotions that there exists a small set of basic or fundamental emotions, yet there is still little agreement on the number of basic emotions and what emotions are in the list \citep{Ortony1990}. Based upon the theory of evolution of the biological process, \citet{plutchik2001integration} was able to identify eight basic emotions consisting of four pairs of opposite emotions: \textit{anger/fear}, \textit{joy/sadness}, \textit{trust/disgust}, \textit{anticipation/surprise}. Investigating the facial expression of human, \citet{ekman1971constants} suggested there are six basic emotions that can be universally recognised, regardless of the language. The six basic emotions are \textit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness}, \textit{surprise} and \textit{disgust} as illustrated in Figure \ref{fig:emotionModel}. Ekman's model has been adopted in many researches regarding human emotions \citep{mohammad2014using, roberts2012empatweet, alm2005emotions}. 
 
 \begin{figure}[htb!]
 \centering    
@@ -81,10 +81,9 @@ Human emotion is no doubt complex and confusing \citet{plutchik2001nature}. Ther
 
 A recent research by \cite{Jack2014} has pointed out the similarity during the early signal of the facial expression between anger and disgust, as well as surprise and fear. For example, both anger and disgust share a wrinkled nose, while both surprise and fear share raised eyebrows. Based on these findings, they suggest only four basic emotions, as can be seen from Figure \ref{fig:emotionModel}.
 
-In our proposed framework, the basic emotions are employed as the features to classify the crowd type. Because the description of the crowd types, which will be mentioned in more detail in the next section, does not specify any related emotions, it is difficult to identify which emotions associated to a particular crowd type. Using an emotion model with fewer basic emotions, each of which completely differs from the others, effectively addresses this difficulty. Therefore, the four most basic emotions consisting of anger, fear, happiness and sadness will be adopted as our emotion model in the proposed framework.
+In our proposed framework, the basic emotions are employed as the features to classify the crowd type. Because the description of the crowd types, which will be mentioned in more detail in the next section, does not specify any related emotions, it is difficult to identify which emotions associated to a particular crowd type. Using an emotion model with fewer basic emotions, each of which completely differs from the others, effectively addresses this difficulty. Therefore, the four most basic emotions consisting of \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness} will be adopted as our emotion model in the proposed framework.
 
 \section{The Emotion Analysis of Social Media}
-Sentiment analysis is more popular but we are doing emotion analysis.
 
 A recent analysis on the content on Twitter reveals that the users are using Twitter for a variety of purposes, which can be grouped in two main types: updating their statuses or sharing information \citep{java2007we}. Regardless of the content in both cases, a tweet often conveys the author's emotional status \citep{bollen2009modeling}. By capturing the emotion expressed in the text, it is possible to infer the emotional state of the author. In our framework, as can be seen from Figure \ref{fig:processOverview} a tweet can be considered as a raw context data collected from the information source whereas the emotion in the tweet is the high-level context data that is inferred and it will be used in our proposed crowd type classification. This transformation from the raw-level to the high-level context data is performed by the Emotion Analysis component. 
 
@@ -102,7 +101,7 @@ The Bag-Of-Words approach is based on a simplified representation of a document 
 
 \begin{figure}[htb!] 
 \centering    
-\includegraphics[width=0.75\textwidth]{Tokenizer}
+\includegraphics[width=0.5\textwidth]{Tokenizer}
 \caption{An example of a tweet tokenized into words}
 \label{fig:tokenizer}
 \end{figure}
@@ -119,7 +118,7 @@ Our Bag-of-Words approach performs a similar process. Firstly, a Bag-of-Words fo
 The training set, or labelled corpus, is a collection of tweets which are labelled with correct emotions to server as the training data for classifiers. In our research, the NRC Hashtag Emotion Corpus by \citet{mohammad2014using} was chosen as the labelled set because of following advantages. Firstly, both the NRC Hashtag Emotion Corpus as well as the EmpaTweet Corpus were annotated with Ekman's six basic emotions which contain our four basic emotions. Secondly, by collecting tweets with emotional hashtags, the NRC Hashtag Emotion Corpus is more generic and it can be applied to other topics with a higher accuracy compared to the EmpaTweet that is limited to the selected topics.
 
 \subsection{Association Scoring and the Emotional Weight Vector}
-As mentioned in the Association Scoring process, the association of a word with a specific emotion must be measured by a normalised weight. This weight represents the correlation of the word with the emotion and it must be comparable with with other words and other emotions. From the related works, it can be noticed that the SoA score proposed in the NRC Hashtag Emotion Lexicon by \citet{mohammad2014using} is effectively suitable for this purpose. The SoA is calculated by the frequency of a word appearing in the tweets tagged with an emotion. 
+As mentioned in the Association Scoring process, the association of a word with a specific emotion must be measured by a normalised weight. This weight represents the correlation of the word with the emotion and it must be comparable with with other words and other emotions. From the related works, it can be noticed that the SoA score proposed in the NRC Hashtag Emotion Lexicon by \citet{mohammad2014using} is effectively suitable for this purpose. The SoA is calculated from the frequency of a word appearing in the tweets tagged with an emotion.
 
 Therefore, in our Emotion Analysis, the SoA score will be employed as the normalised weight indicating the association of a word with an emotion. The emotional status of a word can be modelled by a four dimensional vector with each dimension represents an emotion of the basic emotions: anger, fear, happiness and sadness. This vector is proposed as the ``emotional weight vector'' as in Formula \ref{eq:emotionalWeightVector} below.
 
@@ -127,7 +126,30 @@ Therefore, in our Emotion Analysis, the SoA score will be employed as the normal
 \label{eq:emotionalWeightVector}
 	\vec{v_i}(w_1, w_2, w_3, w_4)
 \end{equation}
-where \(v_i\) is an ``emotional weight vector'' of a word and \(w_{1,2,3,4}\) are four weights that represent its association with the four emotions.
+where \(v_i\) is an ``emotional weight vector'' of a word and \(w_{1,2,3,4}\) are four weights that represent its association with the four emotions: anger, fear, happiness and sadness respectively. For example with the word ``crowded'', the SoA scores are taken from the NRC Hashtag Emotion Lexicon as presented in Table \ref{table:soaOfCrowded}. Four scores for anger, fear and joy (happiness) and sadness are extracted and construct the ``emotional weight vector'' of ``crowded'' as in below Formula \ref{eq:emotionalWeightVectorOfCrowded}.
+
+\begin{equation}
+\label{eq:emotionalWeightVectorOfCrowded}
+	\vec{v_{crowded}}(0.0630391396873302, 0.853341316895822, 0, 0)
+\end{equation}
+
+\begin{table}
+\caption{SoA scores of ``crowded'' toward the eight basic emotions (Taken from NRC Hashtag Emotion Lexicon \citep{mohammad2014using})}
+\label{table:soaOfCrowded}
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Emotion} & \textbf{SoA score} \\ \hline \hline
+Anger & 0.0630391396873302 \\ \hline
+Fear & 0.853341316895822 \\ \hline
+Joy & 0 \\ \hline
+Sadness & 0 \\ \hline
+Trust & 0 \\ \hline
+Disgust & 0.201742824294623 \\ \hline
+Anticipation & 0 \\ \hline
+Surprise & 0 \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{The Voting System and the Dominant Emotion}
 The emotional status of one word can be modelled by a four dimensional ``emotional weight vector''. A tweet can be considered as a set of words, each of which contributes to the overall emotional status of the tweet. Therefore, the emotional status of a tweet can also be represented by a four dimensional vector that is the summative of the ``emotional weight vectors'' of the elemental words (Formula \ref{eq:summativeWeightVector}).
