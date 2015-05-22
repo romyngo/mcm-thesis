@@ -199,7 +199,7 @@ The threshold is important to detect the abnormal rise in an emotion, however it
 
 \section{Crowd Model}
 
-The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. From the emergency management point of view, the literature review highlights \citet{Berlonghi1995}'s model as one of the most significant works on crowd types. As mentioned in Chapter \ref{ch:litReview}, \citet{Berlonghi1995} has identified eleven different types of crowd in mass gathering. Each crowd type is described by the movement, participation and behaviour \citep{Zeitz2009}. \citet{Berlonghi1995}'s definition has been widely adopted as the guideline by the emergency bureaus in Australia \citep{EMA1999} and USA \citep{FEMA2005}. Eleven types of crowd are described as below.
+The ultimate objective of our crowd monitoring framework is to identify the type of a crowd. Therefore, a crowd model that can describe and differentiate different crowd types is required. From the emergency management point of view, the literature review highlights \citet{Berlonghi1995}'s model as one of the most significant works on crowd types. As mentioned in Chapter \ref{ch:litReview}, \citet{Berlonghi1995} has identified eleven different types of crowd in mass gathering. Each crowd type is described by the movement, participation and behaviour \citep{Zeitz2009}. Berlonghi's definition has been widely adopted as the guideline by the emergency bureaus in Australia \citep{EMA1999} and USA \citep{FEMA2005}. Eleven types of crowd are described as below.
 \begin{itemize}
 \item \textbf{Ambulatory crowd} - is a crowd walking in and out of a venue, to and from parking areas or walking to use restroom or concession facilities.
 \item \textbf{Disability/limited movement crowd} - is a crowd of people that in some way are limited or restricted in their movement. Their level or lack of ability to walk, see, hear or speak may require more planning than is provided for all other spectators.
@@ -213,7 +213,7 @@ The ultimate objective of our crowd monitoring framework is to identify the type
 \item \textbf{Rushing/looting crowd} - is one whose principal purpose is to obtain, acquire or steal something. This includes rushing to get the most preferred seats, autographs or actually stealing property. This very often results in fatalities, serious injuries and considerable property damage.
 \item \textbf{Violent crowd} - is a crowd that is attacking, terrorising and rioting with complete disregard for laws and the rights of others.
 \end{itemize}
-However, relying only on the description, it is difficult to make distinct of different crowd types without human observation and judgement on the spot. Therefore, there is a need to introduce attributes or features to the existing model for a systematic approach to perform the classification of crowd type. In this proposal framework, the four basic emotions: anger, fear, happy and sadness are introduced as the features of \citet{Berlonghi1995}'s crowd types. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
+However, relying only on the description, it is difficult to make distinct of different crowd types without human observation and judgement on the spot. Therefore, there is a need to introduce attributes or features to the existing model for a systematic approach to perform the classification of crowd type. In this proposal framework, the four basic emotions: anger, fear, happy and sadness are introduced as the features of Berlonghi's crowd types. The next section focuses on how the mapping between each crowd type and its associated emotion is constructed.
 
 \section{Emotion - Crowd Type Mapping Model}
 In the previous sections, we have discussed the possibility to detect the emotions in a crowd. In our approach, anger, fear, happiness and sadness are used as the four features of a crowd type. This section will explore further into the relationship between each crowd type and each emotion. 
@@ -319,7 +319,7 @@ As we can notice from above analysis, five distinct groups of crowd types can be
 \multirow{2}{\linewidth}{Group 2} & Expressive / Revellous & & & high & \\ \cline{2-6}
 & Participatory & & & high & \\ \hline
 \multirow{3}{\linewidth}{Group 3} & Aggressive / Hostile & high & & & \\ \cline{2-6}
-& Demonstrator & low &  &  & \\ \cline{2-6}
+& Demonstrator & high &  &  & \\ \cline{2-6}
 & Violent & high & & & \\ \hline
 \multirow{2}{\linewidth}{Group 4} & Escaping / Trampling & & high & & \\ \cline{2-6}
 & Dense / Suffocating & & high & & \\ \hline
