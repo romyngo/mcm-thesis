@@ -22,7 +22,7 @@ Apart from the ``hard sensors'' where physical sensors are used, the literature 
 
 Secondly, another finding from the literature review is that the actual behaviour of a crowd depends largely on the emotions of the participants \citep{Kornblum2011, jasper2011emotions}. For that reason, it is essential for a crowd monitoring approach to consider the influence of emotions in the crowd. Although human emotion is an abstract concept and very difficult to measure with ``hard sensors'', it is possible to capture the emotion of a person from the verbal expressions, such as text \citep{alm2005emotions} or speech \citep{sobin1999emotion}. This is where social media further proves its advantage over the ``hard sensors''. By applying analysis on the social media, we can capture the emotions in a crowd, thus enabling the inference of the crowd's condition. For that reason, this project will propose a crowd monitoring framework that employs the emotion analysis of social media to support emergency management in mass gatherings by determining the current type of the crowd. 
 
-Finally, the literature review also reveals another gap in the research that is the limitation of the crowd modelling employed in crowd monitoring approaches. Most existing crowd monitoring techniques do not base on any crowd model which can distinguish between different crowd types and identify the exact crowd type that is happening without the interpretation of human. By exploring broader into other disciplines, our literature review points out several notable works on crowd modelling and classification in the police literature and public safely science. Among those works, \citet{Berlonghi1995}'s work stands out as the most commonly adopted model by the emergency management bureaus worldwide. Our proposed crowd monitoring framework is established on the \citet{Berlonghi1995}'s model which consists of eleven different crowd types. Yet, a systematic approach to classify one crowd into those types is challenging because \citet{Berlonghi1995}'s model only describes the crowd types and there is no attribute or method defined in the existing model to make the distinction between them. Therefore, in our approach, we would like to propose a mapping model that connects the emotion model with the crowd model, enabling the fuzzy classification of crowd type by emotions. The reason fuzzy logic is utilized in our approach is because of its capability of representing multiple truths rather than the absolute true or false like in classical logic. It is difficult to divide people in a mass gathering into very distinct classes using rule-based reasoning since crowd types can be overlapping. Fuzzy logic is able to calculate the degree of membership of each crowd type in a particular crowd and represent the real-time and gradual changes in crowd type.
+Finally, the literature review also reveals another gap in the research that is the limitation of the crowd modelling employed in crowd monitoring approaches. Most existing crowd monitoring techniques do not base on any crowd model which can distinguish between different crowd types and identify the exact crowd type that is happening without the interpretation of human. By exploring broader into other disciplines, our literature review points out several notable works on crowd modelling and classification in the police literature and public safely science. Among those works, \citet{Berlonghi1995}'s work stands out as the most commonly adopted model by the emergency management bureaus worldwide. Our proposed crowd monitoring framework is established on the Berlonghi's model which consists of eleven different crowd types. Yet, a systematic approach to classify one crowd into those types is challenging because Berlonghi's model only describes the crowd types and there is no attribute or method defined in the existing model to make the distinction between them. Therefore, in our approach, we would like to propose a mapping model that connects the emotion model with the crowd model, enabling the fuzzy classification of crowd type by emotions. The reason fuzzy logic is utilized in our approach is because of its capability of representing multiple truths rather than the absolute true or false like in classical logic. It is difficult to divide people in a mass gathering into very distinct classes using rule-based reasoning since crowd types can be overlapping. Fuzzy logic is able to calculate the degree of membership of each crowd type in a particular crowd and represent the real-time and gradual changes in crowd type.
 
 In conclusion, our proposed approach will address the gaps that are identified in the previous chapters by: 
 \begin{inparaenum}[i)]
@@ -120,19 +120,6 @@ The training set, or labelled corpus, is a collection of tweets which are labell
 \subsection{Association Scoring and the Emotional Weight Vector}
 As mentioned in the Association Scoring process, the association of a word with a specific emotion must be measured by a normalised weight. This weight represents the correlation of the word with the emotion and it must be comparable with with other words and other emotions. From the related works, it can be noticed that the SoA score proposed in the NRC Hashtag Emotion Lexicon by \citet{mohammad2014using} is effectively suitable for this purpose. The SoA is calculated from the frequency of a word appearing in the tweets tagged with an emotion.
 
-Therefore, in our Emotion Analysis, the SoA score will be employed as the normalised weight indicating the association of a word with an emotion. The emotional status of a word can be modelled by a four dimensional vector with each dimension represents an emotion of the basic emotions: anger, fear, happiness and sadness. This vector is proposed as the ``emotional weight vector'' as in Formula \ref{eq:emotionalWeightVector} below.
-
-\begin{equation}
-\label{eq:emotionalWeightVector}
-	\vec{v_i}(w_1, w_2, w_3, w_4)
-\end{equation}
-where \(v_i\) is an ``emotional weight vector'' of a word and \(w_{1,2,3,4}\) are four weights that represent its association with the four emotions: anger, fear, happiness and sadness respectively. For example with the word ``crowded'', the SoA scores are taken from the NRC Hashtag Emotion Lexicon as presented in Table \ref{table:soaOfCrowded}. Four scores for anger, fear and joy (happiness) and sadness are extracted and construct the ``emotional weight vector'' of ``crowded'' as in below Formula \ref{eq:emotionalWeightVectorOfCrowded}.
-
-\begin{equation}
-\label{eq:emotionalWeightVectorOfCrowded}
-	\vec{v_{crowded}}(0.0630391396873302, 0.853341316895822, 0, 0)
-\end{equation}
-
 \begin{table}
 \caption{SoA scores of ``crowded'' toward the eight basic emotions (Taken from NRC Hashtag Emotion Lexicon \citep{mohammad2014using})}
 \label{table:soaOfCrowded}
@@ -151,6 +138,19 @@ Surprise & 0 \\ \hline
 \end{tabular}
 \end{table}
 
+Therefore, in our Emotion Analysis, the SoA score will be employed as the normalised weight indicating the association of a word with an emotion. The emotional status of a word can be modelled by a four dimensional vector with each dimension represents an emotion of the basic emotions: anger, fear, happiness and sadness. This vector is proposed as the ``emotional weight vector'' as in Formula \ref{eq:emotionalWeightVector} below.
+
+\begin{equation}
+\label{eq:emotionalWeightVector}
+	\vec{v_i}(w_1, w_2, w_3, w_4)
+\end{equation}
+where \(v_i\) is an ``emotional weight vector'' of a word and \(w_{1,2,3,4}\) are four weights that represent its association with the four emotions: anger, fear, happiness and sadness respectively. For example with the word ``crowded'', the SoA scores are taken from the NRC Hashtag Emotion Lexicon as presented in Table \ref{table:soaOfCrowded}. Four scores for anger, fear and joy (happiness) and sadness are extracted and construct the ``emotional weight vector'' of ``crowded'' as in below Formula \ref{eq:emotionalWeightVectorOfCrowded}.
+
+\begin{equation}
+\label{eq:emotionalWeightVectorOfCrowded}
+	\vec{v_{crowded}}(0.0630391396873302, 0.853341316895822, 0, 0)
+\end{equation}
+
 \subsection{The Voting System and the Dominant Emotion}
 The emotional status of one word can be modelled by a four dimensional ``emotional weight vector''. A tweet can be considered as a set of words, each of which contributes to the overall emotional status of the tweet. Therefore, the emotional status of a tweet can also be represented by a four dimensional vector that is the summative of the ``emotional weight vectors'' of the elemental words (Formula \ref{eq:summativeWeightVector}).
 
@@ -162,43 +162,40 @@ where \(\vec{V}\) is the ``emotional weight vector'' of the tweet, \(\vec{v_i}\)
 
 Although a tweet might be associated with all four emotions, one specific emotion is expected to dominate the whole tweet, which is called the dominant emotion. In order to extract the dominating emotion in a tweet, a voting system to interpret the vectors is proposed as follow. An ``emotional weight vector'' \(\vec{v_i}\) can be considered as a vote cast by one word that indicates how strongly the word agrees with each emotion. Similarly, the summative vector \(\vec{V}\) can be interpreted as the overall result of the voting, which illustrates how close the whole tweet is from each emotion. The dominant emotion can then be determined by the highest vote from the voters. In other words, the emotion dimension with the largest magnitude will be selected as the dominant emotion in the tweet.
 
-\subsection{Distribution of Emotions in a Crowd}
+\subsection{Emotion Distribution in a Crowd}
 As illustrated by Figure \ref{fig:processOverview}, the tweets collected in the first stage of the process provides the context at the raw-level about a crowd in a mass gathering. By performing the emotion analysis, the dominant emotion in each tweet can be extracted. This emotion in fact represents the emotion of an individual in the crowd rather than the crowd as a whole. The relationship between individual emotion and group emotion has been discussed in several researches. \citet{barsade1998group} suggest the top-down approach that the group emotion can arise and felt by individual member, while at the same time, in a bottom-up manner the group emotion can be shaped by the compositional effects of individual emotions. This theory confirms the possibility to represent the crowd emotion as whole from the individuals' emotion.
 
-As people with different emotional states can exist in one crowd, a crowd can have multiple emotion. It can be illustrated by the distribution of the emotions in the crowd. The distribution \(d\) of an emotion \(e_i\) in a crowd at a given time \(t\) can be calculated by below Formula \ref{eq:distributionEmotion}.
+As people with different emotional state exist in one crowd, a crowd can have multiple emotions. It can be represented by the emotion distribution in the crowd. The percentage \(p\) of an emotion \(e_i\) in a crowd at a given period can be calculated by below Formula \ref{eq:distributionEmotion}.
 \begin{equation}
 \label{eq:distributionEmotion}
-	\forall e_i \in \{anger, fear, happiness, sadness\}: d(e_i)_t = \frac{n(e_i)_t}{N_t}
+	p(e_i) = \frac{n(e_i)}{N}
 \end{equation}
-where \(d(e_i)_t\) is the distribution of emotion \(e_i\), \(N_t\) is the total number of data sampled during \(t\) and \(n(e_i)_t\) is the number of data classified with emotion \(e_i\) among \(N_t\).
+where \(p(e_i)\) is the percentage of emotion \(e_i\), \(N\) is the total number of sampling tweets and \(n(e_i)\) is the number of tweets classified with emotion \(e_i\).
 
-This distribution \(d(e_i)\) can have any value from 0 to 1, indicating the how strong the emotion \(e_i\) of the crowd is at specific time period \(t\). This calculation is performed repetitively after an interval which enables us to detect the change of emotional state in the crowd. Hence, the value of \(t\) has influence on the sensitivity of the detection and depends on the sampling rate.
+This percentage \(p(e_i)\) can have any value from 0 to 1, indicating the how strong the emotion \(e_i\) of the crowd during the sampling period. This calculation is performed repetitively after an interval \(t\) which enables us to detect the change of emotional state in the crowd. Therefore, the value of \(t\) has influence on the sensitivity of the detection of changes.
 
 \subsection{Labelling the Level of Density of an Emotion}
-Although the distribution of an emotion in a crowd is able to show the significance of that emotion compared to others, it is not sufficient to tell whether the level of an emotion is normal or not, especially in term of intensity. Hence, such linguistic labels as low, medium and high are defined to identify different level of intensity of an emotion. The intensity increase with the increasing of the level from low to high. There are certain points in the degree of membership that the intensity of an emotion changes from low level to medium level and from medium level to high level (Figure \ref{fig:levelOfDensity}). These two points are defined as threshold \(t_1\) and \(t_2\) respectively. The conversion from numerical values of the distribution of emotion \(e_i\) to a linguistic label can be performed by following rules.
+Although the emotion distribution in a crowd is able to show the relative significance of one emotion compared to each other, it is not sufficient to tell whether a particular emotion is of abnormal behaviour or not. In this case, such linguistic labels as low and high are more useful to describe different levels of intensity of an emotion, where the intensity rises continuously from low to high level. There exists a certain point that the intensity of an emotion is considered to switch from low to high level (Figure \ref{fig:levelOfDensity}). This point is defined as threshold \(th\), which represents the expected rate of an emotion under normal behaviour. The level of intensity of an emotion can be labelled by comparing the measured percentage of that emotion to the threshold.
+
 \begin{equation}
-\label{eq:lowDensityEmotion}
-d(e_i) \leq t_1(e_i) \Rightarrow label = low
+\label{eq:lowIntensity}
+	p(e_i) < th(e_i) \Rightarrow lv(e_i) = low
 \end{equation}
 
 \begin{equation}
-\label{eq:mediumDensityEmotion}
-d(e_i) > t_1(e_i) \land d(e_i) < t_2(e_i) \Rightarrow label = medium
+\label{eq:highIntensity}
+	p(e_i) > th(e_i) \Rightarrow lv(e_i) = high
 \end{equation}
-
-\begin{equation}
-\label{eq:highDensityEmotion}
-d(e_i) \geq t_2(e_i) \Rightarrow label = high
-\end{equation}
+where, \(p(e_i)\) is the percentage of emotion \(e_i\) in the emotion distribution and \(lv(e_i)\) is the labelled level of intensity of \(e_i\).
 
 \begin{figure}[htb!] 
 \centering    
 \includegraphics[width=0.3\textwidth]{LevelOfEmotion}
-\caption{Level of density of an emotion and thresholds}
+\caption{Level of density of an emotion and the threshold}
 \label{fig:levelOfDensity}
 \end{figure}
 
-The thresholds are important to detect the abnormal increasing in one particular emotion, yet they are application specific. Firstly, because as their normal behaviour, people tend to post an unequal number of tweets for each emotion, the thresholds can be not the same for different emotions. For instance, happy tweets appear more frequently than angry tweets. Secondly, because of the cultural difference, the content shared on Twitter is very different across different countries and cultures. People in one country might normally post more happy content than people living in a problematic region. Moreover, even among the group of users, emotional content can also vary during different period. For example, people tend to tweet more happy content than usual around Christmas and New Year holiday. Therefore, the choice of the two thresholds for one emotion, such as happy, actually depend on the region and time. In our experiment, we propose an approach to calculate the thresholds using the dataset that is collected in a specific event.
+The threshold is important to detect the abnormal rise in an emotion, however it is application specific. Firstly, because under the normal behaviour, people tend to post an unequal number of tweets for each emotion, the thresholds can be not the same for different emotions. NRC Hashtag Emotion Corpus \citep{mohammad2014using} indicates the percentage of joyful tweet is much higher than other emotions. Secondly, because of the cultural and regional difference, the content shared on Twitter is very different across different countries and cultures. For example, people in one country might normally post more happy content than in another country. Finally, even among the same group of users, emotional content can also vary during different time period. For example, people might tweet more happy content than usual around Christmas and New Year holiday. Therefore, the value of threshold \(t\) for one emotion, such as happy is dependent on the region and the time of the event. In our experiment, we propose a simple approach to determine the threshold using a dataset collected in a specific event.
 
 \section{Crowd Model}
 
@@ -229,24 +226,15 @@ Our mapping is based on several significant studies on human emotion. One of the
 \centering
 \begin{tabular}{|p{2.5cm}|p{2.3cm}|p{2.3cm}|p{2.3cm}|p{3.5cm}|}
 \hline
-\textbf{Stimulus events} & \textbf{Coginition} & \textbf{Emotion} & \textbf{Behaviour} & \textbf{Effect} \\
-\hline
-Threat & Danger & Fear & Escape & Safety \\
-\hline
-Obstacle & Enemy & Anger & Attack & Destroy obstacle \\
-\hline
-Gain of valued object & Possess & Joy & Retain or repeat & Gain resources or new genes \\
-\hline
-Loss of valued object & Abandonment & Sadness & Cry & Reattach with lost object \\
-\hline
-Member of a group & Friend & Acceptance (Trust) & Groom & Mutual support \\
-\hline
-Unpalatable object & Poison & Disgust & Vomit & Eject poison \\
-\hline
-New territory & Examine & Expectation & Map & Knowledge of territory \\
-\hline
-Unexpected event & What is it & Surprise & Stop & Gain time to orient \\
-\hline
+\textbf{Stimulus events} & \textbf{Coginition} & \textbf{Emotion} & \textbf{Behaviour} & \textbf{Effect} \\ \hline \hline
+Threat & Danger & Fear & Escape & Safety \\ \hline
+Obstacle & Enemy & Anger & Attack & Destroy obstacle \\ \hline
+Gain of valued object & Possess & Joy & Retain or repeat & Gain resources or new genes \\ \hline
+Loss of valued object & Abandonment & Sadness & Cry & Reattach with lost object \\ \hline
+Member of a group & Friend & Acceptance (Trust) & Groom & Mutual support \\ \hline
+Unpalatable object & Poison & Disgust & Vomit & Eject poison \\ \hline
+New territory & Examine & Expectation & Map & Knowledge of territory \\ \hline
+Unexpected event & What is it & Surprise & Stop & Gain time to orient \\ \hline
 \end{tabular}
 \end{table}
 
@@ -258,28 +246,19 @@ In one of his works, \citet{plutchik2001integration} has also summarised the rel
 \centering
 \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
 \hline
-\textbf{Emotion} & \textbf{Behaviour language} & \textbf{Functional language} & \textbf{Trait language} \\
-\hline
-Fear & Escape & Protection & Timid \\
-\hline
-Anger & Attack & Destruction & Quarrelsome \\
-\hline
-Joy & Mate & Reproduction & Sociable \\
-\hline
-Sadness & Cry & Reattachment & Gloomy \\
-\hline
-Acceptance (Trust) & Groom & Incorporation & Trusting \\
-\hline
-Disgust & Vomit & Rejection & Hostile \\
-\hline
-Expectation & Map & Exploration & Demanding \\
-\hline
-Surprise & Stop & Orientation & Indecisive \\
-\hline
+\textbf{Emotion} & \textbf{Behaviour language} & \textbf{Functional language} & \textbf{Trait language} \\ \hline \hline
+Fear & Escape & Protection & Timid \\ \hline
+Anger & Attack & Destruction & Quarrelsome \\ \hline
+Joy & Mate & Reproduction & Sociable \\ \hline
+Sadness & Cry & Reattachment & Gloomy \\ \hline
+Acceptance (Trust) & Groom & Incorporation & Trusting \\ \hline
+Disgust & Vomit & Rejection & Hostile \\ \hline
+Expectation & Map & Exploration & Demanding \\ \hline
+Surprise & Stop & Orientation & Indecisive \\ \hline
 \end{tabular}
 \end{table}
 
-Regarding the emotional language, another notable work that plays an important role in our construction of the mapping is from \citet{russell1980circumplex}. In this study, 28 emotional works are placed into a two dimensional space based on their degree of arousal and pleasure (see Figure \ref{fig:emotionSpace}). These affective words include \textit{angry}, \textit{afraid}, \textit{happy} and \textit{sad} which are used to refer the four basic emotions: \textit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness} respectively. From this map, the relative position of a word from the four basic emotions can be observed.
+Regarding the emotional language, another notable work that plays an important role in our construction of the mapping is from \citet{russell1980circumplex}. In this study, 28 emotional works are placed into a two dimensional space based on their degree of arousal and pleasure (see Figure \ref{fig:emotionSpace}). These affective words include \textit{angry}, \textit{afraid}, \textit{happy} and \textit{sad} which are used to refer the four basic emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness} respectively. From this map, the relative position of a word from the four basic emotions can be observed.
 
 \begin{figure}[htb!] 
 \centering    
@@ -288,19 +267,29 @@ Regarding the emotional language, another notable work that plays an important r
 \label{fig:emotionSpace}
 \end{figure}
 
-In order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. The behaviour language and trait language from those descriptions are extracted and referenced to the four emotions: fear, anger, happiness, sadness. The objective of this process is to identify the dominant emotions in each crowd type. 
+In order to construct the emotion - crowd type mapping, a comprehensive understanding of the behaviour of each crowd type is needed. The description of the each crowd type by \citet{Berlonghi1995} is analysed together with the definition of similar crowd types defined by other scholars. The behaviour language and trait language from those descriptions are extracted and referenced to the four emotions: \textit{anger}, \textit{text}, \text{happiness} and \textit{sadness}. The objective of this process is to identify the possible dominant emotions in each crowd type. 
 
 \begin{itemize}
 \item \textbf{Ambulatory crowd} - is characterised by the action walking and the calmness \citep{Zeitz2009}. According to \citet{russell1980circumplex}'s emotion space, \textit{calm} is located in a completely opposite region with \textit{angry} and \textit{afraid}. Although both \textit{calm} and \textit{sad} have negative level of arousal, the former has a positive degree of pleasure while the latter does not. Therefore, none of the four emotions are dominating in this crowd type.
+
 \item \textbf{Disablity/Limited movement crowd} - is described by the immobility of the crowd. Similarly to the ambulatory crowd, this characteristic does not suggest any significant emotion. Hence, no emotion is considered to be the dominant emotion in this crowd type.
+
 \item \textbf{Cohesive/Spectator} - is described by the activity watching a specific event and the fact that people have the interest in watching the event. Similarly, they do not signal the dominant occurrence of any emotion.
-\item \textbf{Expressive/Revellous crowd} - is characterised by the emotional release. According to the Webster's Revised Unabridged Dictionary \footnote{http://www.thefreedictionary.com/revelous}, the word \textit{revelous} originates from ``revel'' which means ``to take great pleasure or delight'' \footnote{http://www.thefreedictionary.com/reveling}. \textit{Delighted} lies in a high level of arousal with a positive pleasure in the \citet{russell1980circumplex}'s emotion space (Figure \ref{fig:emotionSpace}), which is close to \textit{happy}. Therefore, it can be inferred that this crowd type has a high intensity of \textit{happiness} as the dominant emotion.
-\item \textbf{Participatory crowd} - is described by the action participating in a specific event. Although, the description does not suggest any clue on the emotional state of the participants, one example for a participatory crowd is people taking part in an actual sport event. Regarding sport psychology, studies show that sensation seeking and arousal seeking motivate the participations in sports, especially risk involved sports \citep{rowland1986sensation}. This indicates a positive level of arousal that can be observed from a participatory crowd, thus suggesting \textit{happiness} as the dominating emotion as well. Compared to expressive crowd, the intensity of \textit{happiness} can be lower.
-\item \textbf{Aggressive/Hostile crowd} - is described by the verbal aggressiveness and disregard for instruction. \textit{Aggressiveness} is aroused by \textit{anger}. The \textit{aggressiveness} is limited by verbal expression, which hints that the intensity of \textit{anger} is at medium level.
-\item \textbf{Demonstrator} - includes such actions as picketing, marching, protesting. According to Lofland's typology of spontaneous collective behaviours \citep{Kornblum2011}, such crowds are classified into \textit{hostile} crowd aroused by \textit{anger}. This crowd type is described to have some degree of organisation and leadership, which suggests the level of \textit{aggressiveness} is not intensive. Therefore, a low level of \textit{anger} can be considered to be the dominant emotion in this crowd type.
-\item \textbf{Escaping/Trampling crowd} - is described by the escaping action from a danger or a threat. This \textit{escaping} behaviour is triggered by \textit{fear} according to Plutchik's evolutionary theory. Loftland's typology also classifies such crowd under the fearful crowd \cite{Kornblum2011}. Hence, the dominating emotion can be identified in this crowd type is clearly a high intensity of \textit{fear}.
-\item \textbf{Dense/Suffocating crowd} - is characterised by the extremely high density and inability of movement in the crowd. Recent research on brain claims that suffocation might cause fear as the experiments with mice shows that inhaled carbon dioxide reduces brain pH and evokes fear behaviour \citep{ziemann2009amygdala}.
+
+\item \textbf{Expressive/Revellous crowd} - is characterised by the emotional release. According to the Webster's Revised Unabridged Dictionary \footnote{http://www.thefreedictionary.com/revelous}, the word \textit{revelous} originates from ``revel'' which means ``to take great pleasure or delight'' \footnote{http://www.thefreedictionary.com/reveling}. \textit{Delighted} lies in a high level of arousal with a positive pleasure in the \citet{russell1980circumplex}'s emotion space (Figure \ref{fig:emotionSpace}), which is close to \textit{happy}. Therefore, it can be inferred that this crowd type has a high level of \textit{happiness} as the dominant emotion.
+
+\item \textbf{Participatory crowd} - is described by the action participating in a specific event. Although, the description does not suggest any clue on the emotional state of the participants, one example for a participatory crowd is people taking part in an actual sport event. Regarding sport psychology, studies show that sensation seeking and arousal seeking motivate the participations in sports, especially risk involved sports \citep{rowland1986sensation}. This indicates a high level of arousal that can be observed from a participatory crowd, thus suggesting \textit{happiness} as the dominating emotion as well.
+
+\item \textbf{Aggressive/Hostile crowd} - is described by the verbal aggressiveness and disregard for instruction. \textit{Aggressiveness} is aroused by \textit{anger}.
+
+\item \textbf{Demonstrator} - includes such actions as picketing, marching, protesting. According to Lofland's typology of spontaneous collective behaviours \citep{Kornblum2011}, such crowds are classified into \textit{hostile} crowd aroused by \textit{anger}.
+
+\item \textbf{Escaping/Trampling crowd} - is described by the escaping action from a danger or a threat. This \textit{escaping} behaviour is triggered by \textit{fear} according to Plutchik's evolutionary theory. Loftland's typology also classifies such crowd under the fearful crowd \cite{Kornblum2011}. Hence, the dominating emotion can be identified in this crowd type is a high intensity of \textit{fear}.
+
+\item \textbf{Dense/Suffocating crowd} - is characterised by the extremely high density and inability of movement in the crowd. Recent research on brain claims that suffocation might cause \textit{fear} as the experiments with mice shows that inhaled carbon dioxide reduces brain pH and evokes fear behaviour \citep{ziemann2009amygdala}.
+
 \item \textbf{Rushing/Looting crowd} - is described by the desire to acquire something. Studying the looting behaviour in London riot in 2011, \citet{ray2014shame} suggests the shame theory of violence which might has relevance in accounting for the violent disturbance. \textit{Shame} falls into the region with low arousal and negative pleasure together with the basic emotion \textit{sad}, which indicates the closeness of the two affective words. On the other hand, violence is aroused by \textit{anger}, hence a mixture of \textit{anger} and \textit{sadness} can be considered the dominating emotions in a looting crowd.
+
 \item \textbf{Violent crowd} - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour triggered by \textit{anger}. This crowd type has a high level of \textit{anger}.
 \end{itemize}
 
@@ -309,7 +298,7 @@ As we can notice from above analysis, five distinct groups of crowd types can be
 \begin{itemize}
 \item The first group consists of ambulatory, disability/limited movement and cohesive/spectator crowd, which suggest no dominant emotion. From the emergency management point of view, those three types do not pose potential danger. Therefore, in our crowd monitoring framework, the three crowd types will be grouped and monitored as a same type. As mentioned earlier, if data from accelerometer on participants' mobile devices can be acquired, the activities of participants in the crowd can be inferred using activity recognition technique. In term of the type of activity, an ambulatory crowd involves mostly walking, while a crowd of spectators or limited movement crowd will be more stationary with such actions as sitting or standing.
 
-\item The second group is characterised by \textit{happiness}. Expressive/revellous and participatory crowd belong to this group. The difference between an expressive and a participatory crowd is the level of happiness which is high in the former crowd and medium in the latter crowd type. Similarly, to further distinguish between these two crowd types, using accelerometer and activity recognition to infer the activities of the participants might be a possible solution. If the activities involve lots of movement such as running and walking, the crowd can be identified as a participatory crowd.
+\item The second group is characterised by \textit{happiness}. Expressive/revellous and participatory crowd belong to this group. To further distinguish between these two crowd types, using accelerometer and activity recognition to infer the activities of the participants might be a possible solution. If the activities involve lots of movement such as running and walking, the crowd can be identified as a participatory crowd.
 
 \item The third group is aroused by \textit{anger} and includes demonstrator, aggressive/hostile and violent crowd with the increasing level of anger. Activity recognition can also be used to give additional knowledge. A violent crowd involves activities that have a higher level of motion such as running and walking, while a demonstrator crowd might have a slower pace of movement.
 
@@ -323,40 +312,84 @@ As we can notice from above analysis, five distinct groups of crowd types can be
 \label{table:mappingEmotionCrowdType}
 \begin{tabular}{|p{1.4cm}|p{5.1cm}|p{1.6cm}|p{1.5cm}|p{1.9cm}|p{1.6cm}|}
 \hline
-\textbf{Group} & \textbf{Crowd type} & \textbf{Anger} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} \\
-\hline
-\multirow{3}{\linewidth}{Group 1} & Ambulatory & & & & \\
-\cline{2-6}
-& Disability / Limited movement & & & & \\
-\cline{2-6}
-& Cohesive / Spectator & & & & \\
-\hline
-\multirow{2}{\linewidth}{Group 2} & Expressive / Revellous & & & high & \\
-\cline{2-6}
-& Participatory & & & medium & \\
-\hline
-\multirow{3}{\linewidth}{Group 3} & Aggressive / Hostile & medium & & & \\
-\cline{2-6}
-& Demonstrator & low &  &  & \\
-\cline{2-6}
-& Violent & high & & & \\
-\hline
-\multirow{2}{\linewidth}{Group 4} & Escaping / Trampling & & high & & \\
-\cline{2-6}
-& Dense / Suffocating & & high & & \\
-\hline
-Group 5 & Rushing / Looting & medium & & & medium \\
-\hline
+\textbf{Group} & \textbf{Crowd type} & \textbf{Anger} & \textbf{Fear} & \textbf{Happiness} & \textbf{Sadness} \\ \hline \hline
+\multirow{3}{\linewidth}{Group 1} & Ambulatory & & & & \\ \cline{2-6}
+& Disability / Limited movement & & & & \\ \cline{2-6}
+& Cohesive / Spectator & & & & \\ \hline
+\multirow{2}{\linewidth}{Group 2} & Expressive / Revellous & & & high & \\ \cline{2-6}
+& Participatory & & & high & \\ \hline
+\multirow{3}{\linewidth}{Group 3} & Aggressive / Hostile & high & & & \\ \cline{2-6}
+& Demonstrator & low &  &  & \\ \cline{2-6}
+& Violent & high & & & \\ \hline
+\multirow{2}{\linewidth}{Group 4} & Escaping / Trampling & & high & & \\ \cline{2-6}
+& Dense / Suffocating & & high & & \\ \hline
+Group 5 & Rushing / Looting & high & & & high \\ \hline
 \end{tabular}
 \end{table}
 
 \section{Rule Based Reasoning}
 
 \subsection{Rule Repository}
-The Rule Repository contains the rules to identify a crowd type from the inferred emotional state of the crowd.
+\begin{table}
+\caption{Crowd types and their annotations}
+\label{table:crowdTypeAnnotation}
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Crowd type} & \textbf{\(c\)} \\ \hline
+Ambulatory crowd & \(c_1\) \\ \hline
+Disablity/Limited movement crowd & \(c_2\) \\ \hline
+Cohesive/Spectator & \(c_3\) \\ \hline
+Expressive/Revellous crowd & \(c_4\) \\ \hline
+Participatory crowd & \(c_5\) \\ \hline
+Aggressive/Hostile crowd & \(c_6\) \\ \hline
+Demonstrator & \(c_7\) \\ \hline
+Escaping/Trampling crowd & \(c_8\) \\ \hline
+Dense/Suffocating crowd & \(c_9\) \\ \hline
+Rushing/Looting crowd & \(c_{10}\) \\ \hline
+Violent crowd & \(c_{11}\) \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Emotions and their annotations}
+\label{table:emotionAnnotation}
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Emotion} & \textbf{\(e\)} \\ \hline
+Anger & \(e_1\) \\ \hline
+Fear & \(e_2\) \\ \hline
+Happiness & \(e_3\) \\ \hline
+Sadness & \(e_4\) \\ \hline
+\end{tabular}
+\end{table}
+
+The Rule Repository contains the rules to identify a crowd type or a group of crowd type from the inferred emotional state of the crowd. Let \(c\) be the crowd type which can have values presented in Table \ref{table:crowdTypeAnnotation}. Let \(e\) be the emotion which can have values in Table \ref{table:emotionAnnotation}. The \(lv(e_i)\) is the level of intensity of emotion \(e_i\). The rules are defined as below.
 
 \begin{equation}
-	
+\label{eq:rule1}
+	lv(e_1) \neq high \land lv(e_2) \neq high \land lv(e_3) \neq high \land lv(e_4) \neq high \Rightarrow c = c_1 \lor c = c_2 \lor c = c_3
+\end{equation}
+
+\begin{equation}
+\label{eq:rule2}
+	lv(e_3) = high \Rightarrow c = c_4 \lor c = c_5
+\end{equation}
+
+\begin{equation}
+\label{eq:rule3}
+	lv(e_1) = high \Rightarrow c = c_6 \lor c = c_7 \lor c = c_{11}
+\end{equation}
+
+\begin{equation}
+\label{eq:rule4}
+	lv(e_2) = high \Rightarrow c = c_1 \lor c = c_8 \lor c = c_9
+\end{equation}
+
+\begin{equation}
+\label{eq:rule5}
+	lv(e_2) = high \land lv(e_4) = high \Rightarrow c = c_{10}
 \end{equation}
 
 \subsection{Rule Base Reasoning}
