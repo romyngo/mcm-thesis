@@ -13,9 +13,9 @@
 \section{An Evaluation using Historical Data}
 In our proposed framework, the accuracy of the crowd type classification relies on the Emotion Analysis and the Rule Based Reasoning. As presented in the Chapter \ref{ch:approach}, the Emotion analysis detects the emotion from the tweets collected about an gathering event and computes the emotion distribution of the crowd. From this emotion distribution, the Rule Based Reasoning identifies the correct crowd types using a set of defined rules. 
 
-In order to evaluate the accuracy of the approach, we decided to conduct an experiment using historical data because of following reasons. Firstly, although the number of mass gathering events around the world are considerably high, crowd accidents do not occur very often. Therefore, a possibly large number of experiments with real events must be done until a potential detection is found, which makes our evaluation to be both time and effort consuming. Secondly, even when a possible incident has been detected, it is still difficult to tell what exactly has happened in the crowd until the investigation announces the findings and it usually takes weeks or months. With the smaller accidents with very few injuries, there is a chance that an investigation would never be made. This would make cause more challenge to our evaluation. 
+In order to evaluate the accuracy of the approach, we conducted an experiment using historical data because of following reasons. Firstly, although the number of mass gathering events around the world are considerably high, crowd accidents do not occur very often. Therefore, a possibly large number of experiments with real events must be done until a potential detection is found, which makes our evaluation to be both time and effort consuming. Secondly, even when a possible incident has been detected, it is still difficult to tell what exactly has happened in the crowd until the investigation announces the findings and it usually takes weeks or months. With the smaller accidents with very few injuries, there is a chance that an investigation would never be made, which means no crowd type can be confirmed.
 
-On the other hand, using historical data it is possible to select an event in the past, in which a crowd related accident eventually occurred and a known crowd type was identified. Our experiment will then focus on the data retrieval and comparison between our finding and the fact. Secondly, it is also a drawback of our approach that is the inability to support other language than English because our Bag-of-Words were constructed in English. Using historical data allows us to narrow down on the events in English speaking country where it is easier to collect a sufficient number of English tweet for the analysis.
+On the other hand, using historical data it is possible to select an event in the past, in which a crowd related accident eventually occurred and a known crowd type was identified. Our experiment will then focus on the data retrieval and comparison between our finding and the confirmed fact. Secondly, it is also a drawback of our approach that is the inability to support other language than English because our Bag-of-Words were constructed in English. Using historical data allows us to narrow down on the events in English speaking country where it is easier to collect a sufficient number of English tweet for the analysis.
 
 In spite of having such clear advantages over the real-time experiment, there is a certain disadvantage with the evaluation strategy using historical data. The performance of the framework regarding real-time support is not tested, such as whether the data collection technique can gather sufficient context data to support a real-time analysis or whether the response of the analysis is timely enough. Hence it is required for further experiments to be done in the future in order to fully evaluate the framework.
 
@@ -25,9 +25,9 @@ The first step of the experiment is to select a suitable mass gathering event th
 \item the mass gathering took place in an English speaking country;
 \item a crowd accident occurred and a known crowd type was identified;
 \item the event was a recent event that preferably happened after 2012
-\end{inparaenum}. The reason for the last criteria is that Twitter was created in 2006 and its traffic only started booming since 2012 \footnote{http://www.internetlivestats.com/twitter-statistics/}. Therefore, it is not possible to gather tweets about an event that happened too far in the past. For these reasons, we primarily looked for recent sporting events as these events tend to involve a large number of participants and high arousal emotions. Finally, we selected the boxing match in USA between Floyd Mayweather and Marcos Maidana on May 4th 2014, where a stampede occurred after the fight \footnote{http://www.latimes.com/sports/sportsnow/la-sp-sn-mayweather-stampede-20140504-story.html}.
+\end{inparaenum}. The reason for the last criteria is that Twitter was created in 2006 and its traffic only started booming since 2012 \footnote{http://www.internetlivestats.com/twitter-statistics/}. Therefore, it is not possible to gather tweets about an event that happened too far in the past. For these reasons, we primarily looked for recent sporting events as these events tend to involve a large number of participants and high arousal emotions. Finally, we selected the boxing match in USA between Floyd Mayweather and Marcos Maidana at 9PM on 3th May 2014, where a stampede occurred after the fight \footnote{http://www.latimes.com/sports/sportsnow/la-sp-sn-mayweather-stampede-20140504-story.html}.
 
-The match was held at the Grand Garden Arena of the MGM Grand Hotel in Las Vegas, USA with more than 16000 people attended \footnote{http://www.usatoday.com/story/sports/boxing/2014/05/04/floyd-mayweather-marcos-maidana-stampede/8700763/}. The stampede happened around 10PM local time (UTC-7) or 3PM on 5th May Melbourne time (UTC+10). According to the official statement, when the fans were leaving the arena, the stampede was triggered by a loud bang of a temporary wall falling over that was mistaken as a sound of a gunshot. It caused a panic and people started rushing to the exits. More than 50 people were injured as being trampled and crushed in the stampede. The layout of the arena was later criticized for having only two exits and the pathway was too narrow which has caused a bottleneck \footnote{http://sports.yahoo.com/news/bob-arum--stampede-after-mayweather-maidana-was--an-accident-ready-to-happen-004057893-boxing.html}. This event appears to satisfy our conditions defined above. The next section will describe the data collection process to gather tweets about this incident.
+The match was held at the Grand Garden Arena of the MGM Grand Hotel in Las Vegas, USA with more than 16000 people attended \footnote{http://www.usatoday.com/story/sports/boxing/2014/05/04/floyd-mayweather-marcos-maidana-stampede/8700763/}. The stampede happened around 10PM local time (UTC-7) or 3PM on May 4th Melbourne time (UTC+10). According to the official statement, when the fans were leaving the arena, the stampede was triggered by a loud bang of a temporary wall falling over that was mistaken as a sound of a gunshot. It caused a panic and people started rushing to the exits. More than 50 people were injured as being trampled and crushed in the stampede. The layout of the arena was later criticized for having only two exits and the pathway was too narrow which has caused a bottleneck \footnote{http://sports.yahoo.com/news/bob-arum--stampede-after-mayweather-maidana-was--an-accident-ready-to-happen-004057893-boxing.html}. This event appears to satisfy our conditions defined above. The next section will describe the data collection process to gather tweets about this incident.
 
 \subsection{Data Collection}
 There are several methods to access to Twitter's data. The most common way is to access via Twitter's official Search API \footnote{https://dev.twitter.com/rest/public/search}. However, according to the documentation, the API is limited to return only tweets from the past week, hence it is not usable to retrieve historical data in our experiment. Another method is access the data from the 3rd party providers, such as Topsy \footnote{http://topsy.com} which allows to search for tweets back in the past using keywords. This website is also capable to refine the search results by date and language, yet it does not support filtering by geo-location or places. 
@@ -42,21 +42,166 @@ On the other hand, since the Advanced Search is designed for the user who access
 In conclusion, although Twitter Advanced Search is very a potential source to collect historical tweets, it is not designed to be programmatically accessed. However, because our experiment required a larger number of tweets to perform analysis, it was impractical to manually perform the data collection. Therefore, the web crawling technique was incorporated to automate the process.
 
 \subsubsection{Crawling the Twitter Advanced Search}
-In order to programmatically access Twitter Advanced Search, PhantomJS and CasperJS were utilized in our data collection process. PhantomJS \footnote{http://phantomjs.org} is headless scripted browser which is used to automate web page interaction for testing purposes. CasperJS \footnote{http://casperjs.org} is an open source Javascript library written for PhantomJS to enhance various tasks including the DOM manipulation. The complete process consisting of visiting Twitter page, submitting the search queries, scrolling down the result list and extracting the needed information from the DOM were written in Javascript as step by step instructions for the headless browser to operate. In other words, the headless browser imitated the human interaction on a normal browser and automatically stored the extracted tweets into a file.
+In order to programmatically access Twitter Advanced Search, PhantomJS and CasperJS were utilized in our data collection process. PhantomJS \footnote{http://phantomjs.org} is headless scripted browser which is used to automate web page interaction for testing purposes. CasperJS \footnote{http://casperjs.org} is an open source Javascript library written for PhantomJS to enhance various tasks including the DOM manipulation. The complete process consisting of visiting Twitter page, submitting the search queries, scrolling down the result list and extracting the needed information from the DOM were written in Javascript as step by step instructions for the headless browser to operate. In short, the headless browser imitated the human interaction on a normal browser and automatically stored the extracted tweets into a CSV file.
 
-As the stampede occurred in the evening 4th May 2014, the two parameters of the Advanced Search \textit{since} and \text{until} were set as ``2014-05-04'' and ``2014-05-05'' respectively which was long enough to cover the whole event. Because our analysis only supports English, the corresponding parameter \textit{lang} was set as ``eng'' to filter out tweets written in other languages. Because the venue of the boxing match was MGM Grand Hotel, the parameter \textit{near} was set to the coordinates of the hotel \footnote{36.102552, -115.169569} with \textit{within} set to 5 miles. The search engine returned all tweets that were either geotagged or checked in with a place within the radius of specified area.
+The event only lasted for a few hours, however, in order to investigate the general distribution of emotions during the time near the event, a longer sampling period was desirable. The two parameters of the Advanced Search \textit{since} and \text{until} were set as ``2014-05-01'' and ``2014-05-07'' respectively to collect 7 days of tweets. Because our analysis only supports English, the corresponding parameter \textit{lang} was set as ``eng'' to filter out tweets written in other languages. As the venue of the boxing match was MGM Grand Hotel, the parameter \textit{near} was set to the coordinates of the hotel \footnote{36.102552, -115.169569} with \textit{within} parameter set to 5 miles. The search engine returned all tweets that were either geotagged or checked in with a place within the radius of specified area. It was noticeable in the returned tweets that there were a large number of tweets containing the mention \textit{@MGMGrand} or the hashtag \textit{\#MGMGrand}. They suggested to be a possible keyword and hashtag for an alternatively search for tweets at the venue. Therefore, we ran another crawler with similar parameters but searching for ``MGMGrand'' instead of specifying the location. Finally, a dataset containing 33935 tweets over 7 days was collected and it was used as our experimental dataset to evaluate our Emotion Analysis and Rule Based Reasoning.
 
-It was noticeable in the returned tweets that there were a large number of tweets containing the mention \textit{@MGMGrand} or the hashtag \textit{#MGMGrand}. They suggested to be a possible keyword and hashtag that can be used to alternatively search for tweets at the venue. Therefore, we ran another crawler with similar parameters but searching for ``MGMGrand'' instead of specifying the location.
+\subsection{The Experimental Dataset}
+As mentioned, our experimental dataset contained 33935 tweets. Briefly talk about the dataset: diagram showing distribution by days.
 
-Finally, two sources were combined and a 10 hour period of data around the time when the accident happened was extracted. This data was used to evaluate the capability of the framework to detect the stampede. The total number of tweets within the chosen period was 6351 tweets.
+The period associated with the chosen event was defined to be a 10 hour period, starting 5 hours before and ending 5 hours after the boxing match. This period was in the middle of the sampling period, enabling us to study the distribution of emotions before and after the incident. In our discussion, when event time is mentioned, it refers to this period.
 
-\subsubsection{Thresholds Calculation}
-The threshold is used to identify a high level of an emotion, suggesting potentially abnormal crowd behaviour. As mentioned in Chapter \ref{ch:approach}, the thresholds are different for each emotion and their values are application specific.
+\subsection{Evaluation Strategy}
+As a stampede was confirmed to have occurred, the known crowd types for this event can be identified as escaping and dense/suffocating which belong to Group 4 motivated by fear in our classification in Chapter \ref{ch:approach}. The goal of the experiment was to test whether our proposed approach can identify the correct crowd types or not.
 
-\subsubsection{The Experimental Dataset}
+A relatively similar process to our framework's process was applied to the collected dataset. Firstly, the Emotion Analysis was performed to extract the emotions from the tweets using the Bag-Of-Words approach and NRC Hashtag Emotion Lexicon. Because in the real-time analysis, tweets are collected in real time and the emotion distribution is calculated after an interval \(t\), the second step of the experiment was to accordingly divide the dataset into smaller intervals \(t_i\) and calculate the percentage of each emotion within each \(t_i\). In our experiment, interval \(t\) was set as 15 minutes equivalent to our implementation.
 
-\subsection{Analysis}
+The third step was to apply labelling the level of density of an emotion using a threshold. As mentioned in Chapter \ref{ch:approach}, the value of thresholds are different for each emotion and application-specific. In our experiment, because of the fact that in our experiment dataset the percentages anger, fear, happiness and sadness over time were normally distributed, a simple yet flexible method to calculate the thresholds was implemented using moving average and z-score for each interval \(t_i\).
 
-\subsection{Discussion}
+Finally, using the defined set of rules, the crowd types or crowd groups that possibly occurred in each \(t_i\) were inferred from the levels of density of the four emotions. The findings were compared with the known crowd types that were escaping and dense/suffocating type.
+
+\section{Evaluation}
+\subsection{Emotion Analysis}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.25\textwidth]{EmotionLabel}
+\caption{The result of Emotion Analysis on the experiment dataset}
+\label{fig:emotionLabel}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.5\textwidth]{EmotionDistributionWeek}
+\caption{The emotion distribution of the experiment dataset}
+\label{fig:emotionDistributionWeek}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.5\textwidth]{EmotionDistributionEvent}
+\caption{The emotion distribution of the experiment dataset during the event}
+\label{fig:emotionDistributionEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{AngerInstanceEvent}
+\caption{The number of tweets labelled with anger over time during the event}
+\label{fig:angerInstanceEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{FearInstanceEvent}
+\caption{The number of tweets labelled with fear over time during the event}
+\label{fig:fearInstanceEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{HappinessInstanceEvent}
+\caption{The number of tweets labelled with happiness over time during the event}
+\label{fig:happinessInstanceEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{SadnessInstanceEvent}
+\caption{The number of tweets labelled with sadness over time during the event}
+\label{fig:sadnessInstanceEvent}
+\end{figure}
+
+\subsection{Emotion Distribution over time}
+\clearpage
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{AngerRateEvent}
+\caption{The percentage of anger over time during the event}
+\label{fig:angerRateEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{FearRateEvent}
+\caption{The percentage of fear over time during the event}
+\label{fig:fearRateEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{HappinessRateEvent}
+\caption{The percentage of happiness over time during the event}
+\label{fig:happinessRateEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{SadnessRateEvent}
+\caption{The percentage of sadness over time during the event}
+\label{fig:sadnessRateEvent}
+\end{figure}
+
+\subsubsection{The Normal Distribution of Emotion Rate over time}
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.5\textwidth]{HistogramAngerWeek}
+\caption{The normal distribution of anger rate in the dataset}
+\label{fig:histogramAngerWeek}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.5\textwidth]{HistogramFearWeek}
+\caption{The normal distribution of fear rate in the dataset}
+\label{fig:histogramFearWeek}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.5\textwidth]{HistogramHappinessWeek}
+\caption{The normal distribution of happiness rate in the dataset}
+\label{fig:histogramHappinessWeek}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=0.5\textwidth]{HistogramSadnessWeek}
+\caption{The normal distribution of sadness rate in the dataset}
+\label{fig:histogramSadnessWeek}
+\end{figure}
+
+\subsubsection{Z-score and Level of Density of an Emotion}
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{AngerZscoreEvent}
+\caption{The z-score of anger rate over time during the event}
+\label{fig:angerZscoreEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{FearZscoreEvent}
+\caption{The z-score of fear rate over time during the event}
+\label{fig:fearZscoreEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{HappinessZscoreEvent}
+\caption{The z-score of happiness rate over time during the event}
+\label{fig:happinessZscoreEvent}
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering    
+\includegraphics[width=1.0\textwidth]{SadnessZscoreEvent}
+\caption{The z-score of sadness rate over time during the event}
+\label{fig:sadnessZscoreEvent}
+\end{figure}
+
+\subsection{Rule Based Reasoning and Possible Crowd Types}
+
+\section{Discussion}
 
 \section{Conclusion}
