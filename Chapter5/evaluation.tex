@@ -27,7 +27,7 @@ The first step of the experiment is to select a suitable mass gathering event th
 \item the event was a recent event that preferably happened after 2012
 \end{inparaenum}. The reason for the last criteria is that Twitter was created in 2006 and its traffic only started booming since 2012 \footnote{http://www.internetlivestats.com/twitter-statistics/}. Therefore, it is not possible to gather tweets about an event that happened too far in the past. For these reasons, we primarily looked for recent sporting events as these events tend to involve a large number of participants and high arousal emotions. Finally, we selected the boxing match in USA between Floyd Mayweather and Marcos Maidana at 9PM on 3th May 2014, where a stampede occurred after the fight \footnote{http://www.latimes.com/sports/sportsnow/la-sp-sn-mayweather-stampede-20140504-story.html}.
 
-The match was held at the Grand Garden Arena of the MGM Grand Hotel in Las Vegas, USA with more than 16000 people attended \footnote{http://www.usatoday.com/story/sports/boxing/2014/05/04/floyd-mayweather-marcos-maidana-stampede/8700763/}. The stampede happened around 10PM local time (UTC-7) or 3PM on May 4th Melbourne time (UTC+10). According to the official statement, when the fans were leaving the arena, the stampede was triggered by a loud bang of a temporary wall falling over that was mistaken as a sound of a gunshot. It caused a panic and people started rushing to the exits. More than 50 people were injured as being trampled and crushed in the stampede. The layout of the arena was later criticized for having only two exits and the pathway was too narrow which has caused a bottleneck \footnote{http://sports.yahoo.com/news/bob-arum--stampede-after-mayweather-maidana-was--an-accident-ready-to-happen-004057893-boxing.html}. This event appears to satisfy our conditions defined above. The next section will describe the data collection process to gather tweets about this incident.
+The match was held at the Grand Garden Arena of the MGM Grand Hotel in Las Vegas, USA with more than 16000 people attended \footnote{http://www.usatoday.com/story/sports/boxing/2014/05/04/floyd-mayweather-marcos-maidana-stampede/8700763/}. The stampede happened around 10PM local time (UTC-7). According to the official statement, when the fans were leaving the arena, the stampede was triggered by a loud bang of a temporary wall falling over that was mistaken as a sound of a gunshot. It caused a panic and people started rushing to the exits. More than 50 people were injured as being trampled and crushed in the stampede. The layout of the arena was later criticized for having only two exits and the pathway was too narrow which has caused a bottleneck \footnote{http://sports.yahoo.com/news/bob-arum--stampede-after-mayweather-maidana-was--an-accident-ready-to-happen-004057893-boxing.html}. This event appears to satisfy our conditions defined above. The next section will describe the data collection process to gather tweets about this incident.
 
 \subsection{Data Collection}
 There are several methods to access to Twitter's data. The most common way is to access via Twitter's official Search API \footnote{https://dev.twitter.com/rest/public/search}. However, according to the documentation, the API is limited to return only tweets from the past week, hence it is not usable to retrieve historical data in our experiment. Another method is access the data from the 3rd party providers, such as Topsy \footnote{http://topsy.com} which allows to search for tweets back in the past using keywords. This website is also capable to refine the search results by date and language, yet it does not support filtering by geo-location or places. 
@@ -49,7 +49,7 @@ The event only lasted for a few hours, however, in order to investigate the gene
 \subsection{The Experimental Dataset}
 As mentioned, our experimental dataset contained 33935 tweets. Briefly talk about the dataset: diagram showing distribution by days.
 
-The period associated with the chosen event was defined to be a 10 hour period, starting 5 hours before and ending 5 hours after the boxing match. This period was in the middle of the sampling period, enabling us to study the distribution of emotions before and after the incident. In our discussion, when event time is mentioned, it refers to this period.
+The period associated with the chosen event was defined to be a 10 hour period, starting 5 hours before and ending 5 hours after the boxing match \footnote{from May 3rd 2014 6:00PM to May 4th 2014 4AM}. This focused period was in the middle of the sampling period, enabling us to study the trailing and leading effect to the distribution of emotions before and after the incident. In our discussion, when event time is mentioned, it refers to this period.
 
 \subsection{Evaluation Strategy}
 As a stampede was confirmed to have occurred, the known crowd types for this event can be identified as escaping and dense/suffocating which belong to Group 4 motivated by fear in our classification in Chapter \ref{ch:approach}. The goal of the experiment was to test whether our proposed approach can identify the correct crowd types or not.
@@ -63,104 +63,105 @@ Finally, using the defined set of rules, the crowd types or crowd groups that po
 \section{Evaluation}
 \subsection{Emotion Analysis}
 
-Applying the Emotion Analysis using NRC Hashtag Emotion Lexicon \citep{mohammad2014using} on the dataset, 28698 tweets were labelled with one of four emotions: anger, fear, happiness and sadness. Figure \ref{fig:emotionLabel} shows 5237 tweets that were unable to label with any emotion thus being marked as unknown. Overall, the Bag-of-Words approach successfully extracted the emotion from 84.67\% of the collected tweets.
+Applying the Emotion Analysis using NRC Hashtag Emotion Lexicon \citep{mohammad2014using} on the dataset, 28698 tweets were labelled with one of four emotions: anger, fear, happiness and sadness. Figure \ref{fig:emotionLabel} shows 5237 tweets that were unable to label with any emotion thus being marked as unknown. Overall, the Bag-of-Words approach successfully extracted the emotion from 84.67\% of the collected tweets. Our experiment was then proceeded with the labelled data.
 
-\begin{figure}[htb!] 
-\centering    
-\includegraphics[width=0.25\textwidth]{EmotionLabel}
-\caption{The result of Emotion Analysis on the experiment dataset}
-\label{fig:emotionLabel}
-\end{figure}
-
-Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy tweets than the other emotions. Within the 10 hour period of the event, the dominating emotion was anger (Figure \ref{fig:emotionDistributionEvent}).
+Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy tweets than the other emotions. Interestingly, during the 10 hour period of the event, the dominating emotion was anger (Figure \ref{fig:emotionDistributionEvent}). The reason might be because of the nature of the boxing match that the related tweets contained lots of aggressive words.
 
 \begin{figure}[htb!] 
 \centering 
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.24\textwidth}
+\centering    
+\includegraphics[width=0.95\textwidth]{EmotionLabel}
+\caption{Seven days}
+\label{fig:emotionLabel}
+\end{subfigure}%
+\begin{subfigure}{0.38\textwidth}
 \centering
-\includegraphics[width=0.8\linewidth]{EmotionDistributionWeek}
+\includegraphics[width=0.95\linewidth]{EmotionDistributionWeek}
 \caption{Seven days}
 \label{fig:emotionDistributionWeek}
 \end{subfigure}%
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.38\textwidth}
 \centering
-\includegraphics[width=0.8\linewidth]{EmotionDistributionEvent}
+\includegraphics[width=0.95\linewidth]{EmotionDistributionEvent}
 \caption{During event}
 \label{fig:emotionDistributionEvent}
 \end{subfigure}
-\caption{The number of tweets labelled with each emotion during the event (b) and in the whole dataset (a)}
+\caption{The result of Emotion Analysis on the dataset (a) and the number of tweets labelled with each emotion during the event (c) and in the whole dataset of seven days (b)}
 \end{figure}
 
-As the objective of the experiment was to evaluate the framework's capability to detect the crowd types during the event, the rest of the analysis mainly focused on the chosen 10 hour period.
+As the objective of the experiment was to evaluate the framework's capability to detect the crowd types during the event, the analysis described in the next sections mainly focuses on the selected 10 hour period of the event.
 
 \subsection{Emotion Distribution over time}
-The tweets were then plotted into each 15 minute interval to observe the change over time.
+Since in our experiment, interval \(t\) was set as 15 minutes, the data was then plotted into 15 minute intervals to observe the change over time. Figure \ref{fig:instanceEvent} illustrates the change of number of tweets labelled in each emotion over time. The horizontal axis presents our focused time-line consisting of 41 time-frames. The vertical axis shows the total number of tweets labelled with a specific emotion within a time-frame. As can be noticed from the charts, angry labelled tweets reached a peak at May 3rd 9:15PM which was around the same time with the start of the boxing match. However, the increase in term of number of tweets might not be a significant lead because other emotions also reached the peaks at this time-frame.
 
-The number of instance labelled in each emotion over time during the event.
 \begin{figure}[htb!] 
 \centering
 \begin{subfigure}{0.5\textwidth}
 \centering
-\includegraphics[width=0.98\linewidth]{AngerInstanceEvent}
+\includegraphics[width=0.99\linewidth]{AngerInstanceEvent}
 \caption{anger}
 \label{fig:angerInstanceEvent}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{FearInstanceEvent}
+\includegraphics[width=0.99\linewidth]{FearInstanceEvent}
 \caption{fear}
 \label{fig:fearInstanceEvent}
 \end{subfigure}
 
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{HappinessInstanceEvent}
+\includegraphics[width=0.99\linewidth]{HappinessInstanceEvent}
 \caption{happiness}
 \label{fig:happinessInstanceEvent}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{SadnessInstanceEvent}
+\includegraphics[width=0.99\linewidth]{SadnessInstanceEvent}
 \caption{sadness}
 \label{fig:sadnessInstanceEvent}
 \end{subfigure}
 \caption{The number of tweets labelled with anger, fear, happiness and sadness over time during the event}
+\label{fig:instanceEvent}
 \end{figure}
 
-The percentage of each emotion over time during the event.
+In order to reduce the effect of the increase in term of quantity, the percentage of each emotion over time was calculated according to the Formula \ref{eq:distributionEmotion} in Chapter \ref{ch:approach}. Figure \ref{fig:rateEvent} shows the emotion distribution using the percentage of tweets instead of the total number of tweets labelled with an emotion.
+
 \clearpage
 \begin{figure}[htb!] 
 \centering    
 \begin{subfigure}{0.5\textwidth}
 \centering
-\includegraphics[width=0.98\linewidth]{AngerRateEvent}
+\includegraphics[width=0.99\linewidth]{AngerRateEvent}
 \caption{anger}
 \label{fig:angerRateEvent}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{FearRateEvent}
+\includegraphics[width=0.99\linewidth]{FearRateEvent}
 \caption{fear}
 \label{fig:fearRateEvent}
 \end{subfigure}
 
 \begin{subfigure}{0.5\textwidth} 
 \centering    
-\includegraphics[width=0.98\linewidth]{HappinessRateEvent}
+\includegraphics[width=0.99\linewidth]{HappinessRateEvent}
 \caption{happiness}
 \label{fig:happinessRateEvent}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{SadnessRateEvent}
+\includegraphics[width=0.99\linewidth]{SadnessRateEvent}
 \caption{sadness}
 \label{fig:sadnessRateEvent}
 \end{subfigure}
 \caption{The percentage of anger, fear, happiness and sadness over time during the event}
+\label{fig:rateEvent}
 \end{figure}
 
 \subsubsection{The Normal Distribution of Emotion Rate over time}
-Applying histogram to rate over time of each emotion, the normal distribution of the rate can be noticed.
+Applying histogram to the emotion rate over time of each emotion, the distribution of the emotion rate followed the normal distribution. The majority of the values were close to the mean values forming a bell shape (Figure \ref{fig:histogramWeek}). The further a value deviates from the mean value, the less frequent its appearance is.
 
 \begin{figure}[htb!] 
 \centering    
@@ -194,32 +195,31 @@ Applying histogram to rate over time of each emotion, the normal distribution of
 \end{figure}
 
 \subsubsection{Moving Average, Z-score and the Level of Density of an Emotion}
-Set window for moving average as minus 1 hour, which means the mean value is calculate by considering 1 hour of data earlier.
-Set the threshold for high level of density of an emotion as z-score = 1, which means this value is higher than the mean value by one standard deviation.
+Set window for moving average as minus 1 hour, which means the mean value is calculate by considering 1 hour of data earlier. Set the threshold for high level of density of an emotion as z-score = 1, which means this value is higher than the mean value by one standard deviation.
 \begin{figure}[htb!] 
 \centering   
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{AngerZscoreEvent}
+\includegraphics[width=0.99\linewidth]{AngerZscoreEvent}
 \caption{anger}
 \label{fig:angerZscoreEvent}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{FearZscoreEvent}
+\includegraphics[width=0.99\linewidth]{FearZscoreEvent}
 \caption{fear}
 \label{fig:fearZscoreEvent}
 \end{subfigure}
 
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{HappinessZscoreEvent}
+\includegraphics[width=0.99\linewidth]{HappinessZscoreEvent}
 \caption{happiness}
 \label{fig:happinessZscoreEvent}
 \end{subfigure}%
 \begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.98\linewidth]{SadnessZscoreEvent}
+\includegraphics[width=0.99\linewidth]{SadnessZscoreEvent}
 \caption{sadness}
 \label{fig:sadnessZscoreEvent}
 \end{subfigure}
