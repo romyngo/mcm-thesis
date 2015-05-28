@@ -54,7 +54,7 @@ The period associated with the chosen event was defined to be a 10 hour period, 
 \subsection{Evaluation Strategy}
 As a stampede was confirmed to have occurred, the known crowd types for this event can be identified as escaping and dense/suffocating which belong to Group 4 motivated by fear in our classification in Chapter \ref{ch:approach}. The goal of the experiment was to test whether our proposed approach can identify the correct crowd types or not.
 
-A relatively similar process to our framework's process was applied to the collected dataset. Firstly, the Emotion Analysis was performed to extract the emotions from the tweets using the Bag-Of-Words approach and NRC Hashtag Emotion Lexicon. Because in the real-time analysis, tweets are collected in real time and the emotion distribution is calculated after an interval \(t\), the second step of the experiment was to accordingly divide the dataset into smaller intervals \(t_i\) and calculate the percentage of each emotion within each \(t_i\). In our experiment, interval \(t\) was set as 15 minutes equivalent to our implementation.
+A relatively similar process to our framework's process was applied to the collected dataset. Firstly, the Emotion Analysis was performed to extract the emotions from the tweets using the Bag-Of-Words approach and NRC Hashtag Emotion Lexicon \citep{mohammad2014using}. Because in the real-time analysis, tweets are collected in real time and the emotion distribution is calculated after an interval \(t\), the second step of the experiment was to accordingly divide the dataset into smaller intervals \(t_i\) and calculate the percentage of each emotion within each \(t_i\). In our experiment, interval \(t\) was set as 15 minutes equivalent to our implementation.
 
 The third step was to apply labelling the level of density of an emotion using a threshold. As mentioned in Chapter \ref{ch:approach}, the value of thresholds are different for each emotion and application-specific. In our experiment, because of the fact that in our experiment dataset the percentages anger, fear, happiness and sadness over time were normally distributed, a simple yet flexible method to calculate the thresholds was implemented using moving average and z-score for each interval \(t_i\).
 
@@ -63,6 +63,8 @@ Finally, using the defined set of rules, the crowd types or crowd groups that po
 \section{Evaluation}
 \subsection{Emotion Analysis}
 
+Applying the Emotion Analysis using NRC Hashtag Emotion Lexicon \citep{mohammad2014using} on the dataset, 28698 tweets were labelled with one of four emotions: anger, fear, happiness and sadness. Figure \ref{fig:emotionLabel} shows 5237 tweets that were unable to label with any emotion thus being marked as unknown. Overall, the Bag-of-Words approach successfully extracted the emotion from 84.67\% of the collected tweets.
+
 \begin{figure}[htb!] 
 \centering    
 \includegraphics[width=0.25\textwidth]{EmotionLabel}
@@ -70,134 +72,158 @@ Finally, using the defined set of rules, the crowd types or crowd groups that po
 \label{fig:emotionLabel}
 \end{figure}
 
+Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy tweets than the other emotions. Within the 10 hour period of the event, the dominating emotion was anger (Figure \ref{fig:emotionDistributionEvent}).
+
 \begin{figure}[htb!] 
-\centering    
-\includegraphics[width=0.5\textwidth]{EmotionDistributionWeek}
-\caption{The emotion distribution of the experiment dataset}
+\centering 
+\begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=0.8\linewidth]{EmotionDistributionWeek}
+\caption{Seven days}
 \label{fig:emotionDistributionWeek}
-\end{figure}
-
-\begin{figure}[htb!] 
-\centering    
-\includegraphics[width=0.5\textwidth]{EmotionDistributionEvent}
-\caption{The emotion distribution of the experiment dataset during the event}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=0.8\linewidth]{EmotionDistributionEvent}
+\caption{During event}
 \label{fig:emotionDistributionEvent}
+\end{subfigure}
+\caption{The number of tweets labelled with each emotion during the event (b) and in the whole dataset (a)}
 \end{figure}
 
-\begin{figure}[htb!] 
-\centering    
-\includegraphics[width=1.0\textwidth]{AngerInstanceEvent}
-\caption{The number of tweets labelled with anger over time during the event}
-\label{fig:angerInstanceEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
-\centering    
-\includegraphics[width=1.0\textwidth]{FearInstanceEvent}
-\caption{The number of tweets labelled with fear over time during the event}
-\label{fig:fearInstanceEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
-\centering    
-\includegraphics[width=1.0\textwidth]{HappinessInstanceEvent}
-\caption{The number of tweets labelled with happiness over time during the event}
-\label{fig:happinessInstanceEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
-\centering    
-\includegraphics[width=1.0\textwidth]{SadnessInstanceEvent}
-\caption{The number of tweets labelled with sadness over time during the event}
-\label{fig:sadnessInstanceEvent}
-\end{figure}
+As the objective of the experiment was to evaluate the framework's capability to detect the crowd types during the event, the rest of the analysis mainly focused on the chosen 10 hour period.
 
 \subsection{Emotion Distribution over time}
+The tweets were then plotted into each 15 minute interval to observe the change over time.
+
+The number of instance labelled in each emotion over time during the event.
+\begin{figure}[htb!] 
+\centering
+\begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=0.98\linewidth]{AngerInstanceEvent}
+\caption{anger}
+\label{fig:angerInstanceEvent}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+\centering    
+\includegraphics[width=0.98\linewidth]{FearInstanceEvent}
+\caption{fear}
+\label{fig:fearInstanceEvent}
+\end{subfigure}
+
+\begin{subfigure}{0.5\textwidth}
+\centering    
+\includegraphics[width=0.98\linewidth]{HappinessInstanceEvent}
+\caption{happiness}
+\label{fig:happinessInstanceEvent}
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
+\centering    
+\includegraphics[width=0.98\linewidth]{SadnessInstanceEvent}
+\caption{sadness}
+\label{fig:sadnessInstanceEvent}
+\end{subfigure}
+\caption{The number of tweets labelled with anger, fear, happiness and sadness over time during the event}
+\end{figure}
+
+The percentage of each emotion over time during the event.
 \clearpage
 \begin{figure}[htb!] 
 \centering    
-\includegraphics[width=1.0\textwidth]{AngerRateEvent}
-\caption{The percentage of anger over time during the event}
+\begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=0.98\linewidth]{AngerRateEvent}
+\caption{anger}
 \label{fig:angerRateEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=1.0\textwidth]{FearRateEvent}
-\caption{The percentage of fear over time during the event}
+\includegraphics[width=0.98\linewidth]{FearRateEvent}
+\caption{fear}
 \label{fig:fearRateEvent}
-\end{figure}
+\end{subfigure}
 
-\begin{figure}[htb!] 
+\begin{subfigure}{0.5\textwidth} 
 \centering    
-\includegraphics[width=1.0\textwidth]{HappinessRateEvent}
-\caption{The percentage of happiness over time during the event}
+\includegraphics[width=0.98\linewidth]{HappinessRateEvent}
+\caption{happiness}
 \label{fig:happinessRateEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=1.0\textwidth]{SadnessRateEvent}
-\caption{The percentage of sadness over time during the event}
+\includegraphics[width=0.98\linewidth]{SadnessRateEvent}
+\caption{sadness}
 \label{fig:sadnessRateEvent}
+\end{subfigure}
+\caption{The percentage of anger, fear, happiness and sadness over time during the event}
 \end{figure}
 
 \subsubsection{The Normal Distribution of Emotion Rate over time}
+Applying histogram to rate over time of each emotion, the normal distribution of the rate can be noticed.
+
 \begin{figure}[htb!] 
 \centering    
-\includegraphics[width=0.5\textwidth]{HistogramAngerWeek}
-\caption{The normal distribution of anger rate in the dataset}
+\begin{subfigure}{0.5\textwidth}
+\centering
+\includegraphics[width=0.8\linewidth]{HistogramAngerWeek}
+\caption{anger}
 \label{fig:histogramAngerWeek}
-\end{figure}
-
-\begin{figure}[htb!] 
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.5\textwidth]{HistogramFearWeek}
-\caption{The normal distribution of fear rate in the dataset}
+\includegraphics[width=0.8\linewidth]{HistogramFearWeek}
+\caption{fear}
 \label{fig:histogramFearWeek}
-\end{figure}
 
-\begin{figure}[htb!] 
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.5\textwidth]{HistogramHappinessWeek}
-\caption{The normal distribution of happiness rate in the dataset}
+\includegraphics[width=0.8\linewidth]{HistogramHappinessWeek}
+\caption{happiness}
 \label{fig:histogramHappinessWeek}
-\end{figure}
-
-\begin{figure}[htb!] 
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=0.5\textwidth]{HistogramSadnessWeek}
-\caption{The normal distribution of sadness rate in the dataset}
+\includegraphics[width=0.8\linewidth]{HistogramSadnessWeek}
+\caption{sadness}
 \label{fig:histogramSadnessWeek}
+\end{subfigure}
+\caption{The normal distribution of anger (a), fear (b), happiness (c) and sadness (d) rate over time in the dataset}
+\label{fig:histogramWeek}
 \end{figure}
 
-\subsubsection{Z-score and Level of Density of an Emotion}
+\subsubsection{Moving Average, Z-score and the Level of Density of an Emotion}
+Set window for moving average as minus 1 hour, which means the mean value is calculate by considering 1 hour of data earlier.
+Set the threshold for high level of density of an emotion as z-score = 1, which means this value is higher than the mean value by one standard deviation.
 \begin{figure}[htb!] 
+\centering   
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=1.0\textwidth]{AngerZscoreEvent}
-\caption{The z-score of anger rate over time during the event}
+\includegraphics[width=0.98\linewidth]{AngerZscoreEvent}
+\caption{anger}
 \label{fig:angerZscoreEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=1.0\textwidth]{FearZscoreEvent}
-\caption{The z-score of fear rate over time during the event}
+\includegraphics[width=0.98\linewidth]{FearZscoreEvent}
+\caption{fear}
 \label{fig:fearZscoreEvent}
-\end{figure}
+\end{subfigure}
 
-\begin{figure}[htb!] 
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=1.0\textwidth]{HappinessZscoreEvent}
-\caption{The z-score of happiness rate over time during the event}
+\includegraphics[width=0.98\linewidth]{HappinessZscoreEvent}
+\caption{happiness}
 \label{fig:happinessZscoreEvent}
-\end{figure}
-
-\begin{figure}[htb!] 
+\end{subfigure}%
+\begin{subfigure}{0.5\textwidth}
 \centering    
-\includegraphics[width=1.0\textwidth]{SadnessZscoreEvent}
-\caption{The z-score of sadness rate over time during the event}
+\includegraphics[width=0.98\linewidth]{SadnessZscoreEvent}
+\caption{sadness}
 \label{fig:sadnessZscoreEvent}
+\end{subfigure}
+\caption{The z-score of anger, fear, happiness and sadness rate over time during the event}
 \end{figure}
 
 \subsection{Rule Based Reasoning and Possible Crowd Types}
