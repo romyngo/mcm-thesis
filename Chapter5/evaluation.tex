@@ -136,7 +136,9 @@ Our Java based implementation used version 0.2 of the NRC Hashtag Emotion Lexico
 \subsubsection{Java Based Implementation}
 The Emotion Analysis was performed by a Java application. The first phase was the bootstrap, in which the CSV file containing the collected tweets and the TSV file containing the NRC Hashtag Emotion Lexicon were read into the memory. The Lexicon was stored as a HashMap for random access with the word served as the key of each record in the HashMap. The value of each record was an Word Object which consisted of a four-element array of doubles holding the SoA of that emotion toward \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. If the SoA against an emotion was not found from the Lexicon, the value was set as \(\epsilon\) which referred to a very small number. This array was the implementation of the emotional weight vector of that particular word. The collected tweets were stored as an ArrayList for sequential access. 
 
-The second phase was the analysis, where each tweet in the ArrayList was tokenized by PTBTokenizer into words and the weight vector of each word was retrieved from the HashMap. The summative emotional weight vector of the tweet was calculated to extract the dominant emotion and save it as an attribute in each tweet. After finishing looping through the ArrayList of tweets, the application wrote all tweets into a new CSV file where each tweet was labelled with \textit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness} or \textit{unknown}. The \textit{unknown} class was labelled to tweets which no dominant emotion was found.
+The second phase was the analysis, where each tweet in the ArrayList was tokenized by PTBTokenizer into words and the weight vector of each word was retrieved from the HashMap. The summative emotional weight vector of the tweet was calculated to extract the dominant emotion and save it as an attribute in each tweet. After finishing looping through the ArrayList of tweets, the application stored all tweets into a database where each record was a tweet labelled with \textit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness} or \textit{unknown}. The \textit{unknown} class was labelled to tweets which no dominant emotion was found.
+
+The algorithm below presents our Java implementation of the Emotion Analysis. 
 
 \begin{algorithm}
 \caption{Emotion Analysis}
@@ -162,59 +164,98 @@ The second phase was the analysis, where each tweet in the ArrayList was tokeniz
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Threshold and Level of Density of an Emotion}
+Our database was running MySQL version 5.5.41. Collected tweets were saved in the SAMPLES table which structure is presented in Table \ref{table:databaseTweet}.
+
+\begin{table}
+\caption{Database containing tweets and their labelled emotion}
+\label{table:databaseTweet}
+\begin{tabular}{|l|l|l|}
+
+\hline
+\textbf{Column name} & \textbf{Data type} & \textbf{Description} \\ \hline \hline
+tweet\_id & BIGINT(20) & Unique ID of a tweet \\ \hline
+user\_id & VARCHAR(20) & ID of the author of the tweet \\ \hline
+user\_name & VARCHAR(50) & Username of the author \\ \hline
+created & DATETIME & The timestamp when the tweet was posted \\ \hline
+text & TEXT & The content of the tweet \\ \hline
+emotion & VARCHAR(10) & The emotion labelled with the tweet \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Emotion Rate, Threshold and Level of an Emotion}
+The output of the Java application was a database containing tweets and their labelled emotions. According to the evaluation plan, the next step was to simulate the real-time monitoring by dividing the dataset into 15 minute segments and then applying the statistical tests on the data in each segment. The grouping was performed in the database by running an SQL.
+
+\begin{lstlisting}[language=SQL]
+SELECT YEAR(created), MONTH(created), DAY(created), 
+HOUR(created), FLOOR(MINUTE(created) / 15) * 15 AS MINUTE, 
+COUNT(tweet_id) 
+FROM samples 
+GROUP BY YEAR(created), MONTH(created), DAY(created), 
+HOUR(created), FLOOR(MINUTE(created) / 15)
+\end{lstlisting}
+
+This SQL grouped the tweets into each 15 minute segment and counted the number of tweets in each segment. The result was exported to a CSV file for statistical analysis in Microsoft Excel. The Emotion Distribution in a segment was done by calculating the rate of \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. As mentioned in the Chapter \ref{ch:approach}, the rate of an emotion is computed by dividing the number of tweets labelled with that emotion by the total number of tweets. Since there existed tweets labelled with \textit{unknown} emotion in our dataset, in order to keep the summative of the rates of four emotion to 1.0, the total number of tweets only counted the tweets labelled with \textit{anger}, \textit{fear}, \textit{happiness} or \textit{sadness} while ignoring the \textit{unknown} label. The result of this operation was the emotion distribution in 576 consecutive 15 minute segments. 
+
+A study in the distribution of the rates of the four emotion across 576 intervals showed that the distribution of an emotion rate followed the normal distribution. This finding was obtained by apply histogram analysis on the rates of the four emotions during the sampled period. The detail of the analysis will be discuss further in the Section \ref{sec:evaluation}. Based on the normal distribution of the emotion rate, a method to determine the threshold was proposed by using moving average and z-score on the emotion rate in each segment. Moving average is a popular technique for making short term forecasting. In this case, moving average and z-score was effective to detect the changes in the intensity of an emotion. In other words, the emotion rate of an emotion was compared relatively with the data in the latest hour to determine whether its intensity was high or not. For each segment, the moving average was calculated by getting the average value of the emotion rates in a moving window consisting of that segment and four previous segments, as shown in Formula \ref{eq:movingAvg}.
+
+\begin{equation}
+\label{eq:movingAvg}
+	SMA(e_i)_{t_j} = \frac{ r(e_i)_{t_j} + r(e_i)_{t_{j-1}} + r(e_i)_{t_{j-2}} + r(e_i)_{t_{j-3}} + r(e_i)_{t_{j-4}} }{5}
+\end{equation} 
+
+where, \(e_i\) is an emotion of the four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. \(t_j\) is a segment at interval \(j\). \(SMA(e_i)\) is the moving average of the emotion rate of \(e_i\) and \(r(e_i)\) is the emotion rate of \(e_i\). According to the normal distribution, this average value was the expected value of the emotion rate with highest probability. To represent how far an emotion rate of \(e_i\) was lower or higher than the expected value value \(SMA(e_i)\), the z-score was employed and computed by Formula \ref{eq:zscore}.
+
+\begin{equation}
+\label{eq:zscore}
+	z(e_i) = \frac{r(e_i) - SMA(e_i)}{\sigma(e_i)}
+\end{equation}
+where, \(e_i\) is an emotion of the four basic emotions. \(r(e_i)\) is the emotion rate of emotion \(e_i\), \(SMA(e_i)\) is the moving average of \(e_i\) and \(\sigma(e_i)\) is the standard deviation of the emotion rate of \(e_i\) within the moving window. 
+
+Because z-score was a normalized value, the z-scores of the four emotions can be compared with each other. We defined \(z = 1.0\) as the global high level threshold across all emotions. When the z-score of one emotion exceeded 1.0, the density of that emotion was marked as high.
 
 \subsection{Rule Based Reasoning}
 
-\section{Evaluation}
+The Rule Based Reasoning was implemented in Microsoft Excel as four IF statements corresponding to the four rules defined in Chapter \ref{ch:approach}.
 
+\section{Evaluation}
+\label{sec:evaluation}
 \subsection{Experimental Dataset}
-Our experimental dataset contained 33935 tweets. Briefly talk about the dataset: diagram showing distribution by days.
+Our experimental dataset contained 33935 tweets. Briefly talk about the dataset: diagram showing distribution by days. Applying the Emotion Analysis using NRC Hashtag Emotion Lexicon \citep{mohammad2014using} on the dataset, 28698 tweets were labelled with one of four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. Figure \ref{fig:emotionLabel} shows 5237 tweets that were unable to label with any emotion thus being marked as unknown. Overall, the Bag-of-Words approach successfully extracted the emotion from 84.67\% of the collected tweets. Our statistical analysis was performed on the labelled data.
 
-The period associated with the chosen event was defined to be a 10 hour period, starting 5 hours before and ending 5 hours after the boxing match \footnote{from May 3rd 2014 6:00PM to May 4th 2014 4AM}. This focused period was in the middle of the sampling period, enabling us to study the trailing and leading effect to the distribution of emotions before and after the incident. In our discussion, when event time is mentioned, it refers to this period.
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.2\textwidth]{EmotionLabel}
+\caption{The result of Emotion Analysis on the dataset}
+\label{fig:emotionLabel}
+\end{figure}
 
-\subsection{Statistical Analysis}
+Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy content than the other emotions. 
 
-\subsection{Discussion}
-
-\section{Conclusion}
-
-***************************************************
-
-\section{Evaluation}
-\subsection{Emotion Analysis}
-
-Applying the Emotion Analysis using NRC Hashtag Emotion Lexicon \citep{mohammad2014using} on the dataset, 28698 tweets were labelled with one of four emotions: anger, fear, happiness and sadness. Figure \ref{fig:emotionLabel} shows 5237 tweets that were unable to label with any emotion thus being marked as unknown. Overall, the Bag-of-Words approach successfully extracted the emotion from 84.67\% of the collected tweets. Our experiment was then proceeded with the labelled data.
-
-Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy tweets than the other emotions. Interestingly, during the 10 hour period of the event, the dominating emotion was anger (Figure \ref{fig:emotionDistributionEvent}). The reason might be because of the nature of the boxing match that the related tweets contained lots of aggressive words.
+The boxing match started at 6:00PM local time on May 3rd, while the stampede occurred around 10:45PM and the situation was reported to get under control at 1:00AM. There points were helpful to identify the time period that could be considered to be related to the event. The event was defined as a 7 hour period starting from 6:00PM to 1:00 AM. Our statistical analysis emphasised on this period. Figure \ref{fig:emotionDistributionEvent} illustrates the distribution of emotions during this event. As can be seen, the dominating emotion was anger. The reason might be because of the nature of the boxing match that the related tweets contained lots of aggressive words.
 
 \begin{figure}[htb!] 
 \centering 
-\begin{subfigure}{0.24\textwidth}
-\centering    
-\includegraphics[width=0.95\textwidth]{EmotionLabel}
-\caption{Seven days}
-\label{fig:emotionLabel}
-\end{subfigure}%
-\begin{subfigure}{0.38\textwidth}
+\begin{subfigure}{0.5\textwidth}
 \centering
-\includegraphics[width=0.95\linewidth]{EmotionDistributionWeek}
+\includegraphics[width=0.75\linewidth]{EmotionDistributionWeek}
 \caption{Seven days}
 \label{fig:emotionDistributionWeek}
 \end{subfigure}%
-\begin{subfigure}{0.38\textwidth}
+\begin{subfigure}{0.5\textwidth}
 \centering
-\includegraphics[width=0.95\linewidth]{EmotionDistributionEvent}
+\includegraphics[width=0.75\linewidth]{EmotionDistributionEvent}
 \caption{During event}
 \label{fig:emotionDistributionEvent}
 \end{subfigure}
-\caption{The result of Emotion Analysis on the dataset (a) and the number of tweets labelled with each emotion during the event (c) and in the whole dataset of seven days (b)}
+\caption{The number of tweets labelled with each emotion in the whole dataset of seven days and during the event}
 \end{figure}
 
-As the objective of the experiment was to evaluate the framework's capability to detect the crowd types during the event, the analysis described in the next sections mainly focuses on the selected 10 hour period of the event.
+\subsection{Statistical Analysis}
 
-\subsection{Emotion Distribution over time}
-Since in our experiment, interval \(t\) was set as 15 minutes, the data was then plotted into 15 minute intervals to observe the change over time. Figure \ref{fig:instanceEvent} illustrates the change of number of tweets labelled in each emotion over time. The horizontal axis presents our focused time-line consisting of 41 time-frames. The vertical axis shows the total number of tweets labelled with a specific emotion within a time-frame. As can be noticed from the charts, angry labelled tweets reached a peak at May 3rd 9:15PM which was around the same time with the start of the boxing match. However, the increase in term of number of tweets might not be a significant lead because other emotions also reached the peaks at this time-frame.
+\subsubsection{Number of tweets labelled in each emotion over time}
+Figure \ref{fig:instanceEvent} illustrates the change in the number of tweets labelled in each emotion over time. The horizontal axis presents our focused time-line consisting of 29 segments. The vertical axis shows the total number of tweets labelled with a specific emotion within a segment. The highlighted area between 10:45PM and 11:30PM illustrates the time when the stampede was reported to occur.
+
+As can be noticed from the charts, \textit{anger} labelled tweets reached a sudden peak at May 3rd 9:15PM. The number of tweets labelled with \textit{fear} and \textit{happiness} were also considerably high in this segment. Because of the overall increase trend across all emotions, the change caused by \text{anger} became less significant because there were increases in other emotions as well.
 
 \begin{figure}[htb!] 
 \centering
@@ -247,7 +288,10 @@ Since in our experiment, interval \(t\) was set as 15 minutes, the data was then
 \label{fig:instanceEvent}
 \end{figure}
 
-In order to reduce the effect of the increase in term of quantity, the percentage of each emotion over time was calculated according to the Formula \ref{eq:distributionEmotion} in Chapter \ref{ch:approach}. Figure \ref{fig:rateEvent} shows the emotion distribution using the percentage of tweets instead of the total number of tweets labelled with an emotion.
+To conclude, the number of tweets was not a robust measure to identify changes in emotion because it was affected by the overall trend. This also explained why emotion rate was selected as the measure in our approach.
+
+\subsubsection{Emotion rate of each emotion over time}
+Figure \ref{fig:rateEvent} shows the emotion distribution over time using the emotion rate. As can be seen, during the highlighted segments, \textit{happiness} was the emotion that had the highest rate among the four emotions. However, the rate started relatively high compared to other emotions at the beginning of the event period. Secondly, as mentioned earlier, the proportion of happiness labelled tweets was generally larger than other emotions during the seven days of sampling period. Therefore, a high value of the emotion rate can not be inferred to the behaviour of the crowd at a certain time. In fact, the changes of emotion rate over time was more important to identify abnormal behaviour in the crowd. This explained the use of moving average and z-score of emotion rate proposed in our implementation.
 
 \clearpage
 \begin{figure}[htb!] 
@@ -281,8 +325,8 @@ In order to reduce the effect of the increase in term of quantity, the percentag
 \label{fig:rateEvent}
 \end{figure}
 
-\subsubsection{The Normal Distribution of Emotion Rate over time}
-Applying histogram to the emotion rate over time of each emotion, the distribution of the emotion rate followed the normal distribution. The majority of the values were close to the mean values forming a bell shape (Figure \ref{fig:histogramWeek}). The further a value deviates from the mean value, the less frequent its appearance is.
+\subsubsection{The normal distribution of emotion rate over time}
+This section investigates the distribution of emotion rate over time. By applying histogram to the emotion rate over time of each emotion, the distribution of the emotion rate followed the normal distribution. The majority of the values were close to the mean values forming a bell shape, as can be seen in Figure \ref{fig:histogramWeek}. In a normal distribution, the further a value deviates from the mean value, the less frequently it appears, thus suggesting a lower probability of occurrence. As mentioned earlier, the high level threshold was selected as positive 1.0. Because of the normal distribution, the probability of a high level emotion to occur is 15.8\%.
 
 \begin{figure}[htb!] 
 \centering    
@@ -315,8 +359,9 @@ Applying histogram to the emotion rate over time of each emotion, the distributi
 \label{fig:histogramWeek}
 \end{figure}
 
-\subsubsection{Moving Average, Z-score and the Level of Density of an Emotion}
-Set window for moving average as minus 1 hour, which means the mean value is calculate by considering 1 hour of data earlier. Set the threshold for high level of density of an emotion as z-score = 1, which means this value is higher than the mean value by one standard deviation.
+\subsubsection{Z-score and the density of an emotion}
+In statistics, z-score is a normalized score representing whether an observed value is lower or higher than the mean value and how far the deviation is.
+
 \begin{figure}[htb!] 
 \centering   
 \begin{subfigure}{0.5\textwidth}
@@ -346,3 +391,14 @@ Set window for moving average as minus 1 hour, which means the mean value is cal
 \end{subfigure}
 \caption{The z-score of anger, fear, happiness and sadness rate over time during the event}
 \end{figure}
+
+\begin{figure}[htb!]
+\caption{Threshold and z-score of emotions}
+\label{fig:emotionLabel}
+\centering
+\includegraphics[width=1.0\textwidth]{EmotionZscoreFocus}
+\end{figure}
+
+\subsection{Discussion}
+
+\section{Conclusion}
