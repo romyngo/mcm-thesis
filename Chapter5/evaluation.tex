@@ -63,7 +63,7 @@ In conclusion, although Twitter Advanced Search is very a potential source to co
 \subsubsection{Crawling the Twitter Advanced Search}
 In order to programmatically access Twitter Advanced Search, PhantomJS and CasperJS were utilized in our data collection process. PhantomJS \footnote{http://phantomjs.org} is headless scripted browser which is used to automate web page interaction for testing purposes. CasperJS \footnote{http://casperjs.org} is an open source JavaScript tool written for PhantomJS to enhance various tasks including the DOM manipulation. The complete crawling process consisting of visiting Twitter page, submitting the search queries, scrolling down the result list and parsing the data from the DOM were written in JavaScript as step by step instructions for the headless browser to operate accordingly. As a result, the headless browser could imitate the human interaction on a normal browser to search for tweets and automatically store the parsed data into Comma-separated Values (CSV) files. The detail of the software used for the implementation of the crawler is listed in Table \ref{table:crawlerSoftware}.
 
-\begin{table}[htb!]
+\begin{table}
 \caption{Software used to crawl Twitter Advanced Search}
 \label{table:crawlerSoftware}
 \centering
@@ -119,6 +119,7 @@ The Stanford Tokenizer is a English tokenizer developed by Stanford NLP Group \c
 
 \subsubsection{NRC Hashtag Emotion Lexicon}
 The NRC Hashtag Emotion Lexicon is a part of the NRC Hashtag Emotion Corpus by \citet{mohammad2014using}, which collected tweets with emotion-word hashtags. The lexicon is a list of words and their associations with \citep{plutchik2001nature}'s eight emotions: \textit{anger}, \textit{fear}, \textit{anticipation}, \textit{trust}, \textit{surprise}, \textit{sadness}, \textit{joy} and \textit{disgust}. The association called SoA, was calculated from the frequency of a word appearing in the tweets tagged with an emotion as can be seen in Formula \ref{eq:soA}.
+
 \begin{equation}
 \label{eq:soA}
 	SoA(w, e) = PMI(w, e) - PMI(w, \neg{e})
@@ -142,7 +143,6 @@ The Emotion Analysis was performed by a Java application. The first phase was th
 The second phase was the analysis, where each tweet in the ArrayList was tokenized by PTBTokenizer into words and the weight vector of each word was retrieved from the HashMap. The summative emotional weight vector of the tweet was calculated to extract the dominant emotion and save it as an attribute in each tweet. After finishing looping through the ArrayList of tweets, the application stored all tweets into a database where each record was a tweet labelled with \textit{anger}, \textit{fear}, \textit{happiness}, \textit{sadness} or \textit{unknown}. The \textit{unknown} class was labelled to tweets which no dominant emotion was found.
 
 The algorithm \ref{algorith:pseudocode} describes our Java implementation of the Emotion Analysis. Our database was running MySQL version 5.5.41. Collected tweets were saved in the SAMPLES table which structure is presented in Table \ref{table:databaseTweet}.
-
 
 \begin{algorithm}
 \begin{algorithmic}[1]
@@ -190,7 +190,7 @@ The algorithm \ref{algorith:pseudocode} describes our Java implementation of the
 \label{algorith:pseudocode}
 \end{algorithm}
 
-\begin{table}
+\begin{table}[hb!]
 \centering
 \caption{Database containing tweets and their labelled emotion}
 \label{table:databaseTweet}
@@ -225,16 +225,16 @@ A study in the distribution of the rates of the four emotion across 576 interval
 
 \begin{equation}
 \label{eq:movingAvg}
-	SMA(e_i)_{t_j} = \frac{ r(e_i)_{t_j} + r(e_i)_{t_{j-1}} + r(e_i)_{t_{j-2}} + r(e_i)_{t_{j-3}} + r(e_i)_{t_{j-4}} }{5}
+	SMA(e_i)_{t_j} = \frac{ rate(e_i)_{t_j} + rate(e_i)_{t_{j-1}} + rate(e_i)_{t_{j-2}} + rate(e_i)_{t_{j-3}} + rate(e_i)_{t_{j-4}} }{5}
 \end{equation} 
 
-where, \(e_i\) is an emotion of the four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. \(t_j\) is a segment at interval \(j\). \(SMA(e_i)\) is the moving average of the emotion rate of \(e_i\) and \(r(e_i)\) is the emotion rate of \(e_i\). According to the normal distribution, this average value was the expected value of the emotion rate with highest probability. To represent how far an emotion rate of \(e_i\) was lower or higher than the expected value value \(SMA(e_i)\), the z-score was employed and computed by Formula \ref{eq:zscore}.
+where, \(e_i\) is an emotion of the four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. \(t_j\) is a segment at interval \(j\). \(SMA(e_i)\) is the moving average of the emotion rate of \(e_i\) and \(rate(e_i)\) is the emotion rate of \(e_i\). According to the normal distribution, this average value was the expected value of the emotion rate with highest probability. To represent how far an emotion rate of \(e_i\) was lower or higher than the expected value value \(SMA(e_i)\), the z-score was employed and computed by Formula \ref{eq:zscore}.
 
 \begin{equation}
 \label{eq:zscore}
-	z(e_i) = \frac{r(e_i) - SMA(e_i)}{\sigma(e_i)}
+	z(e_i) = \frac{rate(e_i) - SMA(e_i)}{\sigma(e_i)}
 \end{equation}
-where, \(e_i\) is an emotion of the four basic emotions. \(r(e_i)\) is the emotion rate of emotion \(e_i\), \(SMA(e_i)\) is the moving average of \(e_i\) and \(\sigma(e_i)\) is the standard deviation of the emotion rate of \(e_i\) within the moving window. 
+where, \(e_i\) is an emotion of the four basic emotions. \(rate(e_i)\) is the emotion rate of emotion \(e_i\), \(SMA(e_i)\) is the moving average of \(e_i\) and \(\sigma(e_i)\) is the standard deviation of the emotion rate of \(e_i\) within the moving window. 
 
 Because z-score was a normalized value, the z-scores of the four emotions can be compared with each other. We defined \(z = 1.0\) as the global high level threshold across all emotions. When the z-score of one emotion exceeded 1.0, the density of that emotion was marked as high.
 
@@ -256,8 +256,6 @@ Our experimental dataset contained 33935 tweets. Briefly talk about the dataset:
 
 Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy content than the other emotions. 
 
-The boxing match started at 6:00PM local time on May 3rd, while the stampede occurred around 10:45PM and the situation was reported to get under control at 1:00AM. There points were helpful to identify the time period that could be considered to be related to the event. The event was defined as a 7 hour period starting from 6:00PM to 1:00 AM. Our statistical analysis emphasised on this period. Figure \ref{fig:emotionDistributionEvent} illustrates the distribution of emotions during this event. As can be seen, the dominating emotion was anger. The reason might be because of the nature of the boxing match that the related tweets contained lots of aggressive words.
-
 \begin{figure}[htb!] 
 \centering 
 \begin{subfigure}{0.5\textwidth}
@@ -275,14 +273,14 @@ The boxing match started at 6:00PM local time on May 3rd, while the stampede occ
 \caption{The number of tweets labelled with each emotion in the whole dataset of seven days and during the event}
 \end{figure}
 
+The boxing match started at 6:00PM local time on May 3rd, while the stampede occurred around 10:45PM and the situation was reported to get under control at 1:00AM. There points were helpful to identify the time period that could be considered to be related to the event. The event was defined as a 7 hour period starting from 6:00PM to 1:00 AM. Our statistical analysis emphasised on this period. Figure \ref{fig:emotionDistributionEvent} illustrates the distribution of emotions during this event. As can be seen, the dominating emotion was anger. The reason might be because of the nature of the boxing match that the related tweets contained lots of aggressive words.
+
 \subsection{Statistical Analysis}
 
 \subsubsection{Number of tweets labelled in each emotion over time}
 Figure \ref{fig:instanceEvent} illustrates the change in the number of tweets labelled in each emotion over time. The horizontal axis presents our focused time-line consisting of 29 segments. The vertical axis shows the total number of tweets labelled with a specific emotion within a segment. The highlighted area between 10:45PM and 11:30PM illustrates the time when the stampede was reported to occur.
 
-As can be noticed from the charts, \textit{anger} labelled tweets reached a sudden peak at May 3rd 9:15PM. The number of tweets labelled with \textit{fear} and \textit{happiness} were also considerably high in this segment. Because of the overall increase trend across all emotions, the change caused by \text{anger} became less significant because there were increases in other emotions as well.
-
-\begin{figure}[htb!] 
+\begin{figure}[hb!] 
 \centering
 \begin{subfigure}{0.5\textwidth}
 \centering
@@ -313,13 +311,14 @@ As can be noticed from the charts, \textit{anger} labelled tweets reached a sudd
 \label{fig:instanceEvent}
 \end{figure}
 
-To conclude, the number of tweets was not a robust measure to identify changes in emotion because it was affected by the overall trend. This also explained why emotion rate was selected as the measure in our approach.
+As can be noticed from the charts, \textit{anger} labelled tweets reached a sudden peak at May 3rd 9:15PM. The number of tweets labelled with \textit{fear} and \textit{happiness} were also considerably high in this segment. Because of the overall increase trend across all emotions, the change caused by \text{anger} became less significant because there were increases in other emotions as well.
+
+In conclusion, the number of tweets was not a robust measure to identify changes in emotion because it was affected by the overall trend. This also explained why emotion rate was selected as the measure in our approach.
 
 \subsubsection{Emotion rate of each emotion over time}
 Figure \ref{fig:rateEvent} shows the emotion distribution over time using the emotion rate. 
 
-\clearpage
-\begin{figure}[htb!] 
+\begin{figure}[hb!] 
 \centering    
 \begin{subfigure}{0.5\textwidth}
 \centering
@@ -444,6 +443,7 @@ Firstly, regarding accuracy of the detection, the inferred crowd types matched w
 
 In term of timeliness, using our proposed Emotion Analysis of the social media, the escaping crowd and dense/suffocating crowd were detected in the 10:45PM segment. It suggests that in a real-time monitoring, the result can be obtained soonest by 11:00PM with the 15 minute interval. According the official announcement, the local police received phone call reporting about the accident around 10:45PM, which has proven the capability of our proposed framework in term of providing timely detection.
 
-On the other hand, false positive detection is a drawback of our Rule Based Reasoning. Applying the similar analysis on other segments inside our sampling period, the crowd types were occasionally inferred as Group 3 (\textit{anger}), Group 4 (\textit{fear}) or Group 5 (\textit{fear} and \textit{sadness}) while there was no reported accident at the venue.
+On the other hand, false positive detection is a drawback of our Rule Based Reasoning. Applying the similar analysis on other segments in our sampling period, the crowd types were occasionally inferred as Group 3 (\textit{anger}), Group 4 (\textit{fear}) or Group 5 (\textit{fear} and \textit{sadness}) while there was no reported accident at the venue.
 
 \section{Conclusion}
+This chapter has described our evaluation of the proposed Crowd Monitoring Framework using a stampede accident occurred in a selected sporting event as a case study. A simple implementation to illustrate the framework's process has been introduced with moving average and z-score as the factors to determine the threshold for the high level of an emotion. The result of the experiment shows that using Emotion Analysis on the tweets collected about the event, the correct crowd types can be identified in a timely manner.
