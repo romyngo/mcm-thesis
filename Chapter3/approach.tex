@@ -213,7 +213,7 @@ where, \(rate(e_i)\) is the emotion rate of emotion \(e_i\), and \(level(e_i)\) 
 \label{fig:levelOfDensity}
 \end{figure}
 
-The threshold is important to detect the abnormal rise in an emotion, however it is application specific. Firstly, because under the normal behaviour, people tend to post an unequal number of tweets for each emotion, the thresholds can be not the same for different emotions. In fact, NRC Hashtag Emotion Corpus \citep{mohammad2014using} shows that the percentage of joyful tweet is much higher than other emotions. Secondly, because of the cultural and regional difference, the content shared on Twitter might be different across different countries and cultures \citep{Larsen2015}. Finally, even among the same group of users, emotional content can also vary during different time period. Analysing 509 million tweets, \citet{Golder30092011} has pointed out that people are generally less positive during winter than summer. Therefore, the value of threshold \(th\) for one emotion, such as happy is dependent on the region and the time of the event. In our experiment, we propose a simple approach to determine the threshold based on moving average and z-score with a dataset collected in a specific event.
+The threshold is important to detect the abnormal rise in an emotion, however it is application specific. Firstly, because under the normal behaviour, people tend to post an unequal number of tweets for each emotion, the thresholds can be not the same for different emotions. In fact, NRC Hashtag Emotion Corpus \citep{mohammad2014using} shows that the percentage of joyful tweet is much higher than other emotions. Secondly, because of the cultural and regional difference, the content shared on Twitter might be different across different countries and cultures \citep{Larsen2015}. Finally, even among the same group of users, emotional content can also vary during different time period. Analysing 509 million tweets, \citet{Golder30092011} has pointed out that people are generally less positive during winter than summer. Therefore, the value of threshold \(th\) for one emotion, such as happy is dependent on the region and the time of the event. In our experiment, we propose a simple approach to determine the threshold based on moving average and z-score of the emotion rate using an experimental dataset collected in a specific event.
 
 \section{Crowd Model}
 
@@ -401,7 +401,7 @@ Let \(c\) be the crowd type \(c \in \{c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8, c_
 
 \begin{equation}
 \label{eq:rule5}
-	(level(e_2) = high) \land (level(e_4) = high) \Rightarrow (c = c_{10})
+	(level(e_1) = high) \land (level(e_4) = high) \Rightarrow (c = c_{10})
 \end{equation}
 
 The Rule Based Reasoning applies the rules defined in the Rule Repository. The input is the level of emotions obtained from the Emotion Analysis. The output is a specific crowd type or a group of similar crowd types in term of motivating emotion. It is notable that each rule is processed independently, which allows multiple crowd types to exist in one specific event.
