@@ -99,12 +99,12 @@ The query string was the most important parameter of the search. Although, the e
 \caption{Twitter Advanced Query String}
 \label{table:crawlerURL}
 \centering
-\begin{tabular}{|p{4cm}|p{10cm}|}
+\begin{tabular}{|p{3.5cm}|p{11cm}|}
 
 \hline
 \textbf{Search target} & \textbf{Query string} \\ \hline \hline
-Venue's coordinates & q=lang:en near:"36.102552, -115.169569" within:3mi since:2014-05-04 until:2014-05-07 \\ \hline
-Keyword MGMGrand & q=MGMGrand lang:en since:2014-05-04 until:2014-05-07 \\ \hline
+Venue's coordinates & q=lang:en near:"36.102552, -115.169569" within:3mi since:2014-05-01 until:2014-05-07 \\ \hline
+Hashtag \& mention & q=MGMGrand lang:en since:2014-05-01 until:2014-05-07 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -115,8 +115,7 @@ var fs = require('fs');
 var system = require('system');
 var casper = require('casper').create();
 
-var query = 'lang:en near:"36.102552,-115.169569" within:5mi since:2014-05-03 until:2014-05-04 include:retweets';
-
+var query = 'lang:en near:"36.102552, -115.169569" within:3mi since:2014-05-01 until:2014-05-07';
 var search_api = 'https://twitter.com/search?f=realtime&q=' + encodeURIComponent(query) + '&src=typd';
 casper.thenOpen(search_api, function(){
 	scroll(this);
@@ -149,8 +148,6 @@ casper.then(function(){
 	}		
 })
 
-casper.run();
-
 function scroll(_casper){
 	_casper.waitFor(
 		function scrollBottom(){
@@ -175,6 +172,7 @@ function scroll(_casper){
 		}, function onTimeout(){
 		}, 10000);
 }
+casper.run();
 \end{lstlisting}
 
 Finally, a dataset containing 33935 tweets over 7 days was collected and it was used as our experimental dataset to evaluate our Emotion Analysis and Rule Based Reasoning.
@@ -275,6 +273,7 @@ emotion & VARCHAR(10) & The emotion labelled with the tweet \\ \hline
 \end{tabular}
 \end{table}
 
+\clearpage
 \subsubsection{Emotion Rate, Threshold and Level of an Emotion}
 The output of the Java application was a database containing tweets and their labelled emotions. According to the evaluation plan, the next step was to simulate the real-time monitoring by dividing the dataset into 15 minute segments and then applying the statistical tests on the data in each segment. The grouping was performed in the database by running an SQL as shown in Listing \ref{lst:sqlGrouping}. This SQL grouped the tweets into each 15 minute segment and counted the number of tweets in each segment. The result consisting of 576 consecutive segments was exported to a CSV file for statistical analysis in Microsoft Excel. Each segment was saved as a row and the numbers of tweets labelled with each emotion was stored as a column.
 
@@ -321,16 +320,14 @@ The Rule Based Reasoning was also implemented in Microsoft Excel as five IF stat
 \subsection{Experimental Dataset}
 Our experimental dataset contained 33935 tweets. Briefly talk about the dataset: diagram showing distribution by days. Applying the Emotion Analysis using NRC Hashtag Emotion Lexicon \citep{mohammad2014using} on the dataset, 28698 tweets were labelled with one of four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness}. Figure \ref{fig:emotionLabel} shows 5237 tweets that were unable to label with any emotion thus being marked as unknown. Overall, the Bag-of-Words approach successfully extracted the emotion from 84.67\% of the collected tweets. Our statistical analysis was performed on the labelled data.
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=0.3\textwidth]{EmotionLabel}
 \caption{The result of emotion extraction from the dataset}
 \label{fig:emotionLabel}
 \end{figure}
 
-Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy content than the other emotions. 
-
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering 
 \begin{subfigure}{0.5\textwidth}
 \centering
@@ -346,6 +343,8 @@ Among the labelled tweets, the number of tweets in each emotion was not equally 
 \end{subfigure}
 \caption{The number of tweets labelled with each emotion in the whole dataset of seven days and during the event}
 \end{figure}
+
+Among the labelled tweets, the number of tweets in each emotion was not equally distributed as can be seen in Figure \ref{fig:emotionDistributionWeek}. This finding further supports the argument mentioned in Chapter \ref{ch:approach} that the users tend to post more happy content than the other emotions. 
 
 The boxing match started at 6:00PM local time on May 3rd, while the stampede occurred around 10:45PM and the situation was reported to get under control at 1:00AM. There points were helpful to identify the time period that could be considered to be related to the event. The event was defined as a 7 hour period starting from 6:00PM to 1:00 AM. Our statistical analysis emphasised on this period. Figure \ref{fig:emotionDistributionEvent} illustrates the distribution of emotions during this event. As can be seen, the dominating emotion was \textit{anger}. The reason might be because of the nature of the boxing match that the related tweets contained lots of aggressive words.
 
@@ -379,7 +378,7 @@ As can be seen, during the highlighted segments, \textit{happiness} was the emot
 
 \subsubsection{The normal distribution of emotion rate over time}
 This section investigates the distribution of emotion rate over time. By applying histogram to the emotion rate over time of each emotion, the distribution of the emotion rate followed the normal distribution. The majority of the values were close to the mean values forming a bell shape, as can be seen in Figure \ref{fig:histogramWeek}. In a normal distribution, the further a value deviates from the mean value, the less frequently it appears, thus suggesting a lower probability of occurrence. As mentioned earlier, the high level threshold was proposed as \(+1.0\). Because of the normal distribution, the probability of a high level emotion to occur is 15.8\%.
-\clearpage
+
 \begin{figure}[!h] 
 \centering    
 \begin{subfigure}{0.5\textwidth}
