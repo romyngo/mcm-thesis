@@ -1,3 +1,4 @@
+% !TEX root = ../thesis.tex
 \chapter{Conclusion}
 
 % **************************** Define Graphics Path **************************
@@ -8,11 +9,45 @@
 \fi
 
 \section{Introduction}
-\section{Research Outcome}
-\section{Future Research}
-\subsection{Integrating Mobile Sensor Analysis}
-Current only social media is integrated because of the limitation of the evaluation. Mobile sensors such as accelerometer or GPS can be used to collect contextual data and provide better crowd classification.
 
-\subsection{Improvement of Emotion Classification}
-Current use basic voting system. More advanced classification techniques can be used, such as SVM, neural network
-\section{Conclusion}
+In Chapter \ref{ch:approach}, a crowd monitoring framework using emotion analysis of social media has been proposed. The framework was implemented and evaluated in a case study with a past sporting event where a stampede occurred in Chapter \ref{ch:eval}. The evaluation showed that the using the tweets collected about the event, our Emotion Analysis and Rule Based Reasoning was able to identify the correct crowd types in a timely manner. This chapter will summarise the contribution of our research.
+
+This chapter is structured as follow. Firstly, the research contribution will be discussed, followed by the future research including enhancement to the existing framework and possible directions for further study.
+
+\section{Research Contribution}
+The contribution of our research is that the proposed framework have addressed the gaps identified in the literature review. Firstly, by leveraging the potential of social media analysis, our proposed framework employs social media as the information source for the crowd monitoring. Secondly, the framework incorporates \citet{Berlonghi1995}'s model, a standard crowd model into crowd monitoring in order to enable the consistency and interoperability between different monitoring systems and to provide a standard and uniform classification of different crowds. Finally, the evaluation of the framework shows the great potential of the method using emotion analysis on social media to monitor the crowd in mass gathering events. These three contributions are related back to the objectives of the framework defined in Chapter \ref{ch:approach}. The following sections will discuss each contribution further.
+
+\subsection{Social Media as Information Source}
+Using social media as the information source for crowd monitoring has some advantages compared with other sources such as CCTV or mobile sensors. There is no requirement for hardware or software installed at the venue or on the mobile devices of the participants. Despite the potential of using social media, the literature review shows that very limited work has been done to apply social media analysis in crowd monitoring to support the emergency management in mass gathering.
+
+This research proposes a crowd monitoring framework that utilizes social media as the information source. In the proposed framework, tweets about an event are collected as the raw context data about the condition of the crowd. The emotion analysis is applied to the raw level context data to transform it into high level context data that is the emotional state of the crowd used in crowd monitoring.
+
+\subsection{Crowd Model and Emotion - Crowd Type Mapping Model}
+Understanding the need of a using a standard crowd model to classify different types of crowd, our framework adopts the eleven crowd types defined by \citet{Berlonghi1995}. Although the Berlonghi's model is commonly adopted in the literature of emergency management, this work only described the eleven crowd types from such points as the purposes of gathering or the activities in the crowd \citep{Zeitz2009}. It is very difficult to use those features in an automatic crowd type classification. Because crowd behaviour is affected by the emotion \citep{Kornblum2011}, our research introduces emotional state as the feature to classify different types of crowd.
+
+Our research employs the four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness} taken from \citet{ekman1971constants}'s basic emotions as the Emotion Model in the crowd monitoring framework. An Emotion - Crowd Type Mapping Model is proposed to map between a crowd type with its associated emotions based on a wide range of researches on social behaviour and psychology. Using the mapping model, our research categorises eleven crowd types into five groups based on their common motivating emotions, such as \textit{anger} or \textit{fear}. To determine the emotional state of the crowd, our research introduces the Emotion Analysis, which will be discussed in the next section.
+
+\subsection{Emotion Analysis of Social Media in Crowd Monitoring}
+In our framework, the Emotion Analysis extracts the emotion from the tweets based on a Bag-of-Words approach and association scoring using the NRC Hashtag Emotion Corpus \citep{mohammad2014using} as the labelled corpus. The emotion rates of \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness} are selected as the measures of the emotional state of the crowd. The change in the emotion rate of an emotion can be detected with moving average and z-score as proposed in Chapter \ref{ch:eval}. When the z-score exceeds a certain threshold, the level of that emotion in the crowd is considered as high. The Rule Based Reasoning contains a set of rules that are able to identify the group of crowd type from the level of emotions in the crowd. 
+
+To evaluation the proposed framework, a case study with historical data collected from a boxing match where a stampede occurred was performed. The result showed that the framework was able to detect the correct crowd types in a timely manner. This has proven the great potential of applying the proposed emotion analysis of social media in a real-time crowd monitoring to support emergency management in mass gathering.
+
+\section{Future Research}
+\subsection{Real-time Support of the Framework}
+In our evaluation, a method using case study and historical data was used. The case study has confirmed both the correctness and timeliness of the detection produced by our proposed framework. However, the case study was not able to evaluate the framework in term of performance, especially with the real-time aspect. This suggests further researches to work on the real-time support of the framework.
+
+In a real-time crowd monitoring, the performance of the Emotion Analysis must be able to analyse a large number of tweets collected in real-time. In our implementation for the experiment, the tweets were processed in a batch by a single thread which might not be applicable in the real-time analysis. Parallelism or distributed processing are suggested to boost the performance of the emotion extraction process.
+
+\subsection{Improvement of Emotion Analysis}
+In our experiment, the Emotion Analysis was able to label 84.67\% of the collected tweets with an emotion. A number of tweets could not be labelled because of following reasons. A large proportion of those tweets did not contain text message but URL and emoticons which were discarded during the tokenization. Another reason is that because the NRC Hashtag Emotion Corpus had only 16,862 words, a unlabelled tweets might contain the words which were not included in the training set, thus the association scoring could not be computed. Therefore, the emotion analysis can be further improved by extending the labelled corpus.
+
+Secondly, our emotion model considers the four most basic emotions extracted from \citet{ekman1971constants}'s work based on a recent research by \citet{Jack2014}. These four emotions: \textit{anger}, \textit{fear}, \textit{happiness} and \textit{sadness} are also considered to have the clear influence on the crowd behaviours. However, the emotion in a tweet might be more complicated than the basic emotions. Therefore, it can be suggested that a future study extends the emotion model to consider more emotions and investigates their association with the crowd behaviour.
+
+The Emotion Analysis in our proposed framework label the emotion for a tweet by a simple method that extracts the dominant emotion in that tweet using ``emotional weight vector'' of words and summative vector of the tweet. The advantage of this method is simplicity, however, future work might improve the emotion extraction by applying more advanced classifiers, such as SVM.
+
+Finally, our Bag-of-Words approach is a very simple approach that only considers the appearance of the words in a tweet while ignoring their ordering and grammar. A semantic approach might be desirable in a future research to take into account the meanings of the words.
+
+\subsection{Integrating Mobile Sensing}
+Using emotion as the feature of the crowd, five distinct groups of crowd types can be identified by their similarity in term motivating emotions. However, it is currently not possible to further identify the crowd types in the same group without obtaining additional information. As mentioned in the Chapter \ref{ch:approach}, this additional information can be retrieved by integrating more information sources and analysis techniques into the framework. 
+
+Utilizing mobile sensors and mobile sensing techniques might be considered as one of the potential enhancement to the framework in the future. For example, using activity recognition over the data collected from accelerometers built on participants’ mobile devices, the crowd movement can be inferred and used as an additional crowd feature in crowd type classification. The crowd movement can be used to distinguish the crowd types within the same group, such as expressive crowd and participatory crowd under Group 2.
