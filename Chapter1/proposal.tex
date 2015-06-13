@@ -19,3 +19,49 @@
 \section{Thesis Structure}
 
 \section{Conclusion}
+
+\section{Introduction}
+
+To maintain safety in mass gatherings, there is a need for event organizers and emergency services to quickly detect emerging or potentially critical situations in the crowd \citep{Wirz2012} . Hence, crowd monitoring plays a very important role for emergency management in such large scale events. In our discipline, much effort has been made to introduce computer-based approaches to automatically monitor and analyse the crowd in real-time. Recent advances in mobile computing also enable a wider range of rich context data sources and sensing paradigms to detect emergency situations in the crowd, such as sensing participatory by GPS location \citep{Wirz2012} or Bluetooth identifier \citep{Weppner2013} collected from mobile phones to measure crowd density; or analysing real-time social media to detect dangerous crowd conditions \citep{DelirHaghighi2013}.
+
+Although most of these novel approaches are capable to detect critical condition in the crowd by applying quantitative reasoning, they lack a model that can represent and distinguish between different crowds. However, making distinction in fact is the key factor in emergency management to prevent losses of life, health, property and money \citep{Berlonghi1995}. The lack of model also makes it difficult for existing approaches to incorporate new available information sources and sensing techniques in context aware computing.
+
+This project aims to firstly develop a holistic crowd model for emergency management in mass gatherings from existing works in mass gathering studies to be able to adapt currently available information sources and sensing techniques. Secondly, a combination of data gathering and analysis techniques will be proposed as the input for this model.
+As the background of the project, this chapter will review the state-of-art in crowd monitoring and crowd modelling approaches. A list of criteria will be used to analyse current works in order to identify the gap which motivates our approach.
+
+\section[Crowd Monitoring for Emergency Management in Mass Gathering]{\texorpdfstring{Crowd Monitoring for Emergency Management \\in Mass Gathering}}
+
+\subsection{Emergency Management in Mass Gathering}
+A mass gathering is defined as an event attended by a large crowd of spectators and participants. Because of the large size and high density as well as psychological factors, mass gatherings are difficult to manage thus potentially yielding various emergency situations to the attendance. In fact, crowd incidents in such events eventually generate higher rate of injury and illness than general population statistics \citep{Arbon2007}. As a result, lots of attention is being given to emergency management in mass gathering events, which includes planning and provisioning of medical and security services. Emergency management in mass gathering events can be phased into three stages: 
+\begin{inparaenum}[i)]
+	\item pre-event;
+	\item during the event;
+	\item post-event
+\end{inparaenum} as described in Table \ref{table:phaseOfEm} \citep{DelirHaghighi2013}. 
+
+\begin{table}
+	\caption{Three phases of Emergency Management in Mass Gathering}
+	\label{table:phaseOfEm}
+	\centering
+	\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+		\hline
+		\multicolumn{3}{|c|}{\textbf{Emergency Management phases}} \\ \hline \hline
+		\textbf{Pre-event} & \textbf{During event} & \textbf{Post event} \\	\hline
+		Planning & Monitoring  & Auditing  \\
+		Prepartion & Communication & Evaluation \\
+		& Response & Debriefing \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Among these stages, provisioning of emergency services during the event is difficult as it requires real-time interaction and communication between agents, and continuous monitoring of the crowd.  Monitoring plays the most important role because most decision making during this stage rely on intelligence obtained from this operation. 
+
+A literature review conducted by \citet{Soomaroo2012} on crowd disasters at mass gathering events has discovered that a significant number of case report highlight a poor response time for emergency services. Therefore, in order to prevent future incidents, more effort should be made on monitoring of the crowd during the course of an event. 
+
+Investigating healthcare in mass gathering, \citet{Arbon2004} discovers three domains that can impact the patient rate: biomedical, environment and psychosocial domains. He proposes a conceptual model to illustrate the inter-relationship between three domains and their impacts on the rate of injury and illness in an event. Therefore, in order to ensure the safety and health of mass gathering event, it is essential to consider these factors in crowd monitoring.
+
+\subsection{An Overview of Crowd Monitoring}
+
+According to \citet{Berlonghi1995}, in order to assure the safety of a mass gathering event, two types of operations are involved. That is crowd management and crowd control. Crowd management includes all measures taken to facilitate the movement and enjoyment of participants. It is a proactive effort, in contrast to crowd control which is reactively taken when the crowd is out of control or when incident occurs. Crowd monitoring can be considered as the bridge between management and control operations as it helps to identify potential critical situations in the crowd so that response can be provisioned timely.
+
+To monitor of the crowd in mass gathering event, at present following techniques are usually practiced: patrolling, close-circuit television (CCTV) or helicopter surveillance for large and open areas. However, more than half of worldwide incidents occurs in developing countries in Asia and Africa \citep{BurkleJr2011} where emergency management personnel is often less prepared and both human resources and equipments are limited. Moreover, as highlighted by \citet{Davies1995}, there are several drawbacks of currently used CCTV monitoring as well. Firstly, this task is highly time consuming and labour intensive because of the large number of cameras and recordings. Secondly, observers are likely to lose concentration thus being unlikely to notice infrequent sign. This emphasizes on the need to introducing automation in crowd monitoring. 
