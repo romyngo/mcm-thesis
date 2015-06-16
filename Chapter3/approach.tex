@@ -195,7 +195,7 @@ As people with different emotional state can be in one crowd, a crowd can have m
 \end{equation}
 where \(rate(e_i)\) is the emotion rate of emotion \(e_i\) and \(n(e_i)\) is the number of tweets classified with emotion \(e_i\).
 
-This emotion rate \(rate(e_i)\) can have any value from 0 to 1 (\(0 \geq rate(e_i) \leq 1\)), indicating the how strong the emotion \(e_i\) is during the sampling period. In order to detect the change of the emotional state in the crowd, the calculation of emotion rate is performed repetitively after an interval \(t\). The value of \(t\) has the impact on the sensitivity of the detection of the framework.
+This emotion rate \(rate(e_i)\) can have any value from 0 to 1 (\(0 \leq rate(e_i) \leq 1\)), indicating the how strong the emotion \(e_i\) is during the sampling period. In order to detect the change of the emotional state in the crowd, the calculation of emotion rate is performed repetitively after an interval \(t\). The value of \(t\) has the impact on the sensitivity of the detection of the framework.
 
 \subsubsection{Labelling the Level of Emotion}
 Although the emotion distribution in a crowd is able to show the relative significance of one emotion compared to each other, it is not sufficient to tell whether a particular emotion is of abnormal behaviour or not. In this case, such linguistic labels as \textit{low} and \textit{high} are more useful to describe different levels of an emotion. While the intensity rises continuously from \textit{low} to \textit{high} level, there exists a certain point that the level of an emotion is considered to switch from \textit{low} to \textit{high} level (Figure \ref{fig:levelOfDensity}). This point is defined as threshold \(th\), which represents the expected rate of an emotion under normal behaviour. The level of an emotion can be labelled by comparing the measured emotion rate of that emotion with the threshold by Formula \ref{eq:highIntensity}.
@@ -335,6 +335,22 @@ In order to construct the emotion - crowd type mapping, a comprehensive understa
 \item \textbf{Violent crowd} - is described by the attacking, terrorising and rioting action with the complete disregard for laws and other people. Attacking is a typical behaviour triggered by \textit{anger}. This crowd type has a high level of \textit{anger}.
 \end{itemize}
 
+\begin{table}[!htbp]
+\centering
+\caption{Groups of crowd types based on common motivating emotion}
+\label{table:crowdTypeGroup}
+\begin{tabular}{|p{1.5cm}|p{9cm}|p{2.5cm}|}
+
+\hline
+\textbf{Group} & \textbf{Crowd types} & \textbf{Motivating emotion} \\ \hline \hline
+Group 1 & Ambulatory, Limited movement/Disability, Spectator & none \\ \hline
+Group 2 & Expressive/Cohesive, Participatory crowd & \textit{happiness} \\ \hline
+Group 3 & Demonstrator, Aggressive crowd, Violent crowd & \textit{anger} \\ \hline
+Group 4 & Escaping crowd, Dense/Suffocating crowd & \textit{fear} \\ \hline
+Group 5 & Rushing/Looting crowd & \textit{anger}, \textit{sadness} \\ \hline
+\end{tabular}
+\end{table}
+
 As we can notice from the above analysis, five distinct groups of crowd types can be identified by their similarity in term motivating emotions (Table \ref{table:crowdTypeGroup}). Although it might be challenging to distinguish different crowd types in the same group using the emotional states as the criteria, it is possible to extend the framework and incorporate additional information sources and analysis techniques to provide additional contextual information. This information includes low level and high level context data that can improve the classification of crowd types. For example, using activity recognition over the data collected from accelerometers built on participants' mobile devices, the crowd movement can be inferred and used as an additional crowd feature in crowd type classification. 
 
 However, obtaining data from the sensors in participants' mobile phones requires installing software on those devices, which might cause the hesitance to share information or raise privacy concern. Our proposed mapping only considers on the social media analysis, which is more feasible in favour of deployment.
@@ -350,22 +366,6 @@ However, obtaining data from the sensors in participants' mobile phones requires
 
 \item The \textbf{fifth group} is rushing/looting crowd which has both \textit{anger} and \textit{sadness} as the dominant emotions.
 \end{itemize}
-
-\begin{table}
-\centering
-\caption{Groups of crowd types based on common motivating emotion}
-\label{table:crowdTypeGroup}
-\begin{tabular}{|p{1.5cm}|p{9cm}|p{3.5cm}|}
-
-\hline
-\textbf{Group} & \textbf{Crowd types} & \textbf{Motivating emotion} \\ \hline \hline
-Group 1 & Ambulatory, Limited movement/Disability, Spectator & none \\ \hline
-Group 2 & Expressive/Cohesive, Participatory crowd & \textit{happiness} \\ \hline
-Group 3 & Demonstrator, Aggressive crowd, Violent crowd & \textit{anger} \\ \hline
-Group 4 & Escaping crowd, Dense/Suffocating crowd & \textit{fear} \\ \hline
-Group 5 & Rushing/Looting crowd & \textit{anger} and \textit{sadness} \\ \hline
-\end{tabular}
-\end{table}
 
 \section{Rule Based Reasoning}
 
