@@ -95,7 +95,7 @@ src & Source of the action, normally set as \textit{typd} \\ \hline
 
 The query string was the most important parameter of the search. Although, the event only lasted for a few hours, in order to investigate the distribution of emotions during the time around the event, a longer sampling period was desirable. The two parameters of the query string \textit{since} and \text{until} were set as \textit{2014-05-01} and \textit{2014-05-07} respectively to collect seven days of tweets. As our analysis supports English only, the parameter \textit{lang} was set as \textit{eng} to filter out tweets written in other languages. 
 
-Because the selected event were rather short, it did not have a dedicated hashtag like \#australianopen for the Australian Open tennis tournament. Our data collected relied on the venue of the event to search for tweets. As the venue of the boxing match was MGM Grand Hotel, the parameter \textit{near} was set to the coordinates of the hotel \footnote{36.102552, -115.169569} and \textit{within} parameter was set to 3 miles. The search engine returned all tweets that were either geotagged or checked in with a place that lied within the radius of specified area. It was also noticeable in the returned tweets that there were a large number of tweets containing the mention \textit{@MGMGrand} or the hashtag \textit{\#MGMGrand}. They suggested to be a possible keyword for an alternate search for tweets at the venue. Therefore, we ran another crawler with similar parameters but searching for keyword \textit{MGMGrand} instead of specifying the location. The query string used by two crawlers are presented in Table \ref{table:crawlerURL}. The implementation of the crawler using CasperJS is shown in Listing \ref{lst:crawler}. 
+Because the selected event were rather short, it did not have a dedicated hashtag like \#australianopen for the Australian Open tennis tournament. Our data collected relied on the venue of the event to search for tweets. As the venue of the boxing match was MGM Grand Hotel, the parameter \textit{near} was set to the coordinates of the hotel \footnote{36.102552, -115.169569} and \textit{within} parameter was set to 3 miles. The search engine returned all tweets that were either geotagged or checked in with a place that lied within the radius of specified area. It was also noticeable in the returned tweets that there were a large number of tweets containing the mention \textit{@MGMGrand} or the hashtag \textit{\#MGMGrand}. They suggested to be a possible keyword for an alternate search for tweets at the venue. Therefore, we ran another crawler with similar parameters but searching for keyword \textit{MGMGrand} instead of specifying the location. The query string used by two crawlers are presented in Table \ref{table:crawlerURL}. The implementation of the crawler using CasperJS is shown in Listing \ref{lst:crawler}. The scroll function shown in Listing \ref{lst:infiniteScroll} was created to scroll down the result list.
 
 \begin{table}[!h]
 \caption{Twitter Advanced Query String}
@@ -130,26 +130,26 @@ casper.then(function(){
 		return Array.prototype.map.call(items, function(e) {
 			// parsing HTML to get data
 			var id = e.getAttribute('data-item-id');
-			
 			var tag_username = e.querySelector('span.username b');
-			var username = tag_username ? tag_username.innerHTML : '';
-			
+			var username = tag_username ? tag_username.innerHTML : '';	
 			var tag_timestamp = e.querySelector('small.time a.tweet-timestamp span'); 
 			var timestamp = tag_timestamp ? tag_timestamp.getAttribute('data-time-ms') : '';
-			
 			var tag_text = e.querySelector('div.content p.tweet-text');
 			var text = tag_text ? tag_text.innerHTML : '';
 			return {'id' : id, 'username' : username, 'timestamp' : timestamp, 'text' : text};
 		});		
 	});
-	this.echo('number of tweets: ' + nodes.length);
+
 	for(var i = 0; i < nodes.length; i ++){
 		var node = nodes[i];
 		// write to CSV file
 		fs.write("result.csv", '"' + node['id'] + '"\t"' + node['username'] + '"\t"' + node['timestamp'] + '"\t"' + node['text'] + '"\r\n', 'a');	
 	}		
 })
+casper.run();
+\end{lstlisting}
 
+\begin{lstlisting}[language=JavaScript,caption=Scrolling down Twitter Advanced Search with CasperJS,label=lst:infiniteScroll]
 function scroll(_casper){
 	_casper.waitFor(
 		function scrollBottom(){
@@ -174,7 +174,6 @@ function scroll(_casper){
 		}, function onTimeout(){
 		}, 10000);
 }
-casper.run();
 \end{lstlisting}
 
 Finally, a dataset containing 33935 tweets over the course of seven days was collected and it was used as our experimental dataset to evaluate our Emotion Analysis and Rule Based Reasoning.
