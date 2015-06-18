@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Properties;
 
 import com.mcm.database.DatabaseManager;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
@@ -24,7 +26,153 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
-public class LexicalAnalysis {	
+public class LexicalAnalysis {
+	private static void insertOneByOneFromCSV(String filePath){
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		List<Tweet> tweets = new ArrayList<Tweet>();
+
+		try {
+			fileReader = new FileReader(filePath);
+			bufferedReader = new BufferedReader(fileReader);
+			String line = null;
+
+			while((line = bufferedReader.readLine()) != null){
+				String[] fields = line.split("\t");
+				String tweet_id = fields[0];
+				String user_id = fields[1];
+				String user_name = fields[2];
+				String created = fields[3];
+				String text = fields[4];
+
+				Tweet tweet = new Tweet();
+				tweet.tweet_id = Long.parseLong(tweet_id.substring(1, tweet_id.length() - 1));
+				tweet.user_id = user_id.substring(1, user_id.length() - 1);
+				tweet.user_name = user_name.substring(1, user_name.length() - 1);
+				tweet.created = Long.parseLong(created.substring(1, created.length() - 1));
+				tweet.text = text.substring(1, text.length() - 1);
+
+				tweets.add(tweet);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			if(bufferedReader != null){
+				try {
+					bufferedReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(fileReader != null){
+				try {
+					fileReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		DatabaseManager dm = DatabaseManager.getInstance();
+		Connection conn = dm.openConnection();
+		PreparedStatement pst = null;
+		try{
+			pst = conn.prepareStatement("INSERT INTO samples VALUES (?, ?, ?, ?, ?)");
+			for(Tweet tweet : tweets){
+				try{
+					System.out.println("insert " + tweet.tweet_id);
+					pst.setLong(1, tweet.tweet_id);
+					pst.setString(2, tweet.user_id);
+					pst.setString(3, tweet.user_name);
+					pst.setTimestamp(4, new Timestamp(tweet.created));
+					pst.setString(5, tweet.text);
+					pst.executeUpdate();
+				} catch(MySQLIntegrityConstraintViolationException e){
+					e.printStackTrace();
+				}
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		} finally{
+			dm.closeStatement(pst);
+			dm.closeConnection(conn);
+		}
+	}
+
+
+	private static void insertBatchFromCSV(String filePath){
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		List<Tweet> tweets = new ArrayList<Tweet>();
+
+		try {
+			fileReader = new FileReader(filePath);
+			bufferedReader = new BufferedReader(fileReader);
+			String line = null;
+
+			while((line = bufferedReader.readLine()) != null){
+				String[] fields = line.split("\t");
+				String tweet_id = fields[0];
+				String user_id = fields[1];
+				String user_name = fields[2];
+				String created = fields[3];
+				String text = fields[4];
+
+				Tweet tweet = new Tweet();
+				tweet.tweet_id = Long.parseLong(tweet_id.substring(1, tweet_id.length() - 1));
+				tweet.user_id = user_id.substring(1, user_id.length() - 1);
+				tweet.user_name = user_name.substring(1, user_name.length() - 1);
+				tweet.created = Long.parseLong(created.substring(1, created.length() - 1));
+				tweet.text = text.substring(1, text.length() - 1);
+
+				tweets.add(tweet);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			if(bufferedReader != null){
+				try {
+					bufferedReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(fileReader != null){
+				try {
+					fileReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		DatabaseManager dm = DatabaseManager.getInstance();
+		Connection conn = dm.openConnection();
+		PreparedStatement pst = null;
+		try{
+			pst = conn.prepareStatement("INSERT INTO samples VALUES (?, ?, ?, ?, ?)");
+			for(Tweet tweet : tweets){
+				pst.setLong(1, tweet.tweet_id);
+				pst.setString(2, tweet.user_id);
+				pst.setString(3, tweet.user_name);
+				pst.setTimestamp(4, new Timestamp(tweet.created));
+				pst.setString(5, tweet.text);
+				pst.addBatch();
+			}
+			pst.executeBatch();
+		} catch(SQLException e){
+			e.printStackTrace();
+		} finally{
+			dm.closeStatement(pst);
+			dm.closeConnection(conn);
+		}
+	}
+
+
 	private static HashMap<String, Word> loadLexiconWeight(){
 		FileReader fileReader = null;
 		BufferedReader reader = null;
@@ -83,6 +231,8 @@ public class LexicalAnalysis {
 	}
 
 	public static void main(String[] args) {
+		insertBatchFromCSV("samples.csv");
+
 		HashMap<String, Word> map = loadLexiconWeight();
 
 		Properties props = new Properties();
@@ -97,7 +247,7 @@ public class LexicalAnalysis {
 		List<Tweet> tweets = new ArrayList<Tweet>();
 		try{
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT tweet_id, text FROM samples WHERE tweet_id NOT IN (SELECT tweet_id FROM emotions)");
+			rs = st.executeQuery("SELECT tweet_id, text FROM samples");
 			int count = 0;
 			while(rs.next()){
 				long tweet_id = rs.getLong(1);
@@ -139,19 +289,15 @@ public class LexicalAnalysis {
 		conn = dm.openConnection();
 		PreparedStatement pst = null;
 		try {
-			pst = conn.prepareStatement("INSERT INTO emotions VALUES (?, ?, ?, ?, ?, ?, ? , ?, ?, ?)");
+			pst = conn.prepareStatement("INSERT INTO emotion4 VALUES (?, ?, ?, ?, ?, ?)");
 			int count = 0;
 			for(Tweet tweet : tweets){
 				pst.setLong(1, tweet.tweet_id);
 				pst.setString(2, tweet.getEmotion());
 				pst.setDouble(3, tweet.emoScores[Word.ANGER]);
-				pst.setDouble(4, tweet.emoScores[Word.ANTICIPATION]);
-				pst.setDouble(5, tweet.emoScores[Word.DISGUST]);
-				pst.setDouble(6, tweet.emoScores[Word.FEAR]);
-				pst.setDouble(7, tweet.emoScores[Word.JOY]);
-				pst.setDouble(8, tweet.emoScores[Word.SADNESS]);
-				pst.setDouble(9, tweet.emoScores[Word.SURPRISE]);
-				pst.setDouble(10, tweet.emoScores[Word.TRUST]);
+				pst.setDouble(4, tweet.emoScores[Word.FEAR]);
+				pst.setDouble(5, tweet.emoScores[Word.JOY]);
+				pst.setDouble(6, tweet.emoScores[Word.SADNESS]);
 
 				pst.addBatch();
 				System.out.println("add to batch " + count++);
