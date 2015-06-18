@@ -27,6 +27,11 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
 public class LexicalAnalysis {
+
+	/**
+	 * Insert the tweets from CSV file one by one into the database. Ignore rows with exception
+	 * @param filePath the path to CSV file
+	 */
 	private static void insertOneByOneFromCSV(String filePath){
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -79,7 +84,7 @@ public class LexicalAnalysis {
 		Connection conn = dm.openConnection();
 		PreparedStatement pst = null;
 		try{
-			pst = conn.prepareStatement("INSERT INTO samples VALUES (?, ?, ?, ?, ?)");
+			pst = conn.prepareStatement("INSERT INTO samples (tweet_id, user_id, user_name, created, text) VALUES (?, ?, ?, ?, ?)");
 			for(Tweet tweet : tweets){
 				try{
 					System.out.println("insert " + tweet.tweet_id);
@@ -101,7 +106,10 @@ public class LexicalAnalysis {
 		}
 	}
 
-
+	/**
+	 * Insert the tweets from the CSV file in batch. Stop upon exception
+	 * @param filePath the path to the CSV file
+	 */
 	private static void insertBatchFromCSV(String filePath){
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -154,7 +162,7 @@ public class LexicalAnalysis {
 		Connection conn = dm.openConnection();
 		PreparedStatement pst = null;
 		try{
-			pst = conn.prepareStatement("INSERT INTO samples VALUES (?, ?, ?, ?, ?)");
+			pst = conn.prepareStatement("INSERT INTO samples (tweet_id, user_id, user_name, created, text) VALUES (?, ?, ?, ?, ?)");
 			for(Tweet tweet : tweets){
 				pst.setLong(1, tweet.tweet_id);
 				pst.setString(2, tweet.user_id);
@@ -172,13 +180,17 @@ public class LexicalAnalysis {
 		}
 	}
 
-
-	private static HashMap<String, Word> loadLexiconWeight(){
+	/**
+	 * Read the lexicon file into memory
+	 * @param filePath path to the lexicon file
+	 * @return the HashMap contain a word and its association scores with the emotions
+	 */
+	private static HashMap<String, Word> loadLexiconWeight(String filePath){
 		FileReader fileReader = null;
 		BufferedReader reader = null;
 		HashMap<String, Word> map = new HashMap<String, Word>();
 		try {
-			fileReader = new FileReader("/home/romy/project/ref/NRC-Hashtag-Emotion-Lexicon.txt");
+			fileReader = new FileReader(filePath);
 			reader = new BufferedReader(fileReader);
 			String line = "";
 			while((line = reader.readLine()) != null){
@@ -231,9 +243,10 @@ public class LexicalAnalysis {
 	}
 
 	public static void main(String[] args) {
-		insertBatchFromCSV("samples.csv");
-
-		HashMap<String, Word> map = loadLexiconWeight();
+		// insert tweets into database
+		insertBatchFromCSV("tweets.csv");
+		// read association scoring from lexicon
+		HashMap<String, Word> map = loadLexiconWeight("NRC_lexicon.text");
 
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse");
@@ -244,6 +257,7 @@ public class LexicalAnalysis {
 		Statement st = null;
 		ResultSet rs = null;
 
+		// get tweets from database
 		List<Tweet> tweets = new ArrayList<Tweet>();
 		try{
 			st = conn.createStatement();
@@ -257,16 +271,19 @@ public class LexicalAnalysis {
 				tweet.tweet_id = tweet_id;
 				tweet.text = text;
 
+				// Token tweet into words
 				Annotation annotation = pipeline.process(text);
 				List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
-
+				// Sum up the scores
 				for(CoreMap sentence: sentences){
 					for(CoreLabel token : sentence.get(TokensAnnotation.class)){
 						String pos = token.get(TextAnnotation.class);
 						Word word = map.get(pos);
 						if(word != null){
+							// do sum up
 							tweet.addWord(word);
 						} else{
+							// add epsilon word if not existing in lexicon
 							tweet.addWord(new Word());
 						}
 					}
@@ -284,8 +301,8 @@ public class LexicalAnalysis {
 			if(conn != null)
 				dm.closeConnection(conn);
 		}
-		
-		
+
+		// insert tweets into emotion4 tables to save intermediate result
 		conn = dm.openConnection();
 		PreparedStatement pst = null;
 		try {
