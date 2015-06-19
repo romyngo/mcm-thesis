@@ -24,7 +24,7 @@ Run command
 	$ casperjs crawler.js
 
 3. How to run the Sandbox Java application
-The application requires MySQL database with the configuration specified in DatabaseManager.java
+The application requires MySQL database with the configuration specified in DatabaseManager.java. The project uses Maven to manage dependencies.
 
 Run the main method under LexicalAnalysis.java
 
